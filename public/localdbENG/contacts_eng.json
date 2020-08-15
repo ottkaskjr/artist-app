@@ -1,0 +1,19 @@
+{
+  "contacts": [
+    {
+      "name": "name",
+      "companyName": "firm",
+      "tel": "12345667",
+      "email": "floridante@info.ee",
+      "address": {
+        "country": "Estonia",
+        "province": "Harjumaa",
+        "city": "Tallinn",
+        "street1": "Kõrgenoodi 15-2",
+        "street2": "",
+        "postal": "11111"
+      }
+    }
+  ],
+  "hidden": false
+}

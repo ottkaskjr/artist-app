@@ -1,0 +1,307 @@
+<%- include('../partials/adminHeader') %>
+<%- include('../partials/adminNav') %>
+  
+  <% const defaultText = (data) => { %>
+    <% return data === '' ? 'Info puudub': data %>
+  <% } %>
+<div id="main-container" class="container">
+    <div class="txt-c">
+      <h1>Konserdid</h1>
+    </div>
+    
+    <div class="txt-c">
+      <%# HIDE SECTION %>
+      <div class="my-2 edit-section">
+        <label id="hide-label" for="hide-section">Peida sektsioon
+          <input data-status="<%= concerts.hidden %>" type="checkbox" name="" id="hide-section"
+          <% if (concerts.hidden === true) { %>
+            checked
+          <% } %>
+          >
+        </label>
+        <div>
+          <button id="hide-section-btn" class="d-none hover-pointer">Salvesta</button>
+        </div>
+        <p class="p-info"><i>*Eemaldab antud sektsiooni koduleheküljelt</i></p>
+      </div>
+
+      <%# ADD NEW CONCERT %>
+      <div class="mb-2">
+        <button class="hover-pointer" id="add-new-section-modal-btn">Lisa uus</button>
+      </div>
+
+      <%# CONCERT PREVIEWS %>
+      <div id="section-previews">
+        <div class="section-pre-divs-table mb-1">
+          <div class="item1 test-border">Pealkiri</div>
+          <div class="item2 test-border">Programm</div>
+          <div class="item3 test-border">Artistid</div>
+          <div class="item4 test-border">Aeg ja koht</div>
+        </div>
+          <div id="section-pre-divs-container">
+          <% for (let i = 0; i < concerts.concerts.length; i++) { %>
+            <%# CONCERT PRE VIEW DIV %>
+            <div class="section-pre-parent mb-2" id="section-pre-<%= concerts.concerts[i].id %>">
+              <div class="section-pre-div">
+                <%# heading %>
+                <div class="item1 test-border pre-heading-div">
+                  <p><%= defaultText(concerts.concerts[i].heading) %></p>
+
+                  <%# display:none subheadings %>
+                  <%# est %>
+                  <% if (concerts.concerts[i].subHeadings.length > 0) { %>
+                    <% for (let subHeading of concerts.concerts[i].subHeadings) { %>
+                      <p class="<%= concerts.concerts[i].id %>-subHeading d-none"><%= subHeading %></p>
+                    <% } %>
+                  <% } %>
+                  <%# eng %>
+                  <% if (concerts_eng.concerts[i].subHeadings.length > 0) { %>
+                    <% for (let subHeadingEng of concerts_eng.concerts[i].subHeadings) { %>
+                      <p class="<%= concerts_eng.concerts[i].id %>-subHeadingEng d-none"><%= subHeadingEng %></p>
+                    <% } %>
+                  <% } %>
+                </div>
+                <%# program %>
+                <%# est %>
+                <div class="item2 test-border pre-program-div">
+                  <% if (concerts.concerts[i].program.length > 0) { %>
+                    <% for (let piece of concerts.concerts[i].program) { %>
+                      <p class="<%= concerts.concerts[i].id %>-piece"><%= piece %></p>
+                    <% } %>
+                  <% } else { %>
+                    <p>Info puudub</p>
+                  <% } %>
+                  <%# eng display:none %>
+                  <% if (concerts_eng.concerts[i].program.length > 0) { %>
+                    <% for (let piece of concerts_eng.concerts[i].program) { %>
+                      <p class="<%= concerts_eng.concerts[i].id %>-pieceEng d-none"><%= piece %></p>
+                    <% } %>
+                  <% } %>
+                </div>
+                <%# artists %>
+                <div class="item3 test-border pre-artists-div">
+                  <% if (concerts.concerts[i].artists.length > 0) { %>
+                    <% for (let artist of concerts.concerts[i].artists) { %>
+                      <p class="<%= concerts.concerts[i].id %>-artist"><%= artist %></p>
+                    <% } %>
+                  <% } else { %>
+                    <p>Info puudub</p>
+                  <% } %>
+
+                  <%# eng display:none %>
+                  <% if (concerts_eng.concerts[i].artists.length > 0) { %>
+                    <% for (let artist of concerts_eng.concerts[i].artists) { %>
+                      <p class="<%= concerts_eng.concerts[i].id %>-artistEng d-none"><%= artist %></p>
+                    <% } %>
+                  <% } %>
+                </div>
+                <%# location & date %>
+                <div class="item4 test-border pre-loc-date-div">
+                  <% if (concerts.concerts[i].loc_date.length > 0) { %>
+                    <% for (let place of concerts.concerts[i].loc_date) { %>
+                      <p class="<%= concerts.concerts[i].id %>-loc-date"><span class="<%= concerts.concerts[i].id %>-loc"><%= place.location %></span>&emsp;<span class="<%= concerts.concerts[i].id %>-date" placehoder="mm:hh dd.mm.yy"><%= place.date %></span></p>
+                    <% } %>
+                  <% } else { %>
+                    <p>Info puudub</p>
+                  <% } %>
+                  <%# eng display:none %>
+                  <% if (concerts_eng.concerts[i].loc_date.length > 0) { %>
+                    <% for (let place of concerts_eng.concerts[i].loc_date) { %>
+                      <p class="<%= concerts_eng.concerts[i].id %>-loc-date-eng d-none"><span class="<%= concerts_eng.concerts[i].id %>-locEng"><%= place.location %></span>&emsp;<span class="<%= concerts_eng.concerts[i].id %>-dateEng" placehoder="mm:hh dd.mm.yy"><%= place.date %></span></p>
+                    <% } %>
+                  <% } %>
+                </div>
+              </div>
+              <div class="section-controls pt-1 mb-1">
+                <%# OPEN CONCERT EDIT MODAL %>
+                <button class="edit-section-modal-button mr-1 hover-pointer" data-id="<%= concerts.concerts[i].id %>" data-heading="<%= concerts.concerts[i].heading %>" data-heading-eng="<%= concerts_eng.concerts[i].heading %>" data-img="<%= concerts.concerts[i].img %>" data-img-pos="<%= concerts.concerts[i].img_pos %>" data-tickets="<%= concerts.concerts[i].tickets %>" data-tickets-eng="<%= concerts_eng.concerts[i].tickets %>" data-description="<%= concerts.concerts[i].description %>" data-description-eng="<%= concerts_eng.concerts[i].description %>" data-hidden="<%= concerts.concerts[i].hidden %>">Halda</button>
+                <%# OPEN CONFIRM REMOVE CONCERT MODAL %>
+                <button class="remove-section-modal-button hover-pointer" data-id="<%= concerts.concerts[i].id %>">Eemalda</button>
+              </div>
+            </div>
+          <% } %>
+        </div>
+      </div>
+
+
+
+    <%# EDIT CONCERT MODAL %>
+    <div id="edit-section-modal" class="modal-closed modal edit-section-modal">
+      <div class="modal-container modal-l">
+        <div class="close-modal data-dismiss"><div><a>X</a></div></div>
+        <div class="modal-body txt-c">
+          <h3>Halda kontserti</h3>
+          <%# HIDE CONCERT %>
+          <div class="my-2 edit-section">
+            <label id="hide-label" for="hide-section-item">Peida kontsert
+              <input type="checkbox" name="" id="hide-section-item">
+            </label>
+            <p class="p-info"><i>*Eemaldab antud kontserdi koduleheküljelt</i></p>
+          </div>
+          <%# EDIT CONCERT HEADING %>
+          <div class="edit-concert-heading-section my-3">
+            <div class="est mb-1">
+              <label for="concert-heading-input">Pealkiri
+                <input id="concert-heading-input" type="text" name="heading" placeholder="Kontsert" value="">
+              </label>
+            </div>
+            <div class="eng">
+              <label for="concert-heading-input-eng">Title
+                <input id="concert-heading-input-eng" type="text" name="heading_eng" placeholder="Concert" value="">
+              </label>
+            </div>
+          </div>
+
+          <%# EDIT CONCERT IMG %>
+          <div class="edit-concert-img-section mb-3">
+            <%# siia salvesta pildi info %>
+            <a id="img-input-data" style="display: none;" data-name=""></a>
+            <p>Pilt</p>
+              <img id="about-img-preview" src="" alt="">
+              <div id="img-position-div">
+                <p>Pildi asetus teksti suhtes:</p>
+                  <label class="radio-label mr-2" for="pos-left">Vasakul<input class="radio" id="pos-left" name="img_pos" value="left" type="radio"></label>
+                  <label class="radio-label ml-2" for="pos-right">Paremal<input class="radio" id="pos-right" name="img_pos" value="right" type="radio"></label>
+              </div>
+              <div id="no-preview-img" class="d-none"><p>Pilt puudub</p></div>
+            <div>
+              <button id="open-img-modal" class="mt-1 hover-pointer">Vali pilt</button>
+            </div>
+            
+          </div>
+
+
+          <%# EDIT CONCERT SUBHEADINGS, PROGRAM & ARTISTS %>
+          <% let sections = ['subHeading', 'program', 'artists'] %>
+          <% let titles = ['Alapealkirjad', 'Kava', 'Esinejad'] %>
+          <% let addDatas = ['Lisa alapealkiri', 'Lisa teos', 'Lisa esineja'] %>
+          <% for (let i = 0; i < sections.length; i++) { %>
+            <div id="edit-concert-<%= sections[i] %>-section" class="my-3">
+              <p><%= titles[i] %></p>
+              <div>
+                <button id="add-new-<%= sections[i] %>" class="mb-1 hover-pointer"><%= addDatas[i] %></button>
+              </div>
+              <div class="est mb-1">
+                <div class="mb-1">
+                  <label for="concert-<%= sections[i] %>-input">Eesti</label>
+                </div>
+              </div>
+              
+              <div class="eng">
+                <div class="mb-1">
+                <label for="concert-<%= sections[i] %>-input-eng">Inglise</label>
+                </div>
+              </div>
+            </div>
+          <% } %>
+
+
+          <%# EDIT CONCERT DESCRIPTION %>
+          <div class="edit-section" id="edit-concert-description">
+            <p>Lõigud</p>
+            <p class="my-0">*Lõikude eemaldamiseks kustuta tekst</p>
+              <div class="mt-3 px-3">
+                <div>
+                  <div>
+                    <p class="mt-0">Eesti</p> 
+                    <textarea name="description" data-lang="est" class="paragraph" id="description" rows="10" placeholder="Eestikeelne kirjeldus"></textarea>
+                  </div>
+                  
+                  <div>
+                    <p class="mt-0">English</p>
+                    <textarea name="description_eng" data-lang="eng" class="paragraph" id="description_eng" rows="10" placeholder="Description in english"></textarea>
+                  </div>
+                </div>
+              </div>
+          </div>
+          
+          <%# EDIT CONCERT LOCATION AND TIME INFORMATION %>
+          <div id="edit-concert-loc-date-section" class="my-3">
+            <p>Koht ja aeg</p>
+            <div>
+              <button id="add-new-loc-date" class="mb-1 hover-pointer">Lisa koht</button>
+            </div>
+            <div class="est mb-1">
+              <div class="mb-1">
+                <label for="concert-loc-date-input">Eesti</label>
+              </div>
+            </div>
+            
+            <div class="eng">
+              <div class="mb-1">
+                <label for="concert-loc-date-input-eng">Inglise</label>
+              </div>
+            </div>
+          </div>
+
+          <%# EDIT CONCERT TICKET INFORMATION %>
+          <div class="edit-section" id="edit-concert-tickets">
+            <p>Piletid</p>
+            <p class="my-0">*Piletiinfo eemaldamiseks kustuta tekst</p>
+              <div class="mt-3 px-3">
+                <div>
+                  <div>
+                    <p class="mt-0">Eesti</p> 
+                    <input type="text" name="tickets" data-lang="est" id="tickets" placeholder="Piletid">
+                  </div>
+                  <div>
+                    <p class="mt-0">English</p>
+                    <input type="text" name="tickets_eng" data-lang="est" id="tickets_eng" placeholder="Tickets">
+                  </div>
+                </div>
+              </div>
+          </div>
+
+          <%# SAVE CONCERT DATA %>
+          <div class="my-3">
+            <button id="update-section" class="hover-pointer" data-id="">Salvesta</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+
+      <%# PICK IMG MODAL %>
+      <div id="select-img-modal" class="modal-closed modal">
+        <div class="modal-container modal-l">
+          <div class="close-modal data-dismiss"><div><a>X</a></div></div>
+          <div class="modal-body txt-c">
+            <h3>Vali/eemalda pilt</h3>
+            <%# IMAGES %>
+            <div id="modal-img-container">
+
+            </div>
+                
+            
+          </div>
+        </div>
+      </div>
+
+      
+      <%# REMOVE CONCERT CONFIRM MODAL %>
+      <div id="remove-confirm-modal" class="modal-closed modal">
+        <div class="modal-container modal-m">
+          <div class="close-modal data-dismiss"><div><a>X</a></div></div>
+          <div class="modal-body txt-c">
+            <h3>Eemalda <span id="remove-modal-title">?</span></h3>
+            <div class="mb-3">
+              <button id="confirm-remove-btn" class="mr-3 hover-pointer" data-id="">Kinnita</button>
+            
+              <button id="cancel-remove-btn" class="hover-pointer">Tagasi</button>
+            </div>    
+            
+          </div>
+        </div>
+      </div>
+        
+        
+        
+      </div>
+
+  </div>
+  
+
+<script src="/adminConcerts.js"></script>
+<script src="/pickImg.js"></script>
+<%- include('../partials/adminFooter') %>

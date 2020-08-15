@@ -1,0 +1,68 @@
+{
+  "articles": [
+    {
+      "id": "71ixagbgskd07gf2p",
+    "heading":"Uudis 1",
+    "img": "",
+    "img_pos": "left",
+    "quotes": [
+      {
+        "quote": "Et dolore magna aliqua!",
+        "by": "John Smith"
+      }
+    ],
+    "subHeadings": [
+      "alapealkiri"
+    ],
+    "date": "",
+    "author": "autori nimi",
+    "sources": ["allikas"],
+    "paragraphs":[
+      "Saale Fischer Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A cras semper auctor neque vitae. Sem nulla pharetra diam sit amet nisl suscipit adipiscing bibendum. Netus et malesuada fames ac turpis. Magna ac placerat vestibulum lectus mauris ultrices eros.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vivamus at augue eget arcu dictum. Consequat semper viverra nam libero justo laoreet. Nisl vel pretium lectus quam id leo in. Cras tincidunt lobortis feugiat vivamus at augue eget. Blandit aliquam etiam erat velit scelerisque. Tellus integer feugiat scelerisque varius morbi enim nunc faucibus a. Quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus. Bibendum neque egestas congue quisque egestas. Proin fermentum leo vel orci porta non."
+      ],
+      "hidden": false
+    },
+    {
+      "id": "71ixagbgskd07gf2r",
+      "heading":"Uudis 2",
+      "img": "",
+    "img_pos": "left",
+      "quotes": [
+        {
+          "quote": "Et dolore magna aliqua!",
+          "by": "John Smith"
+        }
+      ],
+      "subHeadings": [
+        "alapealkiri"
+      ],
+      "date": "",
+      "author": "autori nimi",
+      "sources": ["allikas"],
+      "paragraphs":[
+        "Saale Fischer Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A cras semper auctor neque vitae. Sem nulla pharetra diam sit amet nisl suscipit adipiscing bibendum. Netus et malesuada fames ac turpis. Magna ac placerat vestibulum lectus mauris ultrices eros."
+        ],
+        "hidden": false
+      },
+      {
+        "id": "71ixagbgskd07gf2t",
+        "heading":"Uudis 3",
+        "img": "",
+    "img_pos": "left",
+        "quotes": [],
+        "subHeadings": [
+          "alapealkiri"
+        ],
+        "date": "",
+        "author": "autori nimi",
+        "sources": ["allikas"],
+        "paragraphs":[
+          "Saale Fischer Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A cras semper auctor neque vitae. Sem nulla pharetra diam sit amet nisl suscipit adipiscing bibendum. Netus et malesuada fames ac turpis. Magna ac placerat vestibulum lectus mauris ultrices eros.",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vivamus at augue eget arcu dictum. Consequat semper viverra nam libero justo laoreet. Nisl vel pretium lectus quam id leo in. Cras tincidunt lobortis feugiat vivamus at augue eget. Blandit aliquam etiam erat velit scelerisque. Tellus integer feugiat scelerisque varius morbi enim nunc faucibus a. Quis eleifend quam adipiscing vitae proin sagittis nisl rhoncus. Bibendum neque egestas congue quisque egestas. Proin fermentum leo vel orci porta non."
+          ],
+          "hidden": false
+      }
+  ],
+  "hidden": false
+}

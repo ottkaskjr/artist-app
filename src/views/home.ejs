@@ -1,0 +1,376 @@
+<%- include('../partials/header') %>
+
+<% const getImgPosition = (pos) => { %>
+  <% return pos === 'left' ? 'section-img-l' : 'section-img-r' %>
+<% } %>
+
+<div id="document-wrapper"></div>
+
+<%# //////////// NAVBAR //////////// %>
+<div class="txt-c">
+  <%# NAVBAR L+ %>
+  <div id="navbar-desk">
+    <div class="navbar-brand"><a>Floridante</a></div>
+    <%# console.log(menu) %>
+    <% for (let menuItem of menu.menu) { %>
+      <div class="navbar-menu-item"><a href="#<%= menuItem.href %>"><%= menuItem.title %></a></div>
+    <% } %>
+    <%# LANGUAGE %>
+    <div class="navbar-lang">
+      <% if (language === 'eng') { %>
+        <a href="/">EST</a>
+      <% } else { %>
+        <a href="/?lang=eng">ENG</a>
+      <% } %>
+    </div>
+  </div>
+  <%# NAVBAR L- %>
+  <div id="navbar-mobile">
+
+  </div>
+</div>
+<div id="main-container" class="container" style="background: #accfe8">
+
+  <%# //////////// CAROUSEL OR INTRODUCTION VIDEO //////////// %>
+  <div id="main-showcase" class="txt-c">
+    <% if (carousel.slides.length > 0) { %>
+      <%# CAROUSEL %>
+    <div class="carousel-div">
+      <% for (let slide of carousel.slides) { %>
+        <%# SLIDE %>
+        <div class="carousel-slide">
+          <div class="carousel-body">
+            <%# C-HEADING %>
+            <% if (slide.heading != '') { %>
+            <div class="carousel-heading"><%= slide.heading %></div>
+            <% } %>
+            <%# C-SUBHEADINGS %>
+            <% if (slide.subHeadings.length > 0) { %>
+              <% for (let subHeading of slide.subHeadings) { %>
+                <div class="carousel-subheading"><%= subHeading %></div>
+              <% } %>
+            <% } %>
+            <%# C-PARAGRAPHS %>
+            <% if (slide.paragraphs.length > 0) { %>
+              <% for (let paragraph of slide.paragraphs) { %>
+                <div class="carousel-paragraph"><%= paragraph %></div>
+              <% } %>
+            <% } %>
+            <%# C-BUTTON %>
+            <div class="carousel-btn"><a type="button"></a></div>
+          </div>
+        </div>
+      <% } %>
+      <%# CAROUSEL CONTROL %>
+      <div class="carousel-control">
+        <% for (let slide in carousel.slides) { %>
+          <div class="carousel-nav"></div>
+        <% } %>
+      </div>
+    </div>
+    <% } %>
+  </div>
+
+  <%# //////////////////////// ABOUT //////////////////////// %>
+  <% if (about.hidden === false) { %>
+    <div id="about-container" class="parent-container">
+      <div id="<%= menu.menu[0].href %>" class="section-heading txt-l"><h3><%= about.heading %></h3></div>
+      <%# IMG/BG %>
+      <% if (about.img != '') { %>
+        <div id="about-img" class="section-img <%= getImgPosition(about.img_pos) %>">
+          <img class="shadow-default mx-1" src="/<%= about.img %>" alt="">
+        </div>
+      <% } %>
+      <%# BODY %>
+      <div id="about-body">
+        <% for (let paragraph of about.paragraphs) { %>
+          <div class="paragraph">
+            <p class="mx-1">&emsp;&emsp;&emsp;<%= paragraph.body %></p>
+          </div>
+        <% } %>
+      </div>
+    </div>
+    <% } %>
+      <%# SAALE %>
+      <% if (saale.hidden === false) { %>
+      <div id="saale-container" class="saale-fischer-div parent-container">
+        <div id="<%= menu.menu[1].href %>" class="section-heading txt-l"><h3><%= saale.heading %></h3></div>
+        <%# IMG/BG %>
+        <% if (saale.img != '') { %>
+          <div id="about-img" class="section-img <%= getImgPosition(saale.img_pos) %>">
+            <img class="shadow-default mx-1" src="/<%= saale.img %>" alt="">
+          </div>
+        <% } %>
+        <%# SAALE-BODY %>
+        <div id="saale-body">
+          <% for (let paragraph of saale.paragraphs) { %>
+            <div class="paragraph">
+              <p class="mx-1">&emsp;&emsp;&emsp;<%= paragraph.body %></p>
+            </div>
+          <% } %>
+        </div>
+      </div>
+      <% } %>
+  
+
+  <%# //////////////////////// CONCERTS //////////////////////// %>
+  <% if (concerts.hidden != true) { %> 
+  <div id="concerts-container">
+    <div id="<%= menu.menu[2].href %>" class="txt-l"><h3><%= menu.menu[2].title %></h3></div>
+    <div id="concerts-div">
+      <% for (let concert of concerts.concerts) { %>
+      <div class="concert">
+        <%# CONCERT-HEADING %>
+        <%# IMG (tee ilmselt tavaline kahest osast koosnev flex väiksem tekst ühel pool, suurem tekst teisel pool)%>
+        <h5><%= concert.heading %></h5>
+        <%# CONCERT-SUBHEADINGS %>
+        <% if (concert.subHeadings.length > 0) { %>
+          <% for (let subHeading of concert.subHeadings) { %>
+            <div class="concert-subheading"><%= subHeading %></div>
+          <% } %>
+        <% } %>
+        <%# CONCERT-ARTISTS %>
+        <% if (concert.artists.length > 0) { %>
+          <% for (let artist of concert.artists) { %>
+            <div class="concert-artist"><%= artist %></div>
+          <% } %>
+        <% } %>
+        <%# CONCERT-PROGRAM %>
+        <% if (concert.program.length > 0) { %>
+          <% for (let piece of concert.program) { %>
+            <div class="concert-piece"><%= piece %></div>
+          <% } %>
+        <% } %>
+        <%# CONCERT-DESCRIPTION %>
+        <% if (concert.description != '') { %>
+          <div class="concert-description"><p><%= concert.description %></p></div>
+        <% } %>
+        <%# CONCERT LOCATIONS AND DATES %>
+        <% if (concert.loc_date.length > 0) { %>
+            <% for (let place of concert.loc_date) { %>
+              <div class="concert-place"><p><span><%= place.location %></span>&emsp;<span><%= place.date %></span></p></div>
+            <% } %>
+        <% } %>
+        
+        <%# CONCERT-TICKETS %>
+        <% if (concert.tickets != '') { %>
+          <div class="concert-tickets"><p><%= concert.tickets %></p></div>
+        <% } %>
+      </div>
+      <% } %>
+      <a>Lae veel</a>
+    </div>
+  </div>
+<% } %>
+
+  <%# //////////////////////// NEWS //////////////////////// %>
+  <% if (news.hidden != true) { %>
+  <div id="<%= menu.menu[3].href %>">
+    <%# NEWS CONTAINER TITLE %>
+    <h3><%= menu.menu[3].title %></h3>
+    <% if (news.articles.length > 0) { %>
+      <% for (article of news.articles) { %>
+        <% if (article.hidden === false) { %>
+        <%# ARTICLE %>
+        <div class="article">
+          <%# ARTICLE HEADING %>
+          <div class="article-heading">
+            <h3><%= article.heading %></h3>
+          </div>
+          <%# ARTICLE QUOTES %>
+          <% if (article.quotes.length > 0) { %>
+            <% for (let quote of article.quotes) { %>
+              <div class="article-quote">
+                <h4><i>"<%= quote.quote %>"</i><span> - <%= quote.by %></span></h4>
+              </div>
+            <% } %>
+          <% } %>
+          <%# ARTICLE SUBHEADINGS %>
+          <% if (article.subHeadings.length > 0) { %>
+            <% for (let subHeading of article.subHeadings) { %>
+              <div class="article-subheading">
+                <h4><%= subHeading %></h4>
+              </div>
+            <% } %>
+          <% } %>
+          <%# ARTICLE AUTHOR %>
+          <% if (article.author != '') { %>
+            <div class="article-author">
+              <p><%= article.author %></p>
+            </div>
+          <% } %>
+          <%# ARTICLE DATE %>
+          <% if (article.date != '') { %>
+            <div class="article-date">
+              <p><%= article.date %></p>
+            </div>
+          <% } %>
+          <%# ARTICLE PARAGRAPHS %>
+          <% if (article.paragraphs.length > 0) { %>
+            <% for (let paragraph of article.paragraphs) { %>
+              <div class="article-paragraph">
+                <p><%= paragraph %></p>
+              </div>
+            <% } %>
+          <% } %>
+          <%# ARTICLE DATE %>
+          <% if (article.source != '') { %>
+            <div class="article-source">
+              <p><%= article.source %></p>
+            </div>
+          <% } %>
+          <a>Loe lähemalt</a>
+        </div>
+      <% } %>
+      <% } %>
+    <% } else { %>
+      <p>Uudised puuduvad</p>
+    <% } %>
+    
+    <a>Lae veel</a>
+  </div>
+
+<% } %>
+    <%# //////////////////////// MEMBERS //////////////////////// %>
+  <% if (members.hidden === false) { %>
+    <div id="<%= menu.menu[4].href %>">
+      <% if (members.members.length > 0) { %>
+        <h3><%= menu.menu[4].title %></h3>
+        <%# ALL MEMBERS %>
+          <% for (let member of members.members) { %>
+            <% if (member.hidden === false) { %>
+            <div class="member">
+              <%# MEMBER NAME %>
+              <% if (member.name != '') { %>
+                <div class="member-name">
+                  <h3><%= member.name %></h3>
+                </div>
+              <% } %>
+              <%# MEMBER IMG %>
+              <div class="member-img"></div>
+              <%# MEMBER INSTRUMENTS %>
+              <% if (member.name != '') { %>
+                <div class="member-instruments">
+                  <p><%= member.instruments %></p>
+                </div>
+              <% } %>
+              <%# MEMBER BIO %>
+              <% if (member.bio != '') { %>
+                <div class="member-bio">
+                  <p><%= member.bio %></p>
+                </div>
+              <% } %>
+              <%# MEMBER CONTACTS %>
+                <div class="member-contacts">
+                  <% if (member.contacts.phone.public === true) { %>
+                  <p class="member-phone">Tel: <%= member.contacts.phone.number %></p>
+                  <% } %>
+                  <% if (member.contacts.email.public === true) { %>
+                    <p class="member-email"><%= member.contacts.email.address %></p>
+                    <% } %>
+                </div>
+            </div>
+          <% } %>
+        <% } %>
+      <% } %>
+    </div>
+    <% } %>
+
+    <%# //////////////////////// MEDIA //////////////////////// %>
+    <% let Media = false; %>
+    <% let mediaVisibs = ['hidden_img', 'hidden_vid', 'hidden_snd']; %>
+    <% for (section of mediaVisibs) { %>
+      <% if (media[section] === false) { %>
+      <% Media = true %>
+      <% break %>
+      <% } %>
+    <% } %>
+    <% if (Media === true) { %>
+    <div id="<%= menu.menu[5].href %>">
+      <h3><%= menu.menu[5].title %></h3>
+      <% if (media.hidden_img === false) { %>
+      <div id="media-images-div">
+        <% if (media.images.length > 0) { %>
+          <% for (let image of media.images) { %>
+            <% if (image.onMedia === true) { %>
+            <div class="media-img-div"><a href="/<%= image.id + image.format %>"><img class="shadow-default" src="/<%= image.id + image.format %>" alt=""></a></div>
+            <% } %>
+          <% } %>
+        <% } %>
+      </div>
+    <% } %>
+      <% if (media.hidden_vid === false) { %>
+      <div id="media-videos-div">
+        
+        <% if (media.videos.length > 0) { %>
+          <% for (let i = 0; i < media.videos.length; i++) { %>
+            <% if (media.videos[i].onMedia === true) { %>
+            <div id="vid-div-<%= media.videos[i].id %>" class="media-vid-div mx-1 my-5">
+              <iframe width="100%" height="100%" style="border-radius: 10px;" src="https://www.youtube.com/embed/<%= media.videos[i].link %>" frameborder="1" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              
+              <!--
+              <a href="/<%#  media.images[i].id +  media.images[i].format %>"><img src="/<%#  media.images[i].id +  media.images[i].format %>" alt=""></a>
+              -->
+              <div class="vid-info">
+                <% if (media.videos[i].descriptio != '') { %>
+                  <p><%= media.videos[i].description %></p>
+                <% } %>
+                <p>
+                  <% if (media.videos[i].author != '') { %>
+                    <span><%= media.videos[i].author %></span>
+                  <% } %>
+                  <% if (media.videos[i].date != '') { %>
+                    <span><%= media.videos[i].date %></span>
+                  <% } %>
+                </p>
+              </div>
+            </div>
+          <% } %>
+          <% } %>
+        <% } %>
+      </div>
+    <% } %>
+    <% if (media.hidden_snd === false) { %>
+      <div id="media-sound-div">
+        
+        <% if (media.sound.length > 0) { %>
+          <% for (let i = 0; i < media.sound.length; i++) { %>
+            <% if (media.sound[i].onMedia === true) { %>
+            <div id="snd-div-<%= media.sound[i].id %>" class="media-snd-div mx-1 my-2">
+
+              <div class="sound-iframe" data-embed="<%= media.sound[i].link %>">
+              </div>
+
+            </div>
+          <% } %>
+          <% } %>
+        <% } %>
+      </div>
+    <% } %>
+    </div>
+  <% } %>
+    
+    <div id="<%= menu.menu[6].href %>">
+      <h3><%= menu.menu[6].title %></h3>
+      <div class="contacts-div">
+        <p><%= contacts.contacts[0].name %></p>
+        <p><%= contacts.contacts[0].companyName %></p>
+        <p><%= contacts.contacts[0].tel %></p>
+        <p><%= contacts.contacts[0].email %></p>
+
+        <p><%= contacts.contacts[0].address.country %></p>
+        <p><%= contacts.contacts[0].address.province %></p>
+        <p><%= contacts.contacts[0].address.city %></p>
+        <p><%= contacts.contacts[0].address.street1 %></p>
+        <p><%= contacts.contacts[0].address.postal %></p>
+      </div>
+      
+    </div>
+  </div>
+
+
+
+<script src="/home.js"></script>
+</div><%# document wrapper parent %>
+
+<%# include ../partials/footer %> <%- include('../partials/footer') %>

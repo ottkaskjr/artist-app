@@ -1,0 +1,34 @@
+<% const removeHrefPrefix = (str) => { %>
+  <% if (str.includes('-heading')) { %>
+    <% str = str.replace('-heading', '') %>
+  <% } else if (str.includes('-container')) { %>
+    <% str = str.replace('-container', '') %>
+  <% } %>
+  <% return str.trim() %>
+<% } %>
+
+<div id="document-wrapper"></div>
+
+<%# //////////// NAVBAR //////////// %>
+
+  <%# NAVBAR L+ %>
+  
+  <div id="navbar-toggle" class="txt-c">
+    <div class="navbar-toggle-icon">
+      <a>
+        <div class="navbar-toggle-line"></div>
+        <div class="navbar-toggle-line"></div>
+        <div class="navbar-toggle-line"></div>
+      </a> 
+    </div>
+  </div>
+  <div class="navbar-panel-parent navbar-panel-closed">
+    <div id="navbar-panel-left">
+      <div class="navbar-brand-admin"><a>Floridante</a></div>
+      <%# console.log(menu) %>
+      <div class="navbar-menu-item"><a href="/admin">Avaleht</a></div>
+      <% for (let menuItem of menu.menu) { %>
+        <div class="navbar-menu-item"><a href="/admin/<%=removeHrefPrefix(menuItem.href)%>"><%= menuItem.title %></a></div>
+      <% } %>
+    </div>
+  </div>

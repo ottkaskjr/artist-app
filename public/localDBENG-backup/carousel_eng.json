@@ -1,0 +1,55 @@
+{
+  "slides": [
+    {
+      "id": "71ixag53kkd077gvy",
+      "bg": "71ixagbgskd07gf2y",
+      "heading":"Concert title",
+      "subHeadings": [
+        "Subheading 1",
+        "Subheading 2"
+      ],
+      "paragraphs": [
+        "Lorem ipsum dolor sit amet",
+        "consectetur adipiscing elit"
+      ],
+      "button": "Read more"
+    },
+    {
+      "id": "71ixag53kkd077gvz",
+      "bg": "",
+      "heading":"Article",
+      "subHeadings": [
+        "Subheading 1"
+      ],
+      "paragraphs": [
+        "Lorem ipsum dolor sit amet consectetur adipiscing elit consectetur adipiscing elit consectetur adipiscing elit consectetur adipiscing elit consectetur adipiscing elit consectetur adipiscing elit consectetur adipiscing elit consectetur adipiscing elit"
+      ],
+      "button": "Read more"
+    },
+    {
+      "id": "71ixagbgskd079w6j",
+      "bg": "71ixagbgskd079w73",
+      "heading":"Concert title",
+      "subHeadings": [
+        "Subheading 1",
+        "Subheading 2",
+        "Subheading 3"
+      ],
+      "paragraphs": [
+        "Lorem ipsum dolor sit amet"
+      ],
+      "button": "Read more"
+    },
+    {
+      "id": "71ixagbgskd079w6l",
+      "bg": "",
+      "heading":"Article 2",
+      "subHeadings": [],
+      "paragraphs": [
+        "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet"
+      ],
+      "button": "Read more"
+    }
+  ],
+  "hidden": false
+}

@@ -1,0 +1,330 @@
+<%- include('../partials/adminHeader') %>
+<%- include('../partials/adminNav') %>
+  
+
+  <div id="main-container" class="container">
+    <div class="txt-c">
+      <h1>Meedia</h1>
+      <p>*Terve meedia sekstiooni eemaldamiseks peida kõik meedia alamsektioonid</p>
+      <div>
+        <% let hideArr = [{name: 'hidden_img', txt: 'Pildid'}, {name: 'hidden_vid', txt: 'Videod'}, {name: 'hidden_snd', txt: 'Heli'}] %>
+        <% for (section of hideArr) { %>
+          <%# hide sound section %>
+          <div class="mb-1">
+            <label for="<%= section.name %>" class="hide-label"><%= section.txt %></label>
+            <input class="hover-pointer hide-sections" name="<%= section.name %>" type="checkbox" id="<%= section.name %>" data-value="<%= media[section.name] %>"
+            <% if (media[section.name] === false) { %>
+              checked
+            <% } %>
+            >
+            
+          </div>
+        <% } %>
+        
+        <div>
+          <button id="save-hide-sections" class="hover-pointer" disabled>Salvesta</button>
+        </div>
+      </div>
+    </div>
+    
+    <%# IMAGES %>
+    <div class="txt-c"><h1>Pildid</h1></div>
+
+    <%# UPLOAD FORM %>
+    <div class="txt-c my-3">
+      <p class="mb-1">*Saad ka laadida korraga mitu faili</p>
+      <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" multiple>
+        <button type="submit" role="button" class="hover-pointer">Lae</button>
+      </form>
+    </div>
+
+    <div id="admin-images-container">
+      
+        <% if (media.images.length > 0) { %>
+          <% for (let i = 0; i < media.images.length; i++) { %>
+            <div id="img-div-<%= media.images[i].id %>" class="media-img-div mb-5 mx-1"><a href="/<%=  media.images[i].id +  media.images[i].format %>"><img src="/<%=  media.images[i].id +  media.images[i].format %>" alt=""></a>
+              <div class="txt-c">
+                <button data-id="<%=  media.images[i].id %>" data-desc="<%=  media.images[i].description %>" data-desc-eng="<%=  media_eng.images[i].description %>" data-date="<%=  media.images[i].date %>" data-author="<%=  media.images[i].author %>" data-format="<%= media.images[i].format %>" data-toggle="<%=  media.images[i].onMedia %>" class="edit-image-btn hover-pointer">Halda</button>
+              </div>
+            </div>
+            
+          <% } %>
+        <% } %>
+        
+    </div>
+
+    <%# VIDEOS %>
+    <div class="txt-c"><h1>Videod</h1></div>
+
+    <%# ADD VIDEOS INPUT %>
+    <div class="txt-c my-3">
+      <p>Lisa youtube'i link</p>
+      <!--
+      <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" multiple>
+        <button type="submit" role="button">Lae</button>
+      </form>
+      -->
+      <input id="add-video-input" type="text" name="videolink">
+      <button id="add-video-btn" class="hover-pointer" disabled>Lisa</button>
+    </div>
+    
+    <div id="admin-videos-container">
+      
+        <% if (media.videos.length > 0) { %>
+          <% for (let i = 0; i < media.videos.length; i++) { %>
+            <div id="vid-div-<%= media.videos[i].id %>" class="media-vid-div mb-5 mx-1">
+              <iframe width="100%" height="100%" class="b-10" src="https://www.youtube.com/embed/<%= media.videos[i].link %>" frameborder="1" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              
+              <!--
+              <a href="/<%#  media.images[i].id +  media.images[i].format %>"><img src="/<%#  media.images[i].id +  media.images[i].format %>" alt=""></a>
+              -->
+              <div class="txt-c">
+                
+                <button data-id="<%=  media.videos[i].id %>" data-link="<%=  media.videos[i].link %>"  data-desc="<%=  media.videos[i].description %>" data-desc-eng="<%=  media_eng.videos[i].description %>" data-date="<%=  media.videos[i].date %>" data-author="<%=  media.videos[i].author %>" data-on-media="<%=  media.videos[i].onMedia %>" class="edit-video-btn hover-pointer">Halda</button>
+              </div>
+            </div>
+            
+          <% } %>
+
+          
+        <% } %>
+        
+    </div>
+
+    <%# SOUND %>
+    <div class="txt-c"><h1>Heli</h1></div>
+
+    <%# ADD SOUND INPUT %>
+    <div class="txt-c my-3">
+      <p>Juhend</p>
+      <p>1. Heli lisamiseks vali soovitud lugu platformist soundcloud ja kliki nupul "share".</p>
+      <p>2. Vali kõige ülemisest vaatest "Embed" paneel.</p>
+      <p>*3a. Kui soovid muuta mängija "play" nupu värvi, vali värv sektsioonist "Options". Võib jätta vahele ja liikuda edasi punkti 3b.</p>
+      <p>3b. Kopeeri kogu tekst lahtrist "Code".</p>
+      <p>4. Kleebi tekst all olevasse lahtrisse.</p>
+      <!--
+      <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" multiple>
+        <button type="submit" role="button">Lae</button>
+      </form>
+      -->
+      <input id="add-sound-input" type="text" name="soundlink">
+      <button id="add-sound-btn" class="hover-pointer" disabled>Lisa</button>
+    </div>
+    
+    <div id="admin-sound-container">
+      
+        <% if (media.sound.length > 0) { %>
+          <% for (let i = 0; i < media.sound.length; i++) { %>
+            <div id="snd-div-<%= media.sound[i].id %>" class="media-snd-div mb-5 mx-1">
+              <div class="sound-iframe" data-embed="<%= media.sound[i].link %>">
+
+              </div>
+              <!--
+              <iframe width="100%" height="100%" class="b-10" src="https://www.youtube.com/embed/<%# media.videos[i].link %>" frameborder="1" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              -->
+              <!--
+              <a href="/<%#  media.images[i].id +  media.images[i].format %>"><img src="/<%#  media.images[i].id +  media.images[i].format %>" alt=""></a>
+              -->
+              <div class="txt-c">
+                
+                <button data-id="<%=  media.sound[i].id %>" data-link="<%=  media.sound[i].link %>"   data-on-media="<%=  media.sound[i].onMedia %>" class="edit-sound-btn hover-pointer">Halda</button>
+              </div>
+            </div>
+            
+          <% } %>
+
+          
+        <% } %>
+        
+    </div>
+
+  </div>
+  
+
+  <div id="edit-image-modal" class="modal-closed modal">
+    <div class="modal-container modal-l">
+      <div class="close-modal data-dismiss"><div><a>X</a></div></div>
+      <div class="modal-body txt-c">
+        <h3>Halda pilti</h3>
+        <%# IMAGE %>
+          <div id="modal-img-div" class="mb-1">
+            <img src="" alt="">
+          </div>
+            <%# EDIT IMAGE %>
+            <div class="mb-1">
+              <%# DESCRIPTION %>
+              <div class="mt-1">
+                <label>
+                  Kirjeldus
+                  <input type="text" name="img-desc" id="img-desc" placeholder="Eestikeelne kirjeldus">
+                </label>
+              </div>
+              <div class="mt-1">
+                <label>
+                  Description
+                  <input type="text" name="img-desc-eng" id="img-desc-eng" placeholder="English description">
+                </label>
+              </div>
+              <%# DATE %>
+              <div class="mt-1">
+                <label>
+                  Kuupäev
+                  <%# SIIA TULEB FUNKTSIOON, MIS TEEKS KUUPÄEVAST value="2020-08-27", MIS LÄHEB VALUE ATRIBUUTI %>
+                  <input type="date" name="img-date" id="img-date" >
+                </label>
+              </div>
+              <%# AUTHOR %>
+              <div class="mt-1">
+                <label>
+                  Autor
+                  <input type="text" name="img-author" id="img-author" placeholder="Autor">
+                </label>
+              </div>
+              <%# TOGGLE IMAGE %>
+              <div class="mt-1">
+                <label id="img-toggle-label" for="img-toggle">Peida pilt
+                  <input type="checkbox" name="toggleImage" id="img-toggle" data-value="">
+                </label>
+                <p class="p-info"><i>*Eemaldab antud pildi kodulehekülje sektsioonist "Meedia"</i></p>
+              </div>
+            
+            <%# SAVE CHANGES %>
+            <div class="mt-1">
+              <button class="hover-pointer" id="save-data">Salvesta</button>
+            </div>
+            <%# DELETE IMAGE %>
+            <div class="mt-1">
+              <button class="hover-pointer" id="delete-img" data-id="" data-name="">Kustuta</button>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="edit-video-modal" class="modal-closed modal">
+    <div class="modal-container modal-l">
+      <div class="close-modal data-dismiss"><div><a>X</a></div></div>
+      <div class="modal-body txt-c">
+        <h3>Halda video</h3>
+        <%# VIDEO %>
+          <div id="modal-vid-div" class="mb-1">
+            <p>video siia</p>
+          </div>
+            <%# EDIT VIDEO %>
+            <div class="mb-1">
+              <%# DESCRIPTION %>
+              <div class="mt-1">
+                <label>
+                  Kirjeldus
+                  <input type="text" name="vid-desc" id="vid-desc" placeholder="Eestikeelne kirjeldus">
+                </label>
+              </div>
+              <div class="mt-1">
+                <label>
+                  Description
+                  <input type="text" name="vid-desc-eng" id="vid-desc-eng" placeholder="English description">
+                </label>
+              </div>
+              <%# DATE %>
+              <div class="mt-1">
+                <label>
+                  Kuupäev
+                  <%# SIIA TULEB FUNKTSIOON, MIS TEEKS KUUPÄEVAST value="2020-08-27", MIS LÄHEB VALUE ATRIBUUTI %>
+                  <input type="date" name="vid-date" id="vid-date" >
+                </label>
+              </div>
+              <%# AUTHOR %>
+              <div class="mt-1">
+                <label>
+                  Autor
+                  <input type="text" name="vid-author" id="vid-author" placeholder="Autor">
+                </label>
+              </div>
+              <%# TOGGLE VIDEO %>
+              <div class="mt-1">
+                <label id="vid-toggle-label" for="vid-toggle" class="hover-pointer">Peida video
+                  <input type="checkbox" name="toggleVideo" id="vid-toggle" class="hover-pointer" data-value="">
+                </label>
+                <p class="p-info"><i>*Eemaldab antud video kodulehekülje sektsioonist "Meedia"</i></p>
+              </div>
+            
+            <%# SAVE CHANGES %>
+            <div class="mt-1">
+              <button id="save-data-vid" class="hover-pointer">Salvesta</button>
+            </div>
+            <%# DELETE IMAGE %>
+            <div class="mt-1">
+              <button id="delete-vid" class="hover-pointer" data-id="" data-name="">Kustuta</button>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="edit-sound-modal" class="modal-closed modal">
+    <div class="modal-container modal-l">
+      <div class="close-modal data-dismiss"><div><a>X</a></div></div>
+      <div class="modal-body txt-c">
+        <h3>Halda heli</h3>
+            <%# EDIT SOUND %>
+            <div class="mb-1">
+              <%# TOGGLE SOUND %>
+              <div class="mt-1">
+                <label id="snd-toggle-label" for="snd-toggle" class="hover-pointer">Peida video
+                  <input type="checkbox" name="toggleSound" id="snd-toggle" class="hover-pointer" data-value="">
+                </label>
+                <p class="p-info"><i>*Eemaldab antud heli kodulehekülje sektsioonist "Meedia"</i></p>
+              </div>
+            
+            <%# SAVE CHANGES %>
+            <div class="mt-1">
+              <button id="save-data-snd" class="hover-pointer">Salvesta</button>
+            </div>
+            <%# DELETE IMAGE %>
+            <div class="mt-1">
+              <button id="delete-snd" class="hover-pointer" data-id="" data-name="">Kustuta</button>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <%# REMOVE VIDEO CONFIRM MODAL %>
+  <div id="remove-confirm-modal-vid" class="modal-closed modal">
+    <div class="modal-container modal-m">
+      <div class="close-modal data-dismiss"><div><a>X</a></div></div>
+      <div class="modal-body txt-c">
+        <h3>Eemalda <span id="remove-modal-title">?</span></h3>
+        <div class="mb-3">
+          <button id="confirm-remove-btn-vid" class="mr-3 hover-pointer" data-id="">Kinnita</button>
+        
+          <button id="cancel-remove-btn-vid" class="hover-pointer">Tagasi</button>
+        </div>    
+        
+      </div>
+    </div>
+  </div>
+
+  <%# REMOVE SOUND CONFIRM MODAL %>
+  <div id="remove-confirm-modal-snd" class="modal-closed modal">
+    <div class="modal-container modal-m">
+      <div class="close-modal data-dismiss"><div><a>X</a></div></div>
+      <div class="modal-body txt-c">
+        <h3>Eemalda <span id="remove-modal-title">?</span></h3>
+        <div class="mb-3">
+          <button id="confirm-remove-btn-snd" class="mr-3 hover-pointer" data-id="">Kinnita</button>
+        
+          <button class="hover-pointer" id="cancel-remove-btn-snd">Tagasi</button>
+        </div>    
+        
+      </div>
+    </div>
+  </div>
+
+<script src="/adminImages.js"></script>
+<script src="/adminVideos.js"></script>
+<script src="/adminSounds.js"></script>
+<%- include('../partials/adminFooter') %>

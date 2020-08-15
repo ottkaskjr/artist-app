@@ -1,0 +1,55 @@
+{
+  "slides": [
+    {
+      "id": "71ixag53kkd077gvy",
+      "bg": "71ixagbgskd07gf2y",
+      "heading":"Kontserdi pealkiri",
+      "subHeadings": [
+        "alapealkiri 1",
+        "alapealkiri 2"
+      ],
+      "paragraphs": [
+        "Lorem ipsum dolor sit amet",
+        "consectetur adipiscing elit"
+      ],
+      "button": "Loe lähemalt"
+    },
+    {
+      "id": "71ixag53kkd077gvz",
+      "bg": "",
+      "heading":"Uudis",
+      "subHeadings": [
+        "alapealkiri 1"
+      ],
+      "paragraphs": [
+        "Lorem ipsum dolor sit amet consectetur adipiscing elit consectetur adipiscing elit consectetur adipiscing elit consectetur adipiscing elit consectetur adipiscing elit consectetur adipiscing elit consectetur adipiscing elit consectetur adipiscing elit"
+      ],
+      "button": "Loe lähemalt"
+    },
+    {
+      "id": "71ixagbgskd079w6j",
+      "bg": "71ixagbgskd079w73",
+      "heading":"Kontserdi pealkiri",
+      "subHeadings": [
+        "alapealkiri 1",
+        "alapealkiri 2",
+        "alapealkiri 3"
+      ],
+      "paragraphs": [
+        "Lorem ipsum dolor sit amet"
+      ],
+      "button": "Loe lähemalt"
+    },
+    {
+      "id": "71ixagbgskd079w6l",
+      "bg": "",
+      "heading":"Uudis 2",
+      "subHeadings": [],
+      "paragraphs": [
+        "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet"
+      ],
+      "button": "Loe lähemalt"
+    }
+  ],
+  "hidden": false  
+}

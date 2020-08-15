@@ -1,0 +1,248 @@
+<%- include('../partials/adminHeader') %>
+<%- include('../partials/adminNav') %>
+  
+<% const defaultText = (data) => { %>
+  <% return data === '' ? 'Info puudub': data %>
+<% } %>
+<div id="main-container" class="container">
+  <div class="txt-c">
+    <h1>Liikmed</h1>
+  </div>
+  
+  <div class="txt-c">
+    <%# HIDE SECTION %>
+    <div class="my-2 edit-section">
+      <% console.log(members.hidden) %>
+      <label id="hide-label" for="hide-section">Peida sektsioon
+        <input data-status="<%= members.hidden %>" type="checkbox" name="" id="hide-section"
+        <% if (members.hidden === true) { %>
+          checked
+        <% } %>
+        >
+      </label>
+      <div>
+        <button id="hide-section-btn" class="hover-pointer" class="d-none">Salvesta</button>
+      </div>
+      <p class="p-info"><i>*Eemaldab antud sektsiooni koduleheküljelt</i></p>
+    </div>
+
+    <%# ADD NEW ARTICLE %>
+    <div class="mb-2">
+      <button class="hover-pointer" id="add-new-section-modal-btn">Lisa uus</button>
+    </div>
+
+    <%# MEMBERS PREVIEWS %>
+    <div id="section-previews">
+      <div class="section-pre-divs-table mb-1">
+        <div class="item1 test-border">Pilt</div>
+        <div class="item2 test-border">Nimi</div>
+        <div class="item3 test-border">Eriala</div>
+        <div class="item4 test-border">Kontakt</div>
+      </div>
+        <div id="section-pre-divs-container">
+        <% for (let i = 0; i < members.members.length; i++) { %>
+          <%# ARTICLE PRE VIEW DIV %>
+          <div class="section-pre-parent mb-2" id="section-pre-<%= members.members[i].id %>">
+            <div class="section-pre-div">
+              <%# image %>
+              <div class="item1 test-border pre-img-div">
+                <img id="img-preview" src="/<%= members.members[i].img %>" alt="">
+
+                
+              </div>
+
+              <%# name %>
+              <%# est %>
+              <div class="item2 test-border pre-name-div">
+                <p><%= defaultText(members.members[i].name) %></p>
+              </div>
+              <%# instruments %>
+              <div class="item3 test-border pre-instruments-div">
+                <p><%= defaultText(members.members[i].name) %></p>
+                
+              </div>
+              <%# contacts %>
+              <div class="item4 test-border pre-contacts-div">
+                <% let phone = members.members[i].contacts.phone %>
+                <% let email = members.members[i].contacts.email %>
+                <% if (phone.number != '') { %>
+                  <p><%= defaultText(phone.number) %></p>
+                <% } %>
+                <% if (email.address != '') { %>
+                  <p><%= defaultText(email.address) %></p>
+                <% } %>
+                
+              </div>
+            </div>
+            <div class="section-controls pt-1 mb-1">
+              <%# OPEN CONCERT EDIT MODAL SIIN POOLELI %>
+              <button class="edit-section-modal-button mr-1 edit-modal-btn hover-pointer" data-id="<%= members.members[i].id %>" data-name="<%= members.members[i].name %>" data-birthDay="<%= members.members[i].birthDay %>" data-img="<%= members.members[i].img %>" data-img-pos="<%= members.members[i].img_pos %>"   data-instruments="<%= members.members[i].instruments %>" data-instruments-eng="<%= members_eng.members[i].instruments %>" data-bio="<%= members.members[i].bio %>" data-bio-eng="<%= members_eng.members[i].bio %>" data-hidden="<%= members.members[i].hidden %>" data-contacts-phone-public="<%= members.members[i].contacts.phone.public %>" data-contacts-phone-number="<%= members.members[i].contacts.phone.number %>" data-contacts-email-public="<%= members.members[i].contacts.email.public %>" data-contacts-email-address="<%= members.members[i].contacts.email.address %>">Halda</button>
+              <%# OPEN CONFIRM REMOVE CONCERT MODAL %>
+              <button class="remove-section-modal-button ml-1 hover-pointer data-id="<%= members.members[i].id %>">Eemalda</button>
+            </div>
+          </div>
+        <% } %>
+      </div>
+    </div>
+
+
+
+  <%# EDIT MEMBERS MODAL %>
+  <div id="edit-section-modal" class="modal-closed modal edit-section-modal">
+    <div class="modal-container modal-l">
+      <div class="close-modal data-dismiss"><div><a>X</a></div></div>
+      <div class="modal-body txt-c">
+        <h3>Halda uudist</h3>
+        <%# HIDE MEMBER %>
+        <div class="my-2 edit-section">
+          <label id="hide-label" for="hide-section-item">Peida liige
+            <input type="checkbox" name="" id="hide-section-item">
+          </label>
+          <p class="p-info"><i>*Eemaldab antud liikme koduleheküljelt</i></p>
+        </div>
+        <%# EDIT MEMBER NAME %>
+        <div class="edit-member-name-section my-3">
+          <div class="est mb-1">
+            <label for="member-name-input">Nimi
+              <input id="member-name-input" type="text" name="heading" placeholder="Nimi" value="">
+            </label>
+          </div>
+        </div>
+
+        <%# EDIT MEMBER IMG %>
+        <div class="edit-member-img-section mb-3">
+          <%# siia salvesta pildi info %>
+          <a id="img-input-data" style="display: none;" data-name=""></a>
+          <p>Pilt</p>
+            <img id="about-img-preview" src="" alt="">
+            <div id="img-position-div">
+              <p>Pildi asetus teksti suhtes:</p>
+                <label class="radio-label mr-2" for="pos-left">Vasakul<input class="radio" id="pos-left" name="img_pos" value="left" type="radio"></label>
+                <label class="radio-label ml-2" for="pos-right">Paremal<input class="radio" id="pos-right" name="img_pos" value="right" type="radio"></label>
+            </div>
+            <div id="no-preview-img" class="d-none"><p>Pilt puudub</p></div>
+          <div>
+            <button id="open-img-modal" class="mt-1 hover-pointer">Vali pilt</button>
+          </div>
+          
+        </div>
+
+        <%# EDIT MEMBER BIRTHDAY %>
+        <div class="edit-member-birthDay-section my-3">
+          <div class="est mb-1">
+            <label for="member-birthDay-input">Sünnikuupäev
+              <input id="member-birthDay-input" type="date">
+            </label>
+          </div>
+        </div>
+
+        <%# EDIT MEMBER SUBHEADINGS, paragraph & source %>
+        <% let sections = ['instruments', 'bio'] %>
+        <% let titles = ['Eriala', 'Bio'] %>
+        <% let titlesEng = ['Profession', 'Bio'] %>
+        <%# SIIN POOLELI %>
+        <%# let addDatas = ['Lisa alapealkiri', 'Lisa lõik'] %>
+        <% for (let i = 0; i < sections.length; i++) { %>
+          <div id="edit-member-<%= sections[i] %>-section" class="my-3">
+            <p><%= titles[i] %></p>
+            <div class="est mb-1">
+              <div class="mb-1 mx-3">
+                <label for="member-<%= sections[i] %>-input">Eesti</label>
+                <% if (sections[i] === 'instruments') { %>
+                  <input id='member-<%= sections[i] %>-input' type='text' placeholder='<%= titles[i] %>'>
+                <% } else { %>
+                  <textarea id='member-<%= sections[i] %>-input' class="" placeholder='<%= titles[i] %>' rows='8'></textarea>
+                <% } %>
+              </div>
+            </div>
+              <div class="eng">
+                <div class="mb-1 mx-3">
+                <label for="member-<%= sections[i] %>-input-eng">Inglise</label>
+                <% if (sections[i] === 'instruments') { %>
+                  <input id='member-<%= sections[i] %>-input-eng' type='text' placeholder='<%= titlesEng[i] %>'>
+                <% } else { %>
+                  <textarea id='member-<%= sections[i] %>-input-eng' class="" placeholder='<%= titlesEng[i] %>' rows='8'></textarea>
+                <% } %>
+                </div>
+              </div>
+            
+          </div>
+        <% } %>
+
+        <%# EDIT MEMBER CONTACTS %>
+        <div id="edit-member-contacts-section" class="my-3">
+          <p>Kontaktid</p>
+          <div class="est mb-1">
+            <div class="mb-1">
+              
+              <div class='mb-1 contacts-div edit-contacts-div'>
+                <div id="member-phone-div" class="mb-1">
+                  <label for="member-phone-input">Telefon</label>
+                  <input id="member-phone-input" class='mr-1' type='number' placeholder='11115555'>
+                  <label class="checkbox-label" for="member-phone-public">Avalik</label>
+                  <input type="checkbox" class="hover-pointer" id="member-phone-public">
+                </div>
+                <div id="member-phone-div">
+                  <label for="member-email-input">Email</label>
+                  <input id="member-email-input" class='mr-1' type='email' placeholder='nimi@email.com'>
+                  <label class="checkbox-label" for="member-email-public">Avalik</label>
+                  <input type="checkbox" class="hover-pointer" id="member-email-public">
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+        <%# SAVE ARTICLE DATA %>
+        <div class="my-3">
+          <button id="update-section" class="hover-pointer" data-id="">Salvesta</button>
+        </div>
+      
+    </div>
+  </div>
+</div>
+  
+
+    <%# PICK IMG MODAL %>
+    <div id="select-img-modal" class="modal-closed modal">
+      <div class="modal-container modal-l">
+        <div class="close-modal data-dismiss"><div><a>X</a></div></div>
+        <div class="modal-body txt-c">
+          <h3>Vali/eemalda pilt</h3>
+          <%# IMAGES %>
+          <div id="modal-img-container">
+
+          </div>
+              
+          
+        </div>
+      </div>
+    </div>
+
+    
+    <%# REMOVE ARTICLE CONFIRM MODAL %>
+    <div id="remove-confirm-modal" class="modal-closed modal">
+      <div class="modal-container modal-m">
+        <div class="close-modal data-dismiss"><div><a>X</a></div></div>
+        <div class="modal-body txt-c">
+          <h3>Eemalda <span id="remove-modal-title">?</span></h3>
+          <div class="mb-3">
+            <button id="confirm-remove-btn" class="mr-3 hover-pointer" data-id="">Kinnita</button>
+          
+            <button class="hover-pointer" id="cancel-remove-btn">Tagasi</button>
+          </div>    
+          
+        </div>
+      </div>
+    </div>
+      
+      
+      
+    </div>
+
+</div>
+  
+
+  <script src="/adminMembers.js"></script>
+  <script src="/pickImg.js"></script>
+<%- include('../partials/adminFooter') %>
