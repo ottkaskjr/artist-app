@@ -80,12 +80,11 @@ router.get('/', async (req, res) => {
     let promises = [
       readData('about'),
       readData('calendar'),
-      readData('carousel'),
+      readData('header'),
       readData('concerts'),
       readData('contacts'),
       readData('media'),
       readData('members'),
-      readData('menu'),
       readData('news'),
       readData('saale')
     ]

@@ -3,7 +3,7 @@
   
  <div id="main-container" class="container">
     <div class="txt-c">
-      <h1>Saale Fischer</h1>
+      <h1 id="main-heading"><%= saale.heading %></h1>
     </div>
     <div class="txt-c">
       <%# HIDE SECTION %>
@@ -17,11 +17,39 @@
         </label>
         <p class="p-info"><i>*Eemaldab antud sektsiooni koduleheküljelt</i></p>
       </div>
-      <%# EDIT ABOUT HEADING %>
+      <%# EDIT SAALE HEADING %>
       <div class="edit-section my-3">
         <div class="est mb-1">
           <label for="saale-heading-input">Nimi
-            <input id="saale-heading-input" type="text" name="heading" placeholder="Saale Fischer" value="<%= saale.heading %>">
+            <input id="saale-heading-input" type="text" name="heading" placeholder="Nimi" value="<%= saale.heading %>">
+          </label>
+        </div>
+        <div class="eng mb-1">
+          <label for="saale-heading-input-eng">Name
+            <input id="saale-heading-input-eng" type="text" name="heading_eng" placeholder="Name" value="<%= saale_eng.heading %>">
+          </label>
+        </div>
+        <div>
+          <label for="saale-heading-pos">Asetus
+            <select name="heading_pos" class="hover-pointer" id="saale-heading-pos">
+              <option value="left"
+                <% if (saale.heading_pos === 'left') { %>
+                  <% console.log('got left') %>
+                  selected
+                <% } %>
+              >Vasakul</option>
+              <option value="center"
+                <% if (saale.heading_pos === 'center') { %>
+                  <% console.log('got center') %>
+                  selected
+                <% } %>
+              >Keskel</option>
+              <option value="right"
+                <% if (saale.heading_pos === 'right') { %>
+                  selected
+                <% } %>
+              >Paremal</option>
+            </select>
           </label>
         </div>
       </div>
@@ -64,7 +92,7 @@
         <div class="edit-section" id="edit-saale-paragraphs">
           <p>Lõigud</p>
           <div class="mt-1">
-            <button class="hover-pointer">Lisa lõik</button>
+            <button id="add-paragraph" class="hover-pointer">Lisa lõik</button>
           </div>
           <% if (saale.paragraphs.length < 1) { %>
             <div class="mt-3 paragraph-div">

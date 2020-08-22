@@ -4,11 +4,100 @@
 
   <div id="main-container" class="container">
     <div class="txt-c">
-      <h1>Kontaktid</h1>
+      <h1 id="main-heading"><%= contacts.heading %></h1>
     </div>
-    
+
+    <%# HIDE SECTION %>
+    <div class="my-2 edit-section txt-c">
+      <label id="hide-label" for="hide-section">Peida sektsioon
+        <input type="checkbox" name="hide" id="hide-section"
+        <% if (contacts.hidden === true) { %>
+          checked
+        <% } %>
+        >
+      </label>
+      <p class="p-info"><i>*Eemaldab antud sektsiooni koduleheküljelt</i></p>
+    </div>
+
+    <%# EDIT MAIN HEADING %>
+    <div class="edit-section my-3 txt-c">
+      <div class="est mb-1">
+        <label for="main-heading-input">Pealkiri
+          <input id="main-heading-input" type="text" name="heading" placeholder="" value="<%= contacts.heading %>">
+        </label>
+      </div>
+      <div class="eng mb-1">
+        <label for="main-heading-input-eng">Title
+          <input id="main-heading-input-eng" type="text" name="heading_eng" placeholder="" value="<%= contacts_eng.heading %>">
+        </label>
+      </div>
+      <div>
+        <label for="main-heading-pos">Asetus
+          <select name="heading_pos" id="main-heading-pos">
+            <option value="left"
+              <% if (contacts.heading_pos === 'left') { %>
+                selected
+              <% } %>
+            >Vasakul</option>
+            <option value="center"
+              <% if (contacts.heading_pos === 'center') { %>
+                selected
+              <% } %>
+            >Keskel</option>
+            <option value="right"
+              <% if (contacts.heading_pos === 'right') { %>
+                selected
+              <% } %>
+            >Paremal</option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+    <% let C = contacts.contacts[0] %>
+    <div id="admin-contacts-container" class="txt-c">
+      <p>*Kontakti eemaldamiseks tühjenda väli ja salvesta</p>
+      <%# NAME %>
+      <div class="mb-2">
+        <label for="name">Nimi</label>
+        <input type="text" id="name" placeholder="Nimi" value="<%= C.name %>">
+      </div>
+      <%# COMPANY NAME %>
+      <div class="mb-2">
+        <label for="company-name">Äri/ühingu nimi</label>
+        <input type="text" id="company-name" placeholder="Nimi" value="<%= C.companyName %>">
+      </div>
+      <%# TELEPHONE %>
+      <div class="mb-2">
+        <label for="tel">Telefon</label>
+        <input type="text" id="tel" placeholder="+372 1111 4444" value="<%= C.tel %>">
+      </div>
+      <%# EMAIL %>
+      <div class="mb-2">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="nimi@email.com" value="<%= C.email %>">
+      </div>
+      <%# ADDRESS %>
+      <div>
+        <% let ids = ['country', 'province', 'city', 'street1', 'street2', 'postal'] %>
+        <% let labels = ['Riik', 'Maakond', 'Linn', 'Tänav 1', 'Tänav 2', 'Postiindeks'] %>
+        
+        <% for (let i = 0; i < ids.length; i++) { %>
+          <div class="mb-2">
+            <label for="<%= ids[i] %>"><%= labels[i] %></label>
+            <input type="text" id="<%= ids[i] %>" placeholder="<%= labels[i] %>" value="<%= C.address[ids[i]] %>">
+          </div>
+        <% } %>
+        
+        
+      </div>
+      <div class="my-3">
+        <button id="save-contacts" class="hover-pointer">Salvesta</button>
+      </div>
+      
+    </div>
   </div>
   
 
-
+<script src="/adminContacts.js"></script>
 <%- include('../partials/adminFooter') %>

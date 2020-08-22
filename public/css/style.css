@@ -8,6 +8,13 @@ body {
   cursor: pointer;
 }
 
+.edit-container {
+  border: 3px solid #9c9c9c;
+  border-radius: 10px;
+}
+
+
+
 .default-button:disabled {
   cursor: default !important;
 }
@@ -35,6 +42,64 @@ body {
   -moz-box-shadow: 0px 4px 15px 1px rgba(0,0,0,0.38);
   box-shadow: 0px 4px 15px 1px rgba(0,0,0,0.38);
 }
+
+/* SLIDER */
+.slidecontainer {
+  width: 100%; /* Width of the outside container */
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 15px;
+  border-radius: 5px;  
+  /*background: #d3d3d3;*/
+  background: rgb(0,0,0);
+
+  background: rgb(0,0,0);
+  background: -moz-linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 0%, rgba(255,255,255,1) 100%);
+  background: -webkit-linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 0%, rgba(255,255,255,1) 100%);
+  background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 0%, rgba(255,255,255,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endColorstr="#ffffff",GradientType=1);
+
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%; 
+  /*background: #4CAF50;*/
+  border: 2px solid #dceaf2;
+  background: rgb(0,0,0);
+  background: -moz-radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(42,96,209,1) 0%, rgba(5,61,142,1) 100%);
+  background: -webkit-radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(42,96,209,1) 0%, rgba(5,61,142,1) 100%);
+  background: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(42,96,209,1) 0%, rgba(5,61,142,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endColorstr="#053d8e",GradientType=1);
+
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  /*background: #4CAF50;*/
+  border: 2px solid #dceaf2;
+  background: rgb(0,0,0);
+  background: -moz-radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(42,96,209,1) 0%, rgba(5,61,142,1) 100%);
+  background: -webkit-radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(42,96,209,1) 0%, rgba(5,61,142,1) 100%);
+  background: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(42,96,209,1) 0%, rgba(5,61,142,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#000000",endColorstr="#053d8e",GradientType=1);
+
+  cursor: pointer;
+}
+/* ====== */
 .d-none {
   display: none !important;
 }
@@ -49,6 +114,19 @@ body {
 
 .txt-r {
   text-align: right;
+}
+
+.abs-l {
+  left: 5%;
+}
+
+.abs-c {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.abs-r {
+  right: 5%;
 }
 
 .p-info {
@@ -509,6 +587,30 @@ body {
   cursor: pointer;
 }
 
+/* TITLE SECTION */
+#bg-div {
+  position: relative;
+  overflow: hidden !important;
+}
+
+#master-heading,
+#master-introduction {
+  position: relative;
+  z-index: 5
+}
+
+#bg-div-overlay,
+.slide-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  /*background: #000;*/
+  /*opacity: 0.5;*/
+}
+
 /* CAROUSEL */
 .carousel-div {
   padding-top: 1rem;
@@ -619,6 +721,7 @@ body {
   padding-bottom: 0.1rem;
   background: #7864e8;
   color: #fff;
+  z-index: 99;
   -webkit-box-shadow: 0px 4px 15px 1px rgba(0,0,0,0.38);
   -moz-box-shadow: 0px 4px 15px 1px rgba(0,0,0,0.38);
   box-shadow: 0px 4px 15px 1px rgba(0,0,0,0.38);
@@ -679,7 +782,7 @@ body {
 #about-img-preview,
 #new-about-img-preview,
 #saale-img-preview {
-  object-fit: contain;
+  object-fit: cover;
   height: 20rem;
   border-radius: 5px;
 }
@@ -784,7 +887,7 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 9;
+  z-index: 50;
   width: 100%;
   height: 100%;
 }
@@ -933,3 +1036,80 @@ body > #edit-image-modal {
 #add-video-btn:disabled {
   cursor: default !important;
 }
+
+/* ADMIN HEADER */
+/* Chrome, Safari, Edge, Opera */
+.number-input::-webkit-outer-spin-button,
+.number-input::-webkit-inner-spin-button {
+
+  -webkit-appearance: none;
+  margin: 0;
+
+}
+
+/* Firefox */
+.number-input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.title-preview-parent {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#header-overlay-preview {
+  position: relative;
+}
+
+#text-container-preview {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 98%;
+  height: 100%;
+  z-index: 10;
+}
+
+#bg-height-preview {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 20;
+}
+
+.slide-container {
+  /*
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  */
+  text-align: center !important;
+}
+
+.slide-div {
+  position: relative;
+  display: inline-block;
+  height: 50vh;
+  width: 70%;
+  object-fit: cover;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.slide-content {
+  /*position: relative;*/
+  bottom: 10%;
+  position: absolute;
+  z-index: 20;
+  color: #fff;
+}
+
+.slide-content-div {
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  position: relative;
+}
+

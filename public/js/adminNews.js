@@ -512,6 +512,11 @@ const postData = (Data) => {
           // remove article div
           document.getElementById('section-pre-' + res.id).remove()
         }
+        // update main heading
+        if (res.status.includes('mainHeading')) {
+          btn.innerHTML = 'Salvesta';
+          document.getElementById('main-heading').innerHTML = res.mainHeading;
+        }
         
       } else {
         console.error(xhr.statusText);
@@ -818,4 +823,23 @@ updateSectionPreDiv = (id, articleEst, articleEng) => {
 /////////////////////////////////////////
 
 
+/////////////////////////////////////////
+/////////// SAVE MAIN HEADING ///////////
+/////////////////////////////////////////
+
+document.getElementById('save-main-heading').addEventListener('click', function () {
+  
+  let mainHeading = document.getElementById('main-heading-input').value;
+  let mainHeading_eng = document.getElementById('main-heading-input-eng').value;
+  let mainHeading_pos = document.getElementById('main-heading-pos').value;
+  let btn = this;
+  let Data = {
+    action: 'mainHeading',
+    mainHeading,
+    mainHeading_eng,
+    mainHeading_pos,
+    btn
+  }
+  postData(Data)
+})
 

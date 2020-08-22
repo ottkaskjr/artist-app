@@ -280,6 +280,10 @@ const editMediaSection = (Data) => {
           if (response.status.includes('section visibilities')) {
             btn.disabled = true
           }
+          // update main heading
+          if (response.status.includes('mainHeading')) {
+            document.getElementById('main-heading').innerHTML = response.mainHeading;
+          }
           btn.innerHTML = 'Salvesta';
         } else {
           console.error(xhr.statusText);
@@ -292,3 +296,24 @@ const editMediaSection = (Data) => {
   xhr.send(json); 
   btn.innerHTML = 'Laeb';
 }
+
+/////////////////////////////////////////
+/////////// SAVE MAIN HEADING ///////////
+/////////////////////////////////////////
+
+document.getElementById('save-main-heading').addEventListener('click', function () {
+  
+  let mainHeading = document.getElementById('main-heading-input').value;
+  let mainHeading_eng = document.getElementById('main-heading-input-eng').value;
+  let mainHeading_pos = document.getElementById('main-heading-pos').value;
+  let btn = this;
+  let Data = {
+    action: 'mainHeading',
+    mainHeading,
+    mainHeading_eng,
+    mainHeading_pos,
+    btn
+  }
+  
+  editMediaSection(Data)
+})

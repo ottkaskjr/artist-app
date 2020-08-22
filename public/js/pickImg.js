@@ -69,6 +69,7 @@ const imgSelectionEvents = () => {
   let imgPreview = document.getElementById('about-img-preview');
   let noImgMes = document.getElementById('no-preview-img')
   let imgPosDiv = document.getElementById('img-position-div')
+  let imgOverlay = document.getElementById('bg-div-overlay'); // adminHeader
   
   for (let img of images) {
     img.addEventListener('click', function () {
@@ -88,21 +89,37 @@ const imgSelectionEvents = () => {
         img.parentNode.classList.remove('selected-bg')
 
         // remove img preview
-        
-        if (!imgPreview.classList.contains('d-none')) {
-          imgPreview.classList.add('d-none')
+        if (noImgMes != null) { // adminHeader
+          if (!imgPreview.classList.contains('d-none')) {
+            imgPreview.classList.add('d-none')
+          }
+          imgPreview.setAttribute('src', '')
+        } else {
+          if (imgPreview.style.visibility != 'hidden') { // adminHeader
+            console.log('hidden')
+            imgPreview.style.visibility = 'hidden'
+            if (imgOverlay != null) {
+              imgOverlay.style.visibility = 'hidden'
+            }
+          } 
         }
-        imgPreview.setAttribute('src', '')
         
+
         // show no-img-preview message
-        if (noImgMes.classList.contains('d-none')) {
-          noImgMes.classList.remove('d-none')
+        if (noImgMes != null) {
+          if (noImgMes.classList.contains('d-none')) {
+            noImgMes.classList.remove('d-none')
+          }
         }
+        
 
         // hide img position radio
-        if (!imgPosDiv.classList.contains('d-none')) {
-          imgPosDiv.classList.add('d-none')
+        if (imgPosDiv != null) {
+          if (!imgPosDiv.classList.contains('d-none')) {
+            imgPosDiv.classList.add('d-none')
+          }
         }
+        
         
 
         // finally remove the a TAG .img-selected
@@ -122,19 +139,31 @@ const imgSelectionEvents = () => {
 
         
         // set img preview
-        if (imgPreview.classList.contains('d-none')) {
-          imgPreview.classList.remove('d-none')
+        if (noImgMes != null) { // adminHeader
+          if (imgPreview.classList.contains('d-none')) {
+            imgPreview.classList.remove('d-none')
+          }
+        } else if (imgPreview.style.visibility === 'hidden') {  // adminHeader
+          console.log('visible')
+            imgPreview.style.visibility = 'visible'
+            if (imgOverlay != null) {
+              imgOverlay.style.visibility = 'visible'
+            }
         }
         imgPreview.setAttribute('src', '/' + id + format)
         
         // hide no-img-preview message
-        if (!noImgMes.classList.contains('d-none')) {
-          noImgMes.classList.add('d-none')
+        if (noImgMes != null) {
+          if (!noImgMes.classList.contains('d-none')) {
+            noImgMes.classList.add('d-none')
+          }
         }
 
         // show img position radio
-        if (imgPosDiv.classList.contains('d-none')) {
-          imgPosDiv.classList.remove('d-none')
+        if (imgPosDiv != null) {
+          if (imgPosDiv.classList.contains('d-none')) {
+            imgPosDiv.classList.remove('d-none')
+          }
         }
         
 

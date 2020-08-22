@@ -1,8 +1,24 @@
 {
+  "bg": {
+    "img": "",
+    "vid": "",
+    "overlay": "", 
+    "heading": "",
+    "heading_pos": "left",
+    "heading_color": "#000",
+    "introduction": "",
+    "introduction_pos": "right",
+    "introduction_color": "",
+    "height": ""
+  },
   "slides": [
     {
-      "id": "71ixag53kkd077gvy",
+      "module_id": "71ixag53kkd077gvy",
+      "module": "",
       "bg": "71ixagbgskd07gf2y",
+      "img": "71ixagbgskd07gf2y",
+      "img_pos": "left",
+      "content_pos": "center",
       "heading":"Concert title",
       "subHeadings": [
         "Subheading 1",
@@ -15,8 +31,12 @@
       "button": "Read more"
     },
     {
-      "id": "71ixag53kkd077gvz",
+      "module_id": "71ixag53kkd077gvz",
+      "module": "",
       "bg": "",
+      "img": "71ixagbgskd07gf2y",
+      "img_pos": "left",
+      "content_pos": "center",
       "heading":"Article",
       "subHeadings": [
         "Subheading 1"
@@ -27,8 +47,12 @@
       "button": "Read more"
     },
     {
-      "id": "71ixagbgskd079w6j",
+      "module_id": "71ixagbgskd079w6j",
+      "module": "",
       "bg": "71ixagbgskd079w73",
+      "img": "71ixagbgskd07gf2y",
+      "img_pos": "left",
+      "content_pos": "center",
       "heading":"Concert title",
       "subHeadings": [
         "Subheading 1",
@@ -41,8 +65,12 @@
       "button": "Read more"
     },
     {
-      "id": "71ixagbgskd079w6l",
+      "module_id": "71ixagbgskd079w6l",
+      "module": "",
       "bg": "",
+      "img": "71ixagbgskd07gf2y",
+      "img_pos": "left",
+      "content_pos": "center",
       "heading":"Article 2",
       "subHeadings": [],
       "paragraphs": [
@@ -51,5 +79,6 @@
       "button": "Read more"
     }
   ],
-  "hidden": false
+  "hidden_car": false,
+  "hidden_bg": true
 }

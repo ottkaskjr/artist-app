@@ -1,0 +1,327 @@
+<%- include('../partials/adminHeader') %>
+<%- include('../partials/adminNav') %>
+  
+
+  <div id="main-container" class="container">
+    <div class="txt-c">
+      <h1>Lehekülje päis</h1>
+    </div>
+    
+    <div class="txt-c">
+      <h1>Avasektsioon</h1>
+      <div>
+        <%# HIDE SECTION %>
+        <div class="my-2 edit-section">
+          <label id="hide-label" for="hide-title-section">Peida sektsioon
+            <input type="checkbox" class="hover-pointer" name="hide" id="hide-title-section"
+            <% if (header.hidden_bg === true) { %>
+              checked
+            <% } %>
+            >
+          </label>
+          <p class="p-info"><i>*Eemaldab antud sektsiooni koduleheküljelt</i></p>
+        </div>
+
+        <%# TITLE SECTION BG IMG + PREVIEW %>
+        <p>Eelvaade</p>
+        <div class="my-3 title-preview-parent">
+          <a id="img-input-data" style="display: none;" data-name="<%= header.bg.img %>"></a>
+          
+          <div id="header-overlay-preview">
+            <div id="bg-div-overlay" data-overlay="<%= header.bg.overlay %>">
+            </div>
+            <div id="text-container-preview" class="">
+              <div id="heading-preview" class="txt-<%= header.bg.heading_pos.charAt(0) %> mx-3"><p><%= header.bg.heading %></p></div>
+              <div id="intro-preview" class="txt-<%= header.bg.introduction_pos.charAt(0) %> mx-3 mt-3"><p><%= header.bg.introduction %></p></div>
+            </div>
+            <div id="bg-height-preview" class="admin-body"></div>
+            <% if (header.bg.img != '') { %>
+              <img style="border: 3px solid #fff;" id="about-img-preview" src="/<%= header.bg.img %>" alt="">
+              
+            <% } else { %>
+              <img class="mb-1 d-none" id="about-img-preview" src="" alt="">
+            <% } %>
+          </div>
+          
+          
+        </div>
+        <div>
+          <button id="open-img-modal" class="mt-1 hover-pointer">Muuda</button>
+        </div>
+
+        <%# EDIT TITLE HEADING %>
+        <%# name %>
+      <div class="edit-section my-3">
+        <div class="est mb-1">
+          <label for="main-heading-input">Pealkiri
+            <input id="main-heading-input" type="text" name="heading" data-preview="heading-preview" placeholder="Tere tulemast" value="<%= header.bg.heading %>">
+          </label>
+        </div>
+        <div class="eng mb-1">
+          <label for="main-heading-input-eng">Title
+            <input id="main-heading-input-eng" type="text" name="heading_eng" placeholder="Welcome" value="<%= header_eng.bg.heading %>">
+          </label>
+        </div>
+        <%# position %>
+        <div class="mb-1">
+          <label for="main-heading-pos">Asetus
+            <select data-value="<%= header.bg.heading_pos %>" name="heading_pos" class="hover-pointer" id="main-heading-pos">
+              <option value="left"
+                <% if (header.bg.heading_pos === 'left') { %>
+                  selected
+                <% } %>
+              >Vasakul</option>
+              <option value="center"
+                <% if (header.bg.heading_pos === 'center') { %>
+                  selected
+                <% } %>
+              >Keskel</option>
+              <option value="right"
+                <% if (header.bg.heading_pos === 'right') { %>
+                  selected
+                <% } %>
+              >Paremal</option>
+            </select>
+          </label>
+        </div>
+        <%# color %>
+        <div class="mb-1">
+          <label for="main-heading-color">Värv
+            <input name="heading_color" type="color" class="hover-pointer" id="main-heading-color" value="<%= header.bg.heading_color %>">
+          </label>
+        </div>
+        <%# size %>
+        <div>
+          <label for="main-heading-size">Teksti suurus
+            <input name="heading_size" type="number" class="number-input" id="main-heading-size" min="10" max="100" value="<%= header.bg.heading_size %>"> px
+          </label>
+        </div>
+      </div>
+      <%# EDIT DESCRIPTION HEADING %>
+        <%# description %>
+        <div class="edit-section my-3">
+          <div class="est mb-1">
+            <label for="main-introduction-input">Sissejuhatus
+              <input id="main-introduction-input" type="text" data-preview="intro-preview" name="introduction" placeholder="Sissejuhatus" value="<%= header.bg.introduction %>">
+            </label>
+          </div>
+          <div class="eng mb-1">
+            <label for="main-introduction-input-eng">Introduction
+              <input id="main-introduction-input-eng" type="text" name="introduction_eng" placeholder="Introduction" value="<%= header_eng.bg.introduction %>">
+            </label>
+          </div>
+          <%# introduction position %>
+          <div class="mb-1">
+            <label for="main-introduction-pos">Asetus
+              <select data-value="<%= header.bg.introduction_pos %>" name="introduction_pos" class="hover-pointer" id="main-introduction-pos">
+                <option value="left"
+                  <% if (header.bg.introduction_pos === 'left') { %>
+                    selected
+                  <% } %>
+                >Vasakul</option>
+                <option value="center"
+                  <% if (header.bg.introduction_pos === 'center') { %>
+                    selected
+                  <% } %>
+                >Keskel</option>
+                <option value="right"
+                  <% if (header.bg.introduction_pos === 'right') { %>
+                    selected
+                  <% } %>
+                >Paremal</option>
+              </select>
+            </label>
+          </div>
+          <%# color %>
+          <div class="mb-1">
+            <label for="main-introduction-color">Värv
+              <input name="introduction_color" type="color" class="hover-pointer" id="main-introduction-color" value="<%= header.bg.introduction_color %>">
+            </label>
+          </div>
+          <%# size %>
+          <div>
+            <label for="main-introduction-size">Teksti suurus
+              <input name="introduction_size" type="number" class="number-input" id="main-introduction-size" min="5" max="50" value="<%= header.bg.introduction_size %>"> px
+            </label>
+          </div>
+
+          
+          <%# OVERLAY OPACITY %>
+          <div>
+              <p>*Korrigeeri pildi heledust, et parandada teksti loetavust</p>
+              
+              <div class="slidecontainer">
+                <label for="main-bg-overlay">Pildi heledus
+                  <input type="range" min="-100" max="100" value="<%= header.bg.overlay %>" class="slider" id="title-overlay-slider">
+                </label>
+                <div>
+                  <p id="slider-output"></p>
+                </div>
+              </div>
+              <%#
+              <input name="overlay" type="number" class="number-input" id="main-bg-overlay" min="0" max="100" value="header.bg.overlay"> %>
+          </div>
+
+          <%# TITLE SECTION HEIGHT %>
+          <div class="my-3">
+            <label for="title-section-height">Tervitussektsiooni kõrgus
+              <input name="title-section-height" type="number" class="number-input" id="title-section-height" min="30" max="100" value="<%= header.bg.height %>"> % browseri kõrgusest
+            </label>
+          </div>
+        </div>
+        
+      <div><button class="hover-pointer" id="save-title">Salvesta</button></div>
+      </div>
+    </div>
+
+    <%# CAROUSEL SLIDES %>
+    <% const modules = ['Kontserdid', 'Uudised'] %>
+    <% const modules_eng = ['concerts', 'news'] %>
+    <% const getModuleName = (item) => { %>
+      <% return item.heading %>
+    <% } %>
+    <% const checkModule = (moduleName, Module) => { %>
+      <% if (moduleName != Module) return 'd-none' %>
+    <% } %>
+    <div class="txt-c">
+      <h1>Slaidid</h1>
+      <%# HIDE SECTION %>
+      <div class="my-2 edit-section">
+        <label id="hide-label" for="hide-carousel-section">Peida sektsioon
+          <input type="checkbox" class="hover-pointer" name="hide" id="hide-carousel-section"
+          <% if (header.hidden_car === true) { %>
+            checked
+          <% } %>
+          >
+        </label>
+        <p class="p-info"><i>*Eemaldab antud sektsiooni koduleheküljelt</i></p>
+        <button class="hover-pointer" id="save-carousel">Salvesta</button>
+      </div>
+      <div class="mb-3">
+        <button id="add-slide" class="hover-pointer">Lisa slaid</button>
+      </div>
+      <%# SLIDES CONTAINER %>
+      <div id="slides-container">
+        <% for (let i = 0; i < header.slides.length; i++) { %>
+          <%# SLIDE %>
+          <% if (header.slides[i].hidden === false) { %>
+          <div id="slide-container-<%= header.slides[i].module_id %>" class="slide-container edit-container">
+            <div id="slide-<%= header.slides[i].module_id %>" data-bg="<%= header.slides[i].bg %>" class="slide-div mt-1">
+              <%# overlay %>
+              <div class="slide-overlay" style="background: #000; opacity: 0.5"></div>
+              <div class="slide-content abs-<%= header.slides[i].content_pos.charAt(0) %> txt-<%= header.slides[i].content_pos.charAt(0) %>">
+                <%# content %>
+                <div class="slide-content-div">
+                  <%# heading %>
+                  <div>
+                    <p class="slide-heading slide-heading-<%= header.slides[i].module_id %>"><%= header.slides[i].heading %></p>
+                  </div>
+                  <%# subheading %>
+                  <div>
+                    <% for (let subH of header.slides[i].subHeadings) { %>
+                      <p class="slide-subheading slide-subheading-<%= header.slides[i].module_id %>"><%= subH %></p>
+                    <% } %>
+                  </div>
+                  <%# button %>
+                  <div>
+                    <button class="slide-button slide-button-<%= header.slides[i].module_id %> hover-pointer"><%= header.slides[i].button %></button>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+
+            <div class="edit-slide-div my-2">
+              <%# MODULE %>
+              <%# currently %>
+              <div>
+                <p>Aktiivne: <span id="active-module-<%= header.slides[i].slide_id %>"><%= header.slides[i].module %></span> - <span id="active-item-<%= header.slides[i].slide_id %>"><%= header.slides[i].heading %></span></p>
+              </div>
+              <div>
+                <label for="select-module">Moodul</label>
+                <select class="hover-pointer" id="select-module" data-module="" name="module">
+                  <% for (let j = 0; j < modules_eng.length; j++) { %>
+                    <option data-module="<%= modules_eng[i] %>" value="<%= modules_eng[i] %>"
+                      <% console.log(header.slides[i].module,'qeogij') %>
+                      <% if (modules_eng[j] === header.slides[i].module) { %>
+                      selected
+                      <% } %>
+                      ><%= modules[j] %></option>
+                  <% } %>
+                  
+                </select> 
+
+                 <%# module items %>
+                <span id="concerts-items" class="<%= checkModule('concerts', header.slides[i].module) %>">
+                  <label class="ml-1" for="select-concert">Kontsert:</label>
+                  <select class="hover-pointer" id="select-concert" name="module">
+                    <% for (let concert of concerts.concerts) { %>
+                      <option value=""
+                      <% if (concert.id === header.slides[i].module_id) { %>
+                        selected
+                      <% } %>
+                      ><%= concert.heading %></option>
+                    <% } %>
+                  </select> 
+                </span>
+
+                <span id="news-items" class="<%= checkModule('news', header.slides[i].module) %>">
+                  <label class="ml-1" for="select-article">Artikkel:</label>
+                  <select class="hover-pointer" id="select-article" name="module">
+                    <% for (let article of news.articles) { %>
+                      <option value=""
+                      <% if (article.id === header.slides[i].module_id) { %>
+                        selected
+                      <% } %>
+                      ><%= article.heading %></option>
+                    <% } %>
+                  </select> 
+                </span>
+                
+              </div>
+
+              <%# HEADING %>
+
+              <%# SUBHEADINGS %>
+
+              <%# TEXT COLOR %>
+
+              <%# TEXT CONTAINER POSITION %>
+
+              <%# OVERLAY %>
+              
+
+              <div class="mt-3">
+                <button data-module-id="<%= header.slides[i].module_id %>" data-id="<%= header.slides[i].slide_id %>" class="save-slide hover-pointer">Salvesta</button>
+              </div>
+            </div>
+
+          </div>
+          <% } %>
+        <% } %>
+      </div>
+    </div>
+
+
+  </div>
+  
+
+
+   <%# MODAL %>
+   <div id="select-img-modal" class="modal-closed modal">
+    <div class="modal-container modal-l">
+      <div class="close-modal data-dismiss"><div><a>X</a></div></div>
+      <div class="modal-body txt-c">
+        <h3>Vali/eemalda pilt</h3>
+        <%# IMAGES %>
+        <div id="modal-img-container">
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script src="/adminHeader.js"></script>
+<script src="/adminSlides.js"></script>
+<script src="/pickImg.js"></script>
+<script src="/slider.js"></script>
+<%- include('../partials/adminFooter') %>

@@ -3,7 +3,7 @@ const router = new express.Router();
 const ejsLint = require('ejs-lint');
 var fs = require('fs');
 const util = require('util')
-const uniqid = require('uniqid')
+const uniqid = require('uniqid');
 
 
 ///////////////////////////////////////////////////
@@ -13,6 +13,7 @@ const uniqid = require('uniqid')
 const readFilePromise = util.promisify(fs.readFile)
 const writeFilePromise = util.promisify(fs.writeFile)
 const deleteFilePromise = util.promisify(fs.unlink)
+
 
 const readData = function (fileName, arr, lang) { 
   return new Promise (( resolve , reject) => {
@@ -85,9 +86,17 @@ const deleteFile = function (path) {
 }
 
 ///////////////////////////////////////////////////
-/////////////// GET ADMIN MAIN PAGE ///////////////
+//////////// UPDDATE ADMIN MENU NAMES /////////////
 ///////////////////////////////////////////////////
 
+const updateAdminMenu = function(hrefName, newValue, fileName) {
+  for (let item of fileName.global.adminMenu) {
+    if (item.href === hrefName) {
+      item.title = newValue
+      break;
+    }
+  }
+}
 
 ///////////////////////////////////////////////////
 ////////////// ADDITIONAL FUNCTIONS ///////////////
@@ -146,7 +155,7 @@ router.get('/admin', function(req, res) {
     // READ LOCALDB DATA
     // Asynchronous read
     let promises = [
-      readData('menu', DATA),
+      readData('global', DATA),
       
       /*
       readData('about'),
@@ -183,31 +192,49 @@ router.get('/admin', function(req, res) {
 
 // LOOP ALL SECTIONS AND CREATE GET ROUTE FOR EACH
 
-const sections = ['about', 'carousel', 'concerts', 'contacts', 'media', 'members', 'news', 'saale'];
+const sections = ['about', 'header', 'concerts', 'contacts', 'media', 'members', 'news', 'saale'];
 
 for (let section of sections) {
   router.get('/admin/' + section , async (req, res) => {
     try {
       let DATA = {}
-  
+      let promises
       // READ LOCALDB DATA
       // Asynchronous read
       // menu on kõigile sama
-      let promises = [
-        readData('menu', DATA),
-        readData(section, DATA),
-        readData(section, DATA, 'eng')
-      ]
   
+      if (section === 'header') {
+        promises = [
+          readData('global', DATA),
+          readData(section, DATA),
+          readData(section, DATA, 'eng'),
+          readData('concerts', DATA),
+          readData('concerts', DATA, 'eng'),
+          readData('news', DATA),
+          readData('news', DATA, 'eng')
+        ]
+      } else {
+        promises = [
+          readData('global', DATA),
+          readData(section, DATA),
+          readData(section, DATA, 'eng')
+        ]
+      }
+
       Promise.all(promises).then(() => {
         //console.log(DATA);
         //DATA.language = language;
         let capSection = section.slice(0, 1).toUpperCase() + section.slice(1, section.length);
-        res.render('../src/views/admin' + capSection, DATA);
+        if (section === 'header') {
+          res.render('../src/views/admin' + capSection, DATA);
+        } else {
+          res.render('../src/views/admin' + capSection, DATA);
+        }
+        
       }).catch(err => {
         if (err) console.log(err)
       })
-    } catch {
+    } catch (e) {
       console.log(e)
     }
   })
@@ -223,7 +250,7 @@ router.get('/admin/images', async (req, res) => {
       // Asynchronous read
       // menu on kõigile sama
       let promises = [
-        readData('menu', DATA),
+        readData('global', DATA),
         readData('media', DATA),
         readData('media', DATA, 'eng')
       ]
@@ -235,7 +262,7 @@ router.get('/admin/images', async (req, res) => {
 
           console.log('got xml')
           // remove menu
-          delete DATA.menu;
+          delete DATA.global;
           // remove ENGLISH media
           delete DATA.media_eng;
           // leave only name, format and onMedia
@@ -275,31 +302,166 @@ router.get('/admin/images', async (req, res) => {
 /////////////// ADMIN POST REQUESTS ///////////////
 ///////////////////////////////////////////////////
 
+// HEADER SECTION
+router.post('/admin/header', async (req, res) => {
+  try {
+    console.log(req.body)
+    let response;
+    let section = req.body.section;
+    // FIRST FETCH FILES
+    let HEADER = {}
+      // READ LOCALDB DATA
+      // Asynchronous read
+      // menu on kõigile sama
+      let readPromises = [
+        readData('header', HEADER),
+        readData('header', HEADER, 'eng')
+      ]
+
+      Promise.all(readPromises).then(() => {
+        
+        // change data
+        ///////////////////////////////////////////
+        //              TITLE & BG               //
+        ///////////////////////////////////////////
+        if (section === 'title') {
+          // hidden
+          HEADER.header.hidden_bg = req.body.hidden;
+          HEADER.header_eng.hidden_bg = req.body.hidden;
+
+          /////// TITLE HEADING ///////
+
+          // heading
+          HEADER.header.bg.heading = req.body.heading;
+          HEADER.header_eng.bg.heading = req.body.heading_eng;
+          
+          // heading position
+          HEADER.header.bg.heading_pos = req.body.heading_pos;
+          HEADER.header_eng.bg.heading_pos = req.body.heading_pos;
+
+          // heading color
+          HEADER.header.bg.heading_color = req.body.heading_color;
+          HEADER.header_eng.bg.heading_color = req.body.heading_color;
+
+          // heading size
+          HEADER.header.bg.heading_size = req.body.heading_size;
+          HEADER.header_eng.bg.heading_size = req.body.heading_size;
+
+          /////// TITLE INTRODUCTION ///////
+
+          // introduction
+          HEADER.header.bg.introduction = req.body.introduction;
+          HEADER.header_eng.bg.introduction = req.body.introduction_eng;
+          
+          // introduction position
+          HEADER.header.bg.introduction_pos = req.body.introduction_pos;
+          HEADER.header_eng.bg.introduction_pos = req.body.introduction_pos;
+
+          // introduction color
+          HEADER.header.bg.introduction_color = req.body.introduction_color;
+          HEADER.header_eng.bg.introduction_color = req.body.introduction_color;
+
+          // introduction size
+          HEADER.header.bg.introduction_size = req.body.introduction_size;
+          HEADER.header_eng.bg.introduction_size = req.body.introduction_size;
+
+          // title section height
+          HEADER.header.bg.height = req.body.height;
+          HEADER.header_eng.bg.height = req.body.height;
+
+          // title bg img
+          HEADER.header.bg.img = req.body.img;
+          HEADER.header_eng.bg.img = req.body.img;
+
+          // title img overlay opacity
+          HEADER.header.bg.overlay = req.body.overlay;
+          HEADER.header_eng.bg.overlay = req.body.overlay;
+
+          response = {
+            status: 'Title updated'
+          }
+        }
+        if (section === 'carousel') {
+          // hide/show carousel section
+          HEADER.header.hidden_car = req.body.hidden_car
+          HEADER.header_eng.hidden_car = req.body.hidden_car
+
+          response = {
+            status: 'Carousel updated'
+          }
+        }
+        
+        if (section === 'slide') {
+
+
+          response = {
+            status: 'Slide updated'
+          }
+        }
+        
+
+
+        ///////////////////////////////////////////
+        //                CAROUSEL               //
+        ///////////////////////////////////////////
+
+        
+
+        // fetch stringified objects
+        let header = JSON.stringify(HEADER.header)
+        let header_eng = JSON.stringify(HEADER.header_eng)
+
+        // collect both objects in one promise arr
+        let writePromises = [
+          writeData('header', header),
+          writeData('header', header_eng, 'eng')
+        ]
+        
+        // WRITE ALL ASYNC AND RETURN RESOLVE
+        Promise.all(writePromises).then(() => {
+          res.status(200).send(response)
+        }).catch(err => {
+          if (err) console.log(err)
+        })
+      }).catch(err => {
+        if (err) console.log(err)
+      })
+  } catch(e) {
+    console.log(e)
+  }
+})
 
 // ABOUT SECTION
 router.post('/admin/about' , async (req, res) => {
   try {
     console.log(req.body)
-
+    let response;
 
     // FIRST FETCH FILES
     let ABOUT = {}
-  
+    let GLOBAL = {}
       // READ LOCALDB DATA
       // Asynchronous read
       // menu on kõigile sama
       let readPromises = [
+        readData('global', GLOBAL),
         readData('about', ABOUT),
         readData('about', ABOUT, 'eng')
       ]
 
       Promise.all(readPromises).then(() => {
-        //console.log(DATA);
         
         // change data
         // heading
+        if (ABOUT.about.heading != req.body.heading) {
+          updateAdminMenu('about', req.body.heading, GLOBAL)
+        }
         ABOUT.about.heading = req.body.heading;
         ABOUT.about_eng.heading = req.body.heading_eng;
+        
+        // heading position
+        ABOUT.about.heading_pos = req.body.heading_pos;
+        ABOUT.about_eng.heading_pos = req.body.heading_pos;
         //hidden
         ABOUT.about.hidden = req.body.hidden;
         ABOUT.about_eng.hidden = req.body.hidden;
@@ -316,16 +478,23 @@ router.post('/admin/about' , async (req, res) => {
         // fetch stringified objects
         let about = JSON.stringify(ABOUT.about)
         let about_eng = JSON.stringify(ABOUT.about_eng)
+        let global = JSON.stringify(GLOBAL.global)
+
+        response = {
+          status: 'Saved',
+          heading: req.body.heading
+        }
 
         // collect both objects in one promise arr
         let writePromises = [
           writeData('about', about),
-          writeData('about', about_eng, 'eng')
+          writeData('about', about_eng, 'eng'),
+          writeData('global', global)
         ]
         
         // WRITE ALL ASYNC AND RETURN RESOLVE
         Promise.all(writePromises).then(() => {
-          res.status(200).send('OK')
+          res.status(200).send(response)
         }).catch(err => {
           if (err) console.log(err)
         })
@@ -341,15 +510,16 @@ router.post('/admin/about' , async (req, res) => {
 router.post('/admin/saale' , async (req, res) => {
   try {
     console.log(req.body)
-
+    let response;
 
     // FIRST FETCH FILES
     let SAALE = {}
-  
+    let GLOBAL = {}
       // READ LOCALDB DATA
       // Asynchronous read
       // menu on kõigile sama
       let readPromises = [
+        readData('global', GLOBAL),
         readData('saale', SAALE),
         readData('saale', SAALE, 'eng')
       ]
@@ -359,8 +529,14 @@ router.post('/admin/saale' , async (req, res) => {
         
         // change data
         // heading
+        if (SAALE.saale.heading != req.body.heading) {
+          updateAdminMenu('saale', req.body.heading, GLOBAL)
+        }
         SAALE.saale.heading = req.body.heading;
-        SAALE.saale_eng.heading = req.body.heading;
+        SAALE.saale_eng.heading = req.body.heading_eng;
+        // heading position
+        SAALE.saale.heading_pos = req.body.heading_pos;
+        SAALE.saale_eng.heading_pos = req.body.heading_pos;
         //hidden
         SAALE.saale.hidden = req.body.hidden;
         SAALE.saale_eng.hidden = req.body.hidden;
@@ -373,20 +549,27 @@ router.post('/admin/saale' , async (req, res) => {
         // img_pos
         SAALE.saale.img_pos = req.body.img_pos;
         SAALE.saale_eng.img_pos = req.body.img_pos;
+
+        response = {
+          status: 'Saved',
+          heading: req.body.heading
+        }
         
         // fetch stringified objects
         let saale = JSON.stringify(SAALE.saale)
         let saale_eng = JSON.stringify(SAALE.saale_eng)
+        let global = JSON.stringify(GLOBAL.global)
 
         // collect both objects in one promise arr
         let writePromises = [
           writeData('saale', saale),
-          writeData('saale', saale_eng, 'eng')
+          writeData('saale', saale_eng, 'eng'),
+          writeData('global', global)
         ]
         
         // WRITE ALL ASYNC AND RETURN RESOLVE
         Promise.all(writePromises).then(() => {
-          res.status(200).send('OK')
+          res.status(200).send(response)
         }).catch(err => {
           if (err) console.log(err)
         })
@@ -696,11 +879,12 @@ router.post('/admin/videos/edit' , async (req, res) => {
 
     // FIRST FETCH FILES
     let DATA = {}
-  
+    let GLOBAL = {}
       // READ LOCALDB DATA
       // Asynchronous read
       // menu on kõigile sama
       let readPromises = [
+        readData('global', GLOBAL),
         readData('media', DATA),
         readData('media', DATA, 'eng')
       ]
@@ -823,17 +1007,31 @@ router.post('/admin/videos/edit' , async (req, res) => {
             status: 'section visibilities updated'
           }
         }
-        
+        if (action === 'mainHeading') {
+          updateAdminMenu('media', req.body.mainHeading, GLOBAL)
+
+          DATA.media.heading = req.body.mainHeading;
+          DATA.media_eng.heading = req.body.mainHeading_eng
+
+          DATA.media.heading_pos = req.body.mainHeading_pos;
+          DATA.media_eng.heading_pos = req.body.mainHeading_pos
+
+          response = {
+            status: 'mainHeading',
+            mainHeading: req.body.mainHeading
+          }
+        }
 
         // fetch stringified objects
         let media = JSON.stringify(DATA.media)
         let media_eng = JSON.stringify(DATA.media_eng)
-        
+        let global = JSON.stringify(GLOBAL.global)
         // collect both objects in one promise arr
         
         let writePromises = [
           writeData('media', media),
-          writeData('media', media_eng, 'eng')
+          writeData('media', media_eng, 'eng'),
+          writeData('global', global)
         ]
         
         // WRITE ALL ASYNC AND RETURN RESOLVE
@@ -1059,14 +1257,15 @@ router.post('/admin/concerts' , async (req, res) => {
     
     // FIRST FETCH FILES
     let CONCERTS = {}
-  
+    let GLOBAL = {}
       
       // READ LOCALDB DATA
       // Asynchronous read
       // menu on kõigile sama
       let readPromises = [
         readData('concerts', CONCERTS),
-        readData('concerts', CONCERTS, 'eng')
+        readData('concerts', CONCERTS, 'eng'),
+        readData('global', GLOBAL)
       ]
 
       Promise.all(readPromises).then(() => {
@@ -1140,16 +1339,31 @@ router.post('/admin/concerts' , async (req, res) => {
             id: req.body.id
           }
         }
+        if (action === 'mainHeading') {
+          updateAdminMenu('concerts', req.body.mainHeading, GLOBAL)
+
+          CONCERTS.concerts.heading = req.body.mainHeading;
+          CONCERTS.concerts_eng.heading = req.body.mainHeading_eng
+
+          CONCERTS.concerts.heading_pos = req.body.mainHeading_pos;
+          CONCERTS.concerts_eng.heading_pos = req.body.mainHeading_pos
+
+          response = {
+            status: 'mainHeading',
+            mainHeading: req.body.mainHeading
+          }
+        }
         
         // fetch stringified objects
         let concerts = JSON.stringify(CONCERTS.concerts)
         let concerts_eng = JSON.stringify(CONCERTS.concerts_eng)
-
+        let global = JSON.stringify(GLOBAL.global)
         // collect both objects in one promise arr
         
         let writePromises = [
           writeData('concerts', concerts),
-          writeData('concerts', concerts_eng, 'eng')
+          writeData('concerts', concerts_eng, 'eng'),
+          writeData('global', global)
         ]
         
         // WRITE ALL ASYNC AND RETURN RESOLVE
@@ -1263,14 +1477,15 @@ router.post('/admin/news' , async (req, res) => {
     
     // FIRST FETCH FILES
     let NEWS = {}
-  
+    let GLOBAL = {}
       
       // READ LOCALDB DATA
       // Asynchronous read
       // menu on kõigile sama
       let readPromises = [
         readData('news', NEWS),
-        readData('news', NEWS, 'eng')
+        readData('news', NEWS, 'eng'),
+        readData('global', GLOBAL)
       ]
 
       Promise.all(readPromises).then(() => {
@@ -1355,16 +1570,30 @@ router.post('/admin/news' , async (req, res) => {
             id: req.body.id
           }
         }
+        if (action === 'mainHeading') {
+          updateAdminMenu('news', req.body.mainHeading, GLOBAL)
+
+          NEWS.news.heading = req.body.mainHeading;
+          NEWS.news_eng.heading = req.body.mainHeading_eng
+
+          NEWS.news.heading_pos = req.body.mainHeading_pos;
+          NEWS.news_eng.heading_pos = req.body.mainHeading_pos
+
+          response = {
+            status: 'mainHeading',
+            mainHeading: req.body.mainHeading
+          }
+        }
         
         // fetch stringified objects
         let news = JSON.stringify(NEWS.news)
         let news_eng = JSON.stringify(NEWS.news_eng)
-
+        let global = JSON.stringify(GLOBAL.global)
         // collect both objects in one promise arr
         
         let writePromises = [
           writeData('news', news),
-          writeData('news', news_eng, 'eng')
+          writeData('news', news_eng, 'eng'),writeData('global', global)
         ]
         
         // WRITE ALL ASYNC AND RETURN RESOLVE
@@ -1486,12 +1715,13 @@ router.post('/admin/members' , async (req, res) => {
     
     // FIRST FETCH FILES
     let MEMBERS = {}
-  
+    let GLOBAL = {}
       
       // READ LOCALDB DATA
       // Asynchronous read
       // menu on kõigile sama
       let readPromises = [
+        readData('global', GLOBAL),
         readData('members', MEMBERS),
         readData('members', MEMBERS, 'eng')
       ]
@@ -1569,16 +1799,31 @@ router.post('/admin/members' , async (req, res) => {
             id: req.body.id
           }
         }
+        if (action === 'mainHeading') {
+          updateAdminMenu('members', req.body.mainHeading, GLOBAL)
+
+          MEMBERS.members.heading = req.body.mainHeading;
+          MEMBERS.members_eng.heading = req.body.mainHeading_eng
+
+          MEMBERS.members.heading_pos = req.body.mainHeading_pos;
+          MEMBERS.members_eng.heading_pos = req.body.mainHeading_pos
+
+          response = {
+            status: 'mainHeading',
+            mainHeading: req.body.mainHeading
+          }
+        }
         
         // fetch stringified objects
         let members = JSON.stringify(MEMBERS.members)
         let members_eng = JSON.stringify(MEMBERS.members_eng)
-
+        let global = JSON.stringify(GLOBAL.global)
         // collect both objects in one promise arr
         
         let writePromises = [
           writeData('members', members),
-          writeData('members', members_eng, 'eng')
+          writeData('members', members_eng, 'eng'),
+          writeData('global', global)
         ]
         
         // WRITE ALL ASYNC AND RETURN RESOLVE
@@ -1591,6 +1836,88 @@ router.post('/admin/members' , async (req, res) => {
         if (err) console.log(err)
       })
       
+  } catch (e) {
+    console.log(e)
+  }
+})
+
+// ABOUT SECTION
+router.post('/admin/contacts' , async (req, res) => {
+  try {
+    console.log(req.body)
+    let response;
+
+    // FIRST FETCH FILES
+    let CONTACTS = {}
+    let GLOBAL = {}
+      // READ LOCALDB DATA
+      // Asynchronous read
+      // menu on kõigile sama
+      let readPromises = [
+        readData('global', GLOBAL),
+        readData('contacts', CONTACTS),
+        readData('contacts', CONTACTS, 'eng')
+      ]
+
+      Promise.all(readPromises).then(() => {
+        //console.log(DATA);
+        console.log(CONTACTS.contacts.contacts[0])
+        // change data
+        let address = ['country', 'province', 'city', 'street1', 'street2', 'postal']
+        let keys = ['name', 'companyName', 'tel', 'email']
+
+
+        for (let key of keys) {
+          CONTACTS.contacts.contacts[0][key] = req.body[key];
+          CONTACTS.contacts_eng.contacts[0][key] = req.body[key];
+        }
+        for (let add of address) {
+          CONTACTS.contacts.contacts[0].address[add] = req.body[add];
+          CONTACTS.contacts_eng.contacts[0].address[add] = req.body[add];
+        }
+
+        // init heading separately
+        if (CONTACTS.contacts.heading != req.body.mainHeading) {
+          updateAdminMenu('contacts', req.body.mainHeading, GLOBAL)
+        }
+        CONTACTS.contacts.heading = req.body.mainHeading;
+        CONTACTS.contacts_eng.heading = req.body.mainHeading_eng;
+        CONTACTS.contacts.heading_pos = req.body.mainHeading_pos;
+        CONTACTS.contacts_eng.heading_pos = req.body.mainHeading_pos;
+
+        // hidden
+        CONTACTS.contacts.hidden = req.body.hidden;
+        CONTACTS.contacts_eng.hidden = req.body.hidden;
+
+        response = {
+          status: 'updated',
+          mainHeading: req.body.mainHeading
+        }
+        
+        // fetch stringified objects
+        
+        let contacts = JSON.stringify(CONTACTS.contacts)
+        let contacts_eng = JSON.stringify(CONTACTS.contacts_eng)
+        let global = JSON.stringify(GLOBAL.global)
+        // collect both objects in one promise arr
+        
+        let writePromises = [
+          writeData('contacts', contacts),
+          writeData('contacts', contacts_eng, 'eng'),
+          writeData('global', global)
+        ]
+        
+        
+        // WRITE ALL ASYNC AND RETURN RESOLVE
+        Promise.all(writePromises).then(() => {
+          res.status(200).send(response)
+        }).catch(err => {
+          if (err) console.log(err)
+        })
+        
+      }).catch(err => {
+        if (err) console.log(err)
+      })
   } catch (e) {
     console.log(e)
   }

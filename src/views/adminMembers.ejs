@@ -6,7 +6,7 @@
 <% } %>
 <div id="main-container" class="container">
   <div class="txt-c">
-    <h1>Liikmed</h1>
+    <h1><h1 id="main-heading"><%= members.heading %></h1></h1>
   </div>
   
   <div class="txt-c">
@@ -24,6 +24,44 @@
         <button id="hide-section-btn" class="hover-pointer" class="d-none">Salvesta</button>
       </div>
       <p class="p-info"><i>*Eemaldab antud sektsiooni koduleheküljelt</i></p>
+    </div>
+
+    <%# EDIT MAIN HEADING %>
+    <div class="edit-section my-3">
+      <div class="est mb-1">
+        <label for="main-heading-input">Pealkiri
+          <input id="main-heading-input" type="text" name="heading" placeholder="" value="<%= members.heading %>">
+        </label>
+      </div>
+      <div class="eng mb-1">
+        <label for="main-heading-input-eng">Title
+          <input id="main-heading-input-eng" type="text" name="heading_eng" placeholder="" value="<%= members_eng.heading %>">
+        </label>
+      </div>
+      <div>
+        <label for="main-heading-pos">Asetus
+          <select name="heading_pos" id="main-heading-pos">
+            <option value="left"
+              <% if (members.heading_pos === 'left') { %>
+                selected
+              <% } %>
+            >Vasakul</option>
+            <option value="center"
+              <% if (members.heading_pos === 'center') { %>
+                selected
+              <% } %>
+            >Keskel</option>
+            <option value="right"
+              <% if (members.heading_pos === 'right') { %>
+                selected
+              <% } %>
+            >Paremal</option>
+          </select>
+        </label>
+      </div>
+      <div class="mt-2">
+        <button id="save-main-heading" class="hover-pointer">Salvesta</button>
+      </div>
     </div>
 
     <%# ADD NEW ARTICLE %>

@@ -1,48 +1,53 @@
 {
-  "TEE_ERALDI_GLOBAL_JSON": true,
   "home":"Floridante",
   "homeHref":"#Floridante",
-  "menu":[
+  "adminMenu":[
+    {
+      "id": "71ixagbgskd079w76",
+      "title": "Päis",
+      "href": "header",
+      "hidden": false
+    },
     {
       "id": "71ixagbgskd079w76",
       "title": "Ansamblist",
-      "href": "about-heading",
+      "href": "about",
       "hidden": false
     },
     {
       "id": "71ixagbgskd07gf2b",
       "title": "Saale Fischer",
-      "href": "saale-heading",
+      "href": "saale",
       "hidden": false
     },
     {
       "id": "71ixagbgskd07gf2d",
       "title": "Kontserdid",
-      "href": "concerts-heading",
+      "href": "concerts",
       "hidden": false
     },
     {
       "id": "71ixagbgskd07gf2n",
       "title": "Uudised",
-      "href": "news-container",
+      "href": "news",
       "hidden": false
     },
     {
       "id": "71ixagbgskd07gf2f",
       "title": "Liikmed",
-      "href": "members-container",
+      "href": "members",
       "hidden": false
     },
     {
       "id": "71ixagbgskd07gf2h",
       "title": "Meedia",
-      "href": "media-container",
+      "href": "media",
       "hidden": false
     },
     {
       "id": "71ixagbgskd07gf2l",
       "title": "Kontakt",
-      "href": "contacts-container",
+      "href": "contacts",
       "hidden": false
     }
   ]

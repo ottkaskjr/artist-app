@@ -27,8 +27,8 @@
       <div class="navbar-brand-admin"><a>Floridante</a></div>
       <%# console.log(menu) %>
       <div class="navbar-menu-item"><a href="/admin">Avaleht</a></div>
-      <% for (let menuItem of menu.menu) { %>
-        <div class="navbar-menu-item"><a href="/admin/<%=removeHrefPrefix(menuItem.href)%>"><%= menuItem.title %></a></div>
+      <% for (let menuItem of global.adminMenu) { %>
+        <div class="navbar-menu-item"><a href="/admin/<%= menuItem.href %>"><%= menuItem.title %></a></div>
       <% } %>
     </div>
   </div>

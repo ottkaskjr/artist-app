@@ -4,7 +4,7 @@
 
   <div id="main-container" class="container">
     <div class="txt-c">
-      <h1>Meedia</h1>
+      <h1 id="main-heading"><%= media.heading %></h1>
       <p>*Terve meedia sekstiooni eemaldamiseks peida kõik meedia alamsektioonid</p>
       <div>
         <% let hideArr = [{name: 'hidden_img', txt: 'Pildid'}, {name: 'hidden_vid', txt: 'Videod'}, {name: 'hidden_snd', txt: 'Heli'}] %>
@@ -24,6 +24,44 @@
         <div>
           <button id="save-hide-sections" class="hover-pointer" disabled>Salvesta</button>
         </div>
+      </div>
+    </div>
+
+    <%# EDIT MAIN HEADING %>
+    <div class="edit-section my-3 txt-c">
+      <div class="est mb-1">
+        <label for="main-heading-input">Pealkiri
+          <input id="main-heading-input" type="text" name="heading" placeholder="" value="<%= media.heading %>">
+        </label>
+      </div>
+      <div class="eng mb-1">
+        <label for="main-heading-input-eng">Title
+          <input id="main-heading-input-eng" type="text" name="heading_eng" placeholder="" value="<%= media_eng.heading %>">
+        </label>
+      </div>
+      <div>
+        <label for="main-heading-pos">Asetus
+          <select name="heading_pos" id="main-heading-pos">
+            <option value="left"
+              <% if (media.heading_pos === 'left') { %>
+                selected
+              <% } %>
+            >Vasakul</option>
+            <option value="center"
+              <% if (media.heading_pos === 'center') { %>
+                selected
+              <% } %>
+            >Keskel</option>
+            <option value="right"
+              <% if (media.heading_pos === 'right') { %>
+                selected
+              <% } %>
+            >Paremal</option>
+          </select>
+        </label>
+      </div>
+      <div class="mt-2">
+        <button id="save-main-heading" class="hover-pointer">Salvesta</button>
       </div>
     </div>
     

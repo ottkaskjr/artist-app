@@ -10,6 +10,8 @@ document.getElementById('ajax-test').addEventListener('input', function () {
 document.getElementById('save-data').addEventListener('click', function () {
   let btn = this
   let heading = document.getElementById('saale-heading-input').value;
+  let heading_eng = document.getElementById('saale-heading-input-eng').value;
+  let heading_pos = document.getElementById('saale-heading-pos').value;
   let hidden = document.getElementById('hide-saale-section').checked;
   let textareas = document.querySelectorAll('.paragraph');
   let img = document.getElementById('img-input-data').getAttribute('data-name')
@@ -31,7 +33,7 @@ document.getElementById('save-data').addEventListener('click', function () {
   //console.log(paragraphs)
   //console.log(paragraphsENG)
   // post req
-  postData(btn, heading, hidden, paragraphs, paragraphsENG, img, img_pos)
+  postData(btn, heading, heading_eng, heading_pos, hidden, paragraphs, paragraphsENG, img, img_pos)
 })
 
 // TESTING CHECKBOX
@@ -48,9 +50,11 @@ document.getElementById('hide-about-section').addEventListener('change', functio
   formData.append('mydata', value); // appends a field
 */
 
-const postData = (btn, heading, hidden, paragraphs, paragraphsENG, img, img_pos) => {
+const postData = (btn, heading, heading_eng, heading_pos, hidden, paragraphs, paragraphsENG, img, img_pos) => {
   let json = JSON.stringify({
     heading,
+    heading_eng,
+    heading_pos,
     hidden,
     paragraphs,
     paragraphsENG,
@@ -65,8 +69,11 @@ const postData = (btn, heading, hidden, paragraphs, paragraphsENG, img, img_pos)
   xhr.onload = function (e) {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
-        console.log(xhr.responseText);
-        btn.innerHTML = 'Salvestatud';
+        let res = JSON.parse(xhr.responseText);
+        if (res.status === 'Saved') {
+          document.getElementById('main-heading').innerHTML = res.heading
+          btn.innerHTML = 'Salvesta';
+        }
       } else {
         console.error(xhr.statusText);
       }
@@ -117,3 +124,74 @@ const updateParagraphBtn = (className) => {
   }
 }
 updateParagraphBtn('remove-paragraph-btn')
+
+/////////////////////////////////////////////////
+///////////////// ADD PARAGRAPH /////////////////
+/////////////////////////////////////////////////
+
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
+}
+
+document.getElementById('add-paragraph').addEventListener('click', function () {
+  // parent element
+  let parContainer = document.getElementById('edit-saale-paragraphs')
+
+  // paragraph div
+  let paragraphDiv = document.createElement('DIV')
+  paragraphDiv.classList.add('paragraph-div', 'mt-3')
+
+  // create additional div and append to paragraphDiv
+  let div = document.createElement('DIV');
+  paragraphDiv.appendChild(div);
+
+  // eesti div + append to div
+  let divEst = document.createElement('DIV')
+  divEst.innerHTML = 'Eesti'
+  div.appendChild(divEst);
+
+  // eng div + append to div
+  let divEng = document.createElement('DIV')
+  divEng.innerHTML = 'English'
+  div.appendChild(divEng);
+
+  // textarea est + append to divEst
+  let textEst = document.createElement('TEXTAREA');
+  textEst.setAttribute('name', 'paragraph')
+  textEst.setAttribute('data-lang', 'est')
+  textEst.classList.add('paragraph')
+  textEst.setAttribute('rows', '10')
+  textEst.setAttribute('placeholder', 'Eestikeelne tekst')
+  let num1 = getRandomIntInclusive(100000000, 999999999)
+  textEst.setAttribute('id', 'paragraph-' + num1)
+  divEst.appendChild(textEst)
+
+  // textarea eng + append to divEng
+  let textEng = document.createElement('TEXTAREA');
+  textEng.setAttribute('name', 'paragraphENG')
+  textEng.setAttribute('data-lang', 'eng')
+  textEng.classList.add('paragraph')
+  textEng.setAttribute('rows', '10')
+  textEng.setAttribute('placeholder', 'Text in english')
+  let num2 = getRandomIntInclusive(100000000, 999999999)
+  textEng.setAttribute('id', 'paragraphENG-' + num2)
+  divEng.appendChild(textEng)
+
+  // btn div + append to paragraphDiv
+  let btnDiv = document.createElement('DIV');
+  paragraphDiv.appendChild(btnDiv)
+
+  // remBtn + append to btnDiv
+  let remBtn = document.createElement('BUTTON');
+  remBtn.classList.add('remove-paragraph-btn-' + num1, 'hover-pointer')
+  remBtn.innerHTML = 'Eemalda lõik'
+  btnDiv.appendChild(remBtn)
+
+  // append paragraphDiv to parContainer
+  parContainer.appendChild(paragraphDiv)
+
+  // update remBtn
+  updateParagraphBtn('remove-paragraph-btn-' + num1)
+})
