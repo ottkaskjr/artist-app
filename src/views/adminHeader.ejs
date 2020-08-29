@@ -150,7 +150,7 @@
           <div>
               <p>*Korrigeeri pildi heledust, et parandada teksti loetavust</p>
               
-              <div class="slidecontainer">
+              <div class="range-slider-l">
                 <label for="main-bg-overlay">Pildi heledus
                   <input type="range" min="-100" max="100" value="<%= header.bg.overlay %>" class="slider" id="title-overlay-slider">
                 </label>
@@ -181,7 +181,9 @@
       <% return item.heading %>
     <% } %>
     <% const checkModule = (moduleName, Module) => { %>
-      <% if (moduleName != Module) return 'd-none' %>
+      <% if (moduleName != Module) { %>
+        <% return 'd-none' %>
+      <% } %>
     <% } %>
     <div class="txt-c">
       <h1>Slaidid</h1>
@@ -204,27 +206,25 @@
       <div id="slides-container">
         <% for (let i = 0; i < header.slides.length; i++) { %>
           <%# SLIDE %>
-          <% if (header.slides[i].hidden === false) { %>
-          <div id="slide-container-<%= header.slides[i].module_id %>" class="slide-container edit-container">
-            <div id="slide-<%= header.slides[i].module_id %>" data-bg="<%= header.slides[i].bg %>" class="slide-div mt-1">
+          <div id="slide-container-<%= header.slides[i].slide_id %>" class="slide-container edit-container mb-2">
+            <div id="slide-<%= header.slides[i].slide_id %>" data-bg="<%= header.slides[i].bg %>" class="slide-div mt-1">
               <%# overlay %>
-              <div class="slide-overlay" style="background: #000; opacity: 0.5"></div>
-              <div class="slide-content abs-<%= header.slides[i].content_pos.charAt(0) %> txt-<%= header.slides[i].content_pos.charAt(0) %>">
+              <div id="slide-overlay-<%= header.slides[i].slide_id %>" class="slide-overlay" data-overlay="<%= header.slides[i].overlay %>"></div>
+              <div id="slide-content-<%= header.slides[i].slide_id %>" class="slide-content abs-<%= header.slides[i].content_pos.charAt(0) %> txt-<%= header.slides[i].content_pos.charAt(0) %>">
                 <%# content %>
                 <div class="slide-content-div">
                   <%# heading %>
                   <div>
-                    <p class="slide-heading slide-heading-<%= header.slides[i].module_id %>"><%= header.slides[i].heading %></p>
+                    <p id="slide-heading-<%= header.slides[i].slide_id %>" class="slide-heading"><%= header.slides[i].heading %></p>
                   </div>
                   <%# subheading %>
                   <div>
-                    <% for (let subH of header.slides[i].subHeadings) { %>
-                      <p class="slide-subheading slide-subheading-<%= header.slides[i].module_id %>"><%= subH %></p>
-                    <% } %>
+                    <p id="1-slide-subheading-<%= header.slides[i].slide_id %>" class="slide-subheading"><%= header.slides[i].subHeadings[0] %></p>
+                    <p id="2-slide-subheading-<%= header.slides[i].slide_id %>" class="slide-subheading"><%= header.slides[i].subHeadings[1] %></p>
                   </div>
                   <%# button %>
                   <div>
-                    <button class="slide-button slide-button-<%= header.slides[i].module_id %> hover-pointer"><%= header.slides[i].button %></button>
+                    <button class="slide-button slide-button-<%= header.slides[i].slide_id %> hover-pointer"><%= header.slides[i].button %></button>
                   </div>
                 </div>
                 
@@ -232,17 +232,36 @@
             </div>
 
             <div class="edit-slide-div my-2">
+              <%# OVERLAY %>
+              <div>
+                <p>*Korrigeeri pildi heledust, et parandada teksti loetavust</p>
+                
+                <div class="range-slider-m">
+                  <label for="slide-bg-overlay-<%= header.slides[i].slide_id %>">Pildi heledus
+                    <input type="range" min="-100" max="100" value="<%= header.slides[i].overlay %>" class="slider" id="slide-bg-overlay-<%= header.slides[i].slide_id %>">
+                  </label>
+                  <div>
+                    <p id="slider-output-<%= header.slides[i].slide_id %>"></p>
+                  </div>
+                </div>
+              </div>
+
               <%# MODULE %>
               <%# currently %>
               <div>
                 <p>Aktiivne: <span id="active-module-<%= header.slides[i].slide_id %>"><%= header.slides[i].module %></span> - <span id="active-item-<%= header.slides[i].slide_id %>"><%= header.slides[i].heading %></span></p>
               </div>
               <div>
-                <label for="select-module">Moodul</label>
-                <select class="hover-pointer" id="select-module" data-module="" name="module">
+                <label for="select-module-<%= header.slides[i].slide_id %>">Moodul</label>
+                <select class="hover-pointer select-module" id="select-module-<%= header.slides[i].slide_id %>" data-module="" name="module">
+                  
+                  <option value="" disabled
+                  <% if (header.slides[i].module === '') { %>
+                    selected
+                  <% } %>
+                  >Vali moodul</option>
                   <% for (let j = 0; j < modules_eng.length; j++) { %>
-                    <option data-module="<%= modules_eng[i] %>" value="<%= modules_eng[i] %>"
-                      <% console.log(header.slides[i].module,'qeogij') %>
+                    <option data-module="<%= modules_eng[j] %>" value="<%= modules_eng[j] %>"
                       <% if (modules_eng[j] === header.slides[i].module) { %>
                       selected
                       <% } %>
@@ -252,52 +271,164 @@
                 </select> 
 
                  <%# module items %>
-                <span id="concerts-items" class="<%= checkModule('concerts', header.slides[i].module) %>">
+                <span id="concerts-items-<%= header.slides[i].slide_id %>" class="concerts-items <%= checkModule('concerts', header.slides[i].module) %>" data-id="<%= header.slides[i].slide_id %>">
                   <label class="ml-1" for="select-concert">Kontsert:</label>
-                  <select class="hover-pointer" id="select-concert" name="module">
-                    <% for (let concert of concerts.concerts) { %>
-                      <option value=""
-                      <% if (concert.id === header.slides[i].module_id) { %>
+                  <select class="hover-pointer select-concert" id="select-concert-<%= header.slides[i].slide_id %>" name="module">
+                    <% for (let k = 0; k < concerts.concerts.length; k++) { %>
+                      <option value="" data-module-id="<%= concerts.concerts[k].id %>" data-module="concerts" data-slide-id="<%= header.slides[i].slide_id %>" data-img="<%= concerts.concerts[k].img %>" data-heading="<%= concerts.concerts[k].heading %>" data-heading-eng="<%= concerts_eng.concerts[k].heading %>" 
+                      <% if (concerts.concerts[k].id === header.slides[i].module_id) { %>
                         selected
                       <% } %>
-                      ><%= concert.heading %></option>
+                      ><%= concerts.concerts[k].heading %></option>
                     <% } %>
                   </select> 
                 </span>
 
-                <span id="news-items" class="<%= checkModule('news', header.slides[i].module) %>">
+                <span id="news-items-<%= header.slides[i].slide_id %>" class="news-items <%= checkModule('news', header.slides[i].module) %>" data-id="<%= header.slides[i].slide_id %>">
                   <label class="ml-1" for="select-article">Artikkel:</label>
-                  <select class="hover-pointer" id="select-article" name="module">
-                    <% for (let article of news.articles) { %>
-                      <option value=""
-                      <% if (article.id === header.slides[i].module_id) { %>
+                  <select class="hover-pointer select-article" id="select-article-<%= header.slides[i].slide_id %>" name="module">
+                    <% for (let k = 0; k < news.articles.length; k++) { %>
+                      <option value="" data-module-id="<%= news.articles[k].id %>" data-module="news" data-slide-id="<%= header.slides[i].slide_id %>" data-img="<%= news.articles[k].img %>" data-heading="<%= news.articles[k].heading %>" data-heading-eng="<%= news_eng.articles[k].heading %>"
+                      <% if (news.articles[k].id === header.slides[i].module_id) { %>
                         selected
                       <% } %>
-                      ><%= article.heading %></option>
+                      ><%= news.articles[k].heading %></option>
                     <% } %>
                   </select> 
                 </span>
                 
               </div>
 
-              <%# HEADING %>
+              <%# CONTENT POSITION %>
+              <div class="mt-2">
+                <label for="slide-content-pos-<%= header.slides[i].slide_id %>">Asetus
+                  <select data-value="<%= header.slides[i].content_pos %>" name="content_pos" class="hover-pointer" id="slide-content-pos-<%= header.slides[i].slide_id %>">
+                    <option value="left"
+                      <% if (header.slides[i].content_pos === 'left') { %>
+                        selected
+                      <% } %>
+                    >Vasakul</option>
+                    <option value="center"
+                      <% if (header.slides[i].content_pos === 'center') { %>
+                        selected
+                      <% } %>
+                    >Keskel</option>
+                    <option value="right"
+                      <% if (header.slides[i].content_pos === 'right') { %>
+                        selected
+                      <% } %>
+                    >Paremal</option>
+                  </select>
+                </label>
+              </div>
 
+              <%# HEADING %>
+              <div class="edit-section my-3">
+                <div class="est mb-1">
+                  <label for="slide-heading-input-<%= header.slides[i].slide_id %>">Pealkiri
+                    <input id="slide-heading-input-<%= header.slides[i].slide_id %>" type="text" name="heading" data-preview="heading-preview" placeholder="Pealkiri" value="<%= header.slides[i].heading %>">
+                  </label>
+                </div>
+                <div class="eng mb-1">
+                  <label for="slide-heading-input-<%= header.slides[i].slide_id %>-eng">Title
+                    <input id="slide-heading-input-<%= header.slides[i].slide_id %>-eng" type="text" name="heading_eng" placeholder="Heading" value="<%= header_eng.slides[i].heading %>">
+                  </label>
+                </div>
+              </div>
               <%# SUBHEADINGS %>
+              <div class="edit-section my-3">
+                <%# first subheading %>
+                <div class="est mb-1">
+                  <p>Alapealkirja eemaldamiseks kustuta väli</p> 
+                  <label for="1-slide-subheading-input-<%= header.slides[i].slide_id %>">Alapealkiri 1
+                    <input id="1-slide-subheading-input-<%= header.slides[i].slide_id %>" type="text" name="subheading" data-preview="subheading-preview" placeholder="Kava/esinejad/tsitaat jms" value="<%= header.slides[i].subHeadings[0] %>">
+                  </label>
+                </div>
+                <div class="eng mb-1">
+                  <label for="1-slide-subheading-input-<%= header.slides[i].slide_id %>-eng">Subheading 1
+                    <input id="1-slide-subheading-input-<%= header.slides[i].slide_id %>-eng" type="text" name="subheading_eng" placeholder="Program/performers/quote etc" value="<%= header_eng.slides[i].subHeadings[0] %>">
+                  </label>
+                </div>
+                <%# second subheading %>
+                <div class="est mt-2 mb-1">
+                  <label for="2-slide-subheading-input-<%= header.slides[i].slide_id %>">Alapealkiri 2
+                    <input id="2-slide-subheading-input-<%= header.slides[i].slide_id %>" type="text" name="subheading" data-preview="subheading-preview" placeholder="Kava/esinejad/tsitaat jms" value="<%= header.slides[i].subHeadings[1] %>">
+                  </label>
+                </div>
+                <div class="eng mb-1">
+                  <label for="2-slide-subheading-input-<%= header.slides[i].slide_id %>-eng">Subheading 2
+                    <input id="2-slide-subheading-input-<%= header.slides[i].slide_id %>-eng" type="text" name="subheading_eng" placeholder="Program/performers/quote etc" value="<%= header_eng.slides[i].subHeadings[1] %>">
+                  </label>
+                </div>
+              </div>
+
+              <%# TEXT SIZE %>
+              <div class="mb-2">
+                <label for="slide-text-size-<%= header.slides[i].slide_id %>">Teksti suurus
+                  <input name="text_size" type="number" class="number-input" id="slide-text-size-<%= header.slides[i].slide_id %>" min="50" max="200" value="<%= header.slides[i].text_size %>"> %
+                </label>
+              </div>
 
               <%# TEXT COLOR %>
+              <div class="mb-1">
+                <label for="slide-text-color-<%= header.slides[i].slide_id %>">Teksti värv
+                  <input name="text_color" type="color" class="hover-pointer" id="slide-text-color-<%= header.slides[i].slide_id %>" value="<%= header.slides[i].text_color %>">
+                </label>
+              </div>
 
-              <%# TEXT CONTAINER POSITION %>
-
-              <%# OVERLAY %>
+              <%# BUTTON %>
               
+              <div class="edit-section my-3">
+                <%# btn text %>
+                <div class="est mb-1">
+                  <label for="slide-btn-input-<%= header.slides[i].slide_id %>">Nupu tekst
+                    <input id="slide-btn-input-<%= header.slides[i].slide_id %>" type="text" name="button" data-preview="button-preview" placeholder="Loe lähemalt" value="<%= header.slides[i].button %>">
+                  </label>
+                </div>
+                <div class="eng mb-1">
+                  <label for="slide-btn-input-<%= header.slides[i].slide_id %>-eng">Button text
+                    <input id="slide-btn-input-<%= header.slides[i].slide_id %>-eng" type="text" name="button_eng" placeholder="Read more" value="<%= header_eng.slides[i].button %>">
+                  </label>
+                </div>
+                <%# btn text color %>
+                <div class="mb-1">
+                  <label for="slide-btn-color-<%= header.slides[i].slide_id %>">Nupu teksti värv
+                    <input name="button_color" type="color" class="hover-pointer" id="slide-btn-color-<%= header.slides[i].slide_id %>" value="<%= header.slides[i].button_color %>">
+                  </label>
+                </div>
+                <%# btn bg %>
+                <div class="mb-1">
+                  <label for="slide-btn-bg-<%= header.slides[i].slide_id %>">Nupu taust
+                    <input name="button_bg" type="color" class="hover-pointer" id="slide-btn-bg-<%= header.slides[i].slide_id %>" value="<%= header.slides[i].button_bg %>">
+                  </label>
+                </div>
+              </div>
+              
+              <%# SHOW/HIDE SLIDE %>
+              <div class="my-2 edit-section">
+                <label class="hover-pointer" id="hide-slide-<%= header.slides[i].slide_id %>-label" for="hide-slide-<%= header.slides[i].slide_id %>">Peida slaid
+                  <input type="checkbox" class="hover-pointer" name="hide" id="hide-slide-<%= header.slides[i].slide_id %>"
+                  <% if (header.slides[i].hidden === true) { %>
+                    checked
+                  <% } %>
+                  >
+                </label>
+              </div>
 
+
+              
+              <%# SAVE SLIDE %>
               <div class="mt-3">
-                <button data-module-id="<%= header.slides[i].module_id %>" data-id="<%= header.slides[i].slide_id %>" class="save-slide hover-pointer">Salvesta</button>
+                <button data-module-id="<%= header.slides[i].module_id %>" data-module="<%= header.slides[i].module %>" data-id="<%= header.slides[i].slide_id %>" data-img="<%= header.slides[i].bg %>"  id="save-slide-<%= header.slides[i].slide_id %>" class="save-slide hover-pointer">Salvesta</button>
+              </div>
+
+              <%# REMOVE SLIDE %>
+              <div class="mt-3">
+                <button data-id="<%= header.slides[i].slide_id %>" id="remove-slide-<%= header.slides[i].slide_id %>" class="remove-slide hover-pointer">Eemalda</button>
               </div>
             </div>
 
           </div>
-          <% } %>
         <% } %>
       </div>
     </div>
@@ -320,8 +451,9 @@
     </div>
   </div>
 
+<script src="/slider.js"></script>
 <script src="/adminHeader.js"></script>
 <script src="/adminSlides.js"></script>
 <script src="/pickImg.js"></script>
-<script src="/slider.js"></script>
+
 <%- include('../partials/adminFooter') %>

@@ -20,8 +20,11 @@
 
 <div id="document-wrapper"></div>
 
+<div class="overflow-wrapper">
+
+<div id="scroll-to-top" class="txt-c op-0"><div><a href="#navbar-div">&#10514;</a></div></div>
 <%# //////////// NAVBAR //////////// %>
-<div class="txt-c">
+<div id="navbar-div" class="txt-c">
   <%# NAVBAR L+ %>
   <div id="navbar-desk">
     <div class="navbar-brand"><a>Floridante</a></div>
@@ -85,38 +88,74 @@
       <% if (header.slides.length > 0) { %>
         <%# CAROUSEL %>
       <div class="carousel-div">
+          <div class="arrow-left">&#10094;</div>
+          <div class="arrow-right">&#10095;</div>
         <% for (let slide of header.slides) { %>
           <%# SLIDE %>
-          <div class="carousel-slide">
-            <div class="carousel-body">
-              <%# C-HEADING %>
-              <% if (slide.heading != '') { %>
-              <div class="carousel-heading"><%= slide.heading %></div>
-              <% } %>
-              <%# C-SUBHEADINGS %>
-              <% if (slide.subHeadings.length > 0) { %>
-                <% for (let subHeading of slide.subHeadings) { %>
-                  <div class="carousel-subheading"><%= subHeading %></div>
-                <% } %>
-              <% } %>
-              <%# C-PARAGRAPHS %>
-              <% if (slide.paragraphs.length > 0) { %>
-                <% for (let paragraph of slide.paragraphs) { %>
-                  <div class="carousel-paragraph"><%= paragraph %></div>
-                <% } %>
-              <% } %>
-              <%# C-BUTTON %>
-              <div class="carousel-btn"><a type="button"></a></div>
+          <div class="slide-parent-abs d-none">
+            <%# TEST %>
+            <div id="slide-<%= slide.slide_id %>" data-bg="<%= slide.bg %>" class="slide-div-home mt-1">
+              <%# overlay %>
+              <div id="slide-overlay-<%= slide.slide_id %>" class="slide-overlay" data-overlay="<%= slide.overlay %>"></div>
+              <div id="slide-content-<%= slide.slide_id %>" class="slide-content abs-<%= slide.content_pos.charAt(0) %> txt-<%= slide.content_pos.charAt(0) %>">
+                <%# content %>
+                <div class="slide-content-div" data-size="<%= slide.text_size %>" data-color="<%= slide.text_color %>">
+                  <%# heading %>
+                  <div>
+                    <p id="slide-heading-<%= slide.slide_id %>" class="slide-heading"><%= slide.heading %></p>
+                  </div>
+                  <%# subheading %>
+                  <div>
+                    <p id="1-slide-subheading-<%= slide.slide_id %>" class="slide-subheading"><%= slide.subHeadings[0] %></p>
+                    <p id="2-slide-subheading-<%= slide.slide_id %>" class="slide-subheading"><%= slide.subHeadings[1] %></p>
+                  </div>
+                  <%# button %>
+                  <div>
+                    <button data-color="<%= slide.button_color %>" data-bg="<%= slide.button_bg %>" class="slide-button slide-button-<%= slide.slide_id %> hover-pointer"><a href="#href-<%= slide.module_id %>"><%= slide.button %></a></button>
+                  </div>
+                </div>
+                
+              </div>
             </div>
           </div>
+
+
+
+
+
+
+
+
+
+            <!--
+            <%# OLD %>
+            <div class="carousel-body">
+              <%# C-HEADING %>
+              <%# if (slide.heading != '') { %>
+              <div class="carousel-heading"><%# slide.heading %></div>
+              <%# } %>
+              <%# C-SUBHEADINGS %>
+              <%# if (slide.subHeadings.length > 0) { %>
+                <%# for (let subHeading of slide.subHeadings) { %>
+                  <div class="carousel-subheading"><%# subHeading %></div>
+                <%# } %>
+              <%# } %>
+              <%# C-BUTTON %>
+              <div class="carousel-btn"><a type="button"></a></div>
+              -->
+            <%#</div>%>
+          
         <% } %>
         <%# CAROUSEL CONTROL %>
-        <div class="carousel-control">
-          <% for (let slide in header.slides) { %>
-            <div class="carousel-nav"></div>
+        <%# <div class="carousel-control-abs"> %>
+          
+        </div>
+        <div class="carousel-control mb-3">
+          <% for (let i = 0; i < header.slides.length; i++) { %>
+            <div data-slide="<%= i %>" class="carousel-nav"></div>
           <% } %>
         </div>
-      </div>
+      <%# </div> %>
       <% } %>
     <% } %>
   </div>
@@ -172,7 +211,7 @@
       <div class="concert">
         <%# CONCERT-HEADING %>
         <%# IMG (tee ilmselt tavaline kahest osast koosnev flex väiksem tekst ühel pool, suurem tekst teisel pool)%>
-        <h5><%= concert.heading %></h5>
+        <h5 id="href-<%= concert.id %>"><%= concert.heading %></h5>
         <%# CONCERT-SUBHEADINGS %>
         <% if (concert.subHeadings.length > 0) { %>
           <% for (let subHeading of concert.subHeadings) { %>
@@ -225,7 +264,7 @@
         <div class="article">
           <%# ARTICLE HEADING %>
           <div class="article-heading">
-            <h3><%= article.heading %></h3>
+            <h3 id="href-<%= article.id %>"><%= article.heading %></h3>
           </div>
           <%# ARTICLE QUOTES %>
           <% if (article.quotes.length > 0) { %>
@@ -423,8 +462,9 @@
   </div>
 
 
-
+<script src="/initCarousel.js"></script>
 <script src="/home.js"></script>
+</div> <%# overflow wrapper %>
 </div><%# document wrapper parent %>
 
 <%# include ../partials/footer %> <%- include('../partials/footer') %>

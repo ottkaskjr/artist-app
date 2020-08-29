@@ -54,6 +54,16 @@ const postData = (Data) => {
         if (res.status.includes('updated')) {
           btn.innerHTML = 'Salvesta';
         }
+
+        if (res.status.includes('created')) {
+          createSlide(res.slide.slide_id, res.slide.modules)
+          btn.innerHTML = 'Lisa slaid';
+        }
+
+        if (res.status.includes('removed')) {
+
+          document.getElementById('slide-container-' + res.slide_id).remove()
+        }
         // changing section hidden value
         /*
         if (res.status.includes('hidden')) {
@@ -133,9 +143,10 @@ const closeModal = (modal_id) => {
 //overlay.style.width = previewImgWidth.toString() + 'px';
 
 
-let overlay = document.getElementById('bg-div-overlay')
-const updateOverlay = () => {
+
+const updateOverlay = (overlay_id) => {
   
+  let overlay = document.getElementById(overlay_id)
   // OVERLAY OPACITY & BG COLOR
   let overlayVal = overlay.getAttribute('data-overlay')
   let overlayNum = parseInt(overlayVal)
@@ -198,7 +209,7 @@ const updatePreviewHeight = () => {
 }
 updatePreviewHeight();
 updateTxtPreview();
-updateOverlay();
+updateOverlay('bg-div-overlay');
 
 
 //overlay.style.transform = 'translateX(50%)'

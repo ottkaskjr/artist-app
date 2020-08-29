@@ -24,7 +24,7 @@ let transitionEndEventName = getTransitionEndEventName();
 
 
 // FADE IN WRAPPER
-wrapperDiv.classList.add('fadeIn')
+wrapperDiv.classList.add('fadeInWrapper')
 
 // DETECT WRAPPER TRANSITION END AND REMOVE IT
 wrapperDiv.addEventListener(transitionEndEventName, function () {
@@ -42,3 +42,31 @@ for (let i = 0; i < dataDismiss.length; i++) {
 }
 
 
+/////////// INIT SCROLLTOP ///////////
+// get document height
+let docHeight = document.body.clientHeight
+let scrollTopBtn = document.getElementById('scroll-to-top');
+
+window.addEventListener('scroll', function () {
+  let scrollTop = window.pageYOffset
+  if (scrollTop > docHeight*0.25) {
+    scrollTopBtn.style.display = 'block'
+    scrollTopBtn.classList.remove('op-0')
+    scrollTopBtn.classList.remove('fadeOut')
+    scrollTopBtn.classList.add('fadeIn')
+  } else {
+    /*scrollTopBtn.style.display = 'none'*/
+    scrollTopBtn.classList.add('fadeOut')
+    scrollTopBtn.classList.remove('fadeIn')
+  }
+});
+
+// DETECT SCROLL TO TOP TRANSITION END AND CHANGE DISPLAY
+scrollTopBtn.addEventListener(transitionEndEventName, function () {
+  // detect animation/transition end and display=none if btn has 'fadeOut' class
+  if (this.classList.contains('fadeOut')) {
+    this.style.display = 'none'
+  }
+  
+});
+/////////////////////////////////////////

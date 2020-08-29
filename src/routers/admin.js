@@ -305,18 +305,33 @@ router.get('/admin/images', async (req, res) => {
 // HEADER SECTION
 router.post('/admin/header', async (req, res) => {
   try {
-    console.log(req.body)
+    //console.log(req.body)
     let response;
     let section = req.body.section;
     // FIRST FETCH FILES
+    let promises;
     let HEADER = {}
-      // READ LOCALDB DATA
-      // Asynchronous read
-      // menu on kõigile sama
-      let readPromises = [
+    let CONCERTS = {}
+    let NEWS = {}
+    if (req.body.section === 'add-slide') {
+      promises = [
+        readData('header', HEADER),
+        readData('header', HEADER, 'eng'),
+        readData('concerts', CONCERTS),
+        readData('concerts', CONCERTS, 'eng'),
+        readData('news', NEWS),
+        readData('news', NEWS, 'eng')
+      ]
+    } else {
+      promises = [
         readData('header', HEADER),
         readData('header', HEADER, 'eng')
       ]
+    }
+      // READ LOCALDB DATA
+      // Asynchronous read
+      // menu on kõigile sama
+      let readPromises = promises
 
       Promise.all(readPromises).then(() => {
         
@@ -393,13 +408,166 @@ router.post('/admin/header', async (req, res) => {
         
         if (section === 'slide') {
 
+          for (let i = 0; i < HEADER.header.slides.length; i++) {
+            if (HEADER.header.slides[i].slide_id === req.body.slide_id) {
+              console.log(HEADER.header.slides[i].slide_id)
+              // module-id
+              HEADER.header.slides[i].module_id = req.body.module_id
+              HEADER.header_eng.slides[i].module_id = req.body.module_id
+              // module 
+              HEADER.header.slides[i].module = req.body.module
+              HEADER.header_eng.slides[i].module = req.body.module
+              // overlay
+              HEADER.header.slides[i].overlay = req.body.overlay
+              HEADER.header_eng.slides[i].overlay = req.body.overlay
+              // bg
+              HEADER.header.slides[i].bg = req.body.bg
+              HEADER.header_eng.slides[i].bg = req.body.bg
+              // content position
+              HEADER.header.slides[i].content_pos = req.body.content_pos
+              HEADER.header_eng.slides[i].content_pos = req.body.content_pos
+              // heading
+              HEADER.header.slides[i].heading = req.body.heading
+              HEADER.header_eng.slides[i].heading = req.body.heading_eng
+              // subheading
+              HEADER.header.slides[i].subHeadings = req.body.subHeadings
+              HEADER.header_eng.slides[i].subHeadings = req.body.subHeadings_eng
+              // text size
+              HEADER.header.slides[i].text_size = req.body.text_size
+              HEADER.header_eng.slides[i].text_size = req.body.text_size
+              // text color
+              HEADER.header.slides[i].text_color = req.body.text_color
+              HEADER.header_eng.slides[i].text_color = req.body.text_color
+              // button
+              HEADER.header.slides[i].button = req.body.button
+              HEADER.header_eng.slides[i].button = req.body.button_eng
+              // button color
+              HEADER.header.slides[i].button_color = req.body.button_color
+              HEADER.header_eng.slides[i].button_color = req.body.button_color
+              // button bg
+              HEADER.header.slides[i].button_bg = req.body.button_bg
+              HEADER.header_eng.slides[i].button_bg = req.body.button_bg
+              // hidden
+              HEADER.header.slides[i].hidden = req.body.hidden
+              HEADER.header_eng.slides[i].hidden = req.body.hidden
+            }
+          }
 
           response = {
             status: 'Slide updated'
           }
         }
         
+        // ADD NEW SLIDE
+        if (section === 'add-slide') {
+          let slide_id = uniqid()
+          // est
+          
+          HEADER.header.slides.unshift({
+            module_id: '',
+            slide_id,
+            module: '',
+            overlay: '0',
+            img: '',
+            img_pos: 'left',
+            content_pos: 'left',
+            heading: '',
+            subHeadings: ['',''],
+            text_size: '100',
+            text_color: '#000000',
+            button: 'Loe edasi',
+            button_color: '#000000',
+            button_bg: '#ffffff',
+            hidden: true,
+            bg: ''
+          })
 
+          // eng
+          HEADER.header_eng.slides.unshift({
+            module_id: '',
+            slide_id,
+            module: '',
+            overlay: '0',
+            img: '',
+            img_pos: 'left',
+            content_pos: 'left',
+            heading: '',
+            subHeadings: ['',''],
+            text_size: '100',
+            text_color: '#000000',
+            button: 'Read more',
+            button_color: '#000000',
+            button_bg: '#ffffff',
+            hidden: true,
+            bg: ''
+          })
+
+
+          // compile respone
+          // get all concert ids and headings
+          let concertItems = []
+          for (let i = 0; i < CONCERTS.concerts.concerts.length; i++) {
+            concertItems.push({
+              module_id: CONCERTS.concerts.concerts[i].id,
+              heading: CONCERTS.concerts.concerts[i].heading,
+              heading_eng: CONCERTS.concerts_eng.concerts[i].heading,
+              img: CONCERTS.concerts_eng.concerts[i].img
+            })
+          }
+          // get all news ids and headings
+          let newsItems = []
+          for (let i = 0; i < NEWS.news.articles.length; i++) {
+            newsItems.push({
+              module_id: NEWS.news.articles[i].id,
+              heading: NEWS.news.articles[i].heading,
+              heading_eng: NEWS.news_eng.articles[i].heading,
+              img: NEWS.news_eng.articles[i].img
+            })
+          }
+
+          response = {
+            status: 'Slide created',
+            slide: {
+              slide_id,
+              modules: [
+                {
+                  name: 'concerts',
+                  name_sing: 'concert',
+                  name_est_sing: 'Kontsert',
+                  name_est_plur: 'Kontserdid',
+                  name_eng_sing: 'Concert',
+                  name_eng_plur: 'Concerts',
+                  items: concertItems
+                },
+                {
+                  name: 'news',
+                  name_sing: 'article',
+                  name_est_sing: 'Artikkel',
+                  name_est_plur: 'Uudised',
+                  name_eng_sing: 'Article',
+                  name_eng_plur: 'News',
+                  items: newsItems
+                }
+              ]
+            }
+          }
+        }
+
+        if (section === 'remove-slide') {
+          const id = req.body.id;
+          // find and remove
+          for (let i = HEADER.header.slides.length - 1; i >= 0; i--) {
+            if (HEADER.header.slides[i].slide_id === req.body.slide_id) {
+              HEADER.header.slides.splice(i, 1)
+              HEADER.header_eng.slides.splice(i, 1)
+            }
+          }
+
+          response = {
+            status: 'Slide removed',
+            slide_id: req.body.slide_id
+          }
+        }
 
         ///////////////////////////////////////////
         //                CAROUSEL               //
