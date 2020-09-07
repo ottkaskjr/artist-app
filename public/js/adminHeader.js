@@ -68,7 +68,7 @@ const postData = (Data) => {
         /*
         if (res.status.includes('hidden')) {
           btn.innerHTML = 'Salvesta';
-          btn.classList.add('d-none')
+          btn.classList.add('d-none-admin')
           document.getElementById('hide-section').setAttribute('data-status', res.value)
         }
         */

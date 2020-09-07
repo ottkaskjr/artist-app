@@ -4,7 +4,7 @@
   <% const defaultText = (data) => { %>
     <% return data === '' ? 'Info puudub': data %>
   <% } %>
-<div id="main-container" class="container">
+<div id="main-container" class="container-admin">
     <div class="txt-c">
       <h1 id="main-heading"><%= concerts.heading %></h1>
     </div>
@@ -20,7 +20,7 @@
           >
         </label>
         <div>
-          <button id="hide-section-btn" class="d-none hover-pointer">Salvesta</button>
+          <button id="hide-section-btn" class="d-none-admin hover-pointer">Salvesta</button>
         </div>
         <p class="p-info"><i>*Eemaldab antud sektsiooni koduleheküljelt</i></p>
       </div>
@@ -88,13 +88,13 @@
                   <%# est %>
                   <% if (concerts.concerts[i].subHeadings.length > 0) { %>
                     <% for (let subHeading of concerts.concerts[i].subHeadings) { %>
-                      <p class="<%= concerts.concerts[i].id %>-subHeading d-none"><%= subHeading %></p>
+                      <p class="<%= concerts.concerts[i].id %>-subHeading d-none-admin"><%= subHeading %></p>
                     <% } %>
                   <% } %>
                   <%# eng %>
                   <% if (concerts_eng.concerts[i].subHeadings.length > 0) { %>
                     <% for (let subHeadingEng of concerts_eng.concerts[i].subHeadings) { %>
-                      <p class="<%= concerts_eng.concerts[i].id %>-subHeadingEng d-none"><%= subHeadingEng %></p>
+                      <p class="<%= concerts_eng.concerts[i].id %>-subHeadingEng d-none-admin"><%= subHeadingEng %></p>
                     <% } %>
                   <% } %>
                 </div>
@@ -111,7 +111,7 @@
                   <%# eng display:none %>
                   <% if (concerts_eng.concerts[i].program.length > 0) { %>
                     <% for (let piece of concerts_eng.concerts[i].program) { %>
-                      <p class="<%= concerts_eng.concerts[i].id %>-pieceEng d-none"><%= piece %></p>
+                      <p class="<%= concerts_eng.concerts[i].id %>-pieceEng d-none-admin"><%= piece %></p>
                     <% } %>
                   <% } %>
                 </div>
@@ -128,7 +128,7 @@
                   <%# eng display:none %>
                   <% if (concerts_eng.concerts[i].artists.length > 0) { %>
                     <% for (let artist of concerts_eng.concerts[i].artists) { %>
-                      <p class="<%= concerts_eng.concerts[i].id %>-artistEng d-none"><%= artist %></p>
+                      <p class="<%= concerts_eng.concerts[i].id %>-artistEng d-none-admin"><%= artist %></p>
                     <% } %>
                   <% } %>
                 </div>
@@ -144,7 +144,7 @@
                   <%# eng display:none %>
                   <% if (concerts_eng.concerts[i].loc_date.length > 0) { %>
                     <% for (let place of concerts_eng.concerts[i].loc_date) { %>
-                      <p class="<%= concerts_eng.concerts[i].id %>-loc-date-eng d-none"><span class="<%= concerts_eng.concerts[i].id %>-locEng"><%= place.location %></span>&emsp;<span class="<%= concerts_eng.concerts[i].id %>-dateEng" placehoder="mm:hh dd.mm.yy"><%= place.date %></span></p>
+                      <p class="<%= concerts_eng.concerts[i].id %>-loc-date-eng d-none-admin"><span class="<%= concerts_eng.concerts[i].id %>-locEng"><%= place.location %></span>&emsp;<span class="<%= concerts_eng.concerts[i].id %>-dateEng" placehoder="mm:hh dd.mm.yy"><%= place.date %></span></p>
                     <% } %>
                   <% } %>
                 </div>
@@ -200,7 +200,7 @@
                   <label class="radio-label mr-2" for="pos-left">Vasakul<input class="radio" id="pos-left" name="img_pos" value="left" type="radio"></label>
                   <label class="radio-label ml-2" for="pos-right">Paremal<input class="radio" id="pos-right" name="img_pos" value="right" type="radio"></label>
               </div>
-              <div id="no-preview-img" class="d-none"><p>Pilt puudub</p></div>
+              <div id="no-preview-img" class="d-none-admin"><p>Pilt puudub</p></div>
             <div>
               <button id="open-img-modal" class="mt-1 hover-pointer">Vali pilt</button>
             </div>

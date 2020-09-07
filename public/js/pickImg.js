@@ -90,8 +90,8 @@ const imgSelectionEvents = () => {
 
         // remove img preview
         if (noImgMes != null) { // adminHeader
-          if (!imgPreview.classList.contains('d-none')) {
-            imgPreview.classList.add('d-none')
+          if (!imgPreview.classList.contains('d-none-admin')) {
+            imgPreview.classList.add('d-none-admin')
           }
           imgPreview.setAttribute('src', '')
         } else {
@@ -107,16 +107,16 @@ const imgSelectionEvents = () => {
 
         // show no-img-preview message
         if (noImgMes != null) {
-          if (noImgMes.classList.contains('d-none')) {
-            noImgMes.classList.remove('d-none')
+          if (noImgMes.classList.contains('d-none-admin')) {
+            noImgMes.classList.remove('d-none-admin')
           }
         }
         
 
         // hide img position radio
         if (imgPosDiv != null) {
-          if (!imgPosDiv.classList.contains('d-none')) {
-            imgPosDiv.classList.add('d-none')
+          if (!imgPosDiv.classList.contains('d-none-admin')) {
+            imgPosDiv.classList.add('d-none-admin')
           }
         }
         
@@ -140,8 +140,8 @@ const imgSelectionEvents = () => {
         
         // set img preview
         if (noImgMes != null) { // adminHeader
-          if (imgPreview.classList.contains('d-none')) {
-            imgPreview.classList.remove('d-none')
+          if (imgPreview.classList.contains('d-none-admin')) {
+            imgPreview.classList.remove('d-none-admin')
           }
         } else if (imgPreview.style.visibility === 'hidden') {  // adminHeader
           console.log('visible')
@@ -154,15 +154,15 @@ const imgSelectionEvents = () => {
         
         // hide no-img-preview message
         if (noImgMes != null) {
-          if (!noImgMes.classList.contains('d-none')) {
-            noImgMes.classList.add('d-none')
+          if (!noImgMes.classList.contains('d-none-admin')) {
+            noImgMes.classList.add('d-none-admin')
           }
         }
 
         // show img position radio
         if (imgPosDiv != null) {
-          if (imgPosDiv.classList.contains('d-none')) {
-            imgPosDiv.classList.remove('d-none')
+          if (imgPosDiv.classList.contains('d-none-admin')) {
+            imgPosDiv.classList.remove('d-none-admin')
           }
         }
         

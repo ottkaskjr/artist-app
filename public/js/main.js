@@ -70,3 +70,52 @@ scrollTopBtn.addEventListener(transitionEndEventName, function () {
   
 });
 /////////////////////////////////////////
+
+////////// OPEN IMAGE SLIDER ////////////
+let imgThumbs = document.getElementsByClassName('img-thumbnail')
+
+for (let i = 0; i < imgThumbs.length; i++) {
+  imgThumbs[i].addEventListener('click', function (e) {
+    disableScroll();
+
+    e.preventDefault()
+    let imgID = this.getAttribute('data-id')
+    openImgSlider(imgID)
+    //console.log(this.href)
+    
+  })
+}
+
+////////// CLOSE IMAGE SLIDER ////////////
+let imgCloseBtn = document.getElementById('close-img-slider')
+
+imgCloseBtn.addEventListener('click', function () {
+    //e.preventDefault()
+    enableScroll()
+    closeImgSlider()
+    //console.log(this.href)
+    // get both img-slider-bg and img-slider-fixed by their .fade-out classes and remove all the animations
+    let fadeOut = document.getElementsByClassName('fade-out');
+    for (let el of fadeOut) {
+      el.addEventListener('animationend', function() {
+        // this check ensures we run the code only on closing the slider
+        if (this.classList.contains('fade-out')) {
+          this.classList.add('d-none')
+          this.classList.remove('fade-in-img-slider-content')
+          this.classList.remove('fade-in-img-slider-bg')
+          this.classList.remove('fade-out')
+        }
+      }, false);
+    }
+    
+})
+/*
+el.addEventListener("animationend", function() {}, false);
+
+imgSliderFixed.addEventListener(transitionEndEventName, function () {
+  // detect animation/transition end and display=none if btn has 'fadeOut' class
+  console.log('end')
+  //this.style.display = 'none'
+  
+  
+});*/

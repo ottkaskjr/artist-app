@@ -50,29 +50,6 @@ for (let slide of slideDivs) {
   btn.style.background = btnBg
 }
 
-//////////// FIX DIVS WITH FLOAT IMAGES ////////////
-let sectionImgs = document.querySelectorAll('.section-img');
-
-setTimeout(() => {
-  for (let img of sectionImgs) {
-    let parentHeight = img.closest('.parent-container').offsetHeight;
-    //img.closest('.parent-container').style.minHeight = img.offsetHeight + 'px'
-    
-    if ((img.offsetHeight + 100) > parentHeight) {
-      /*
-      let stretch = parentHeight + (img.offsetHeight - parentHeight);
-      let buffer = 100
-      stretch += buffer;
-      console.log(stretch)
-      */
-      let fix = img.offsetHeight + 200
-      img.closest('.parent-container').style.minHeight = fix + 'px'
-    }
-    //console.log(parentHeight)
-    //console.log(img.offsetHeight)
-    
-  }
-}, 500)
 
 
 // display soundcloud iframes
@@ -82,6 +59,8 @@ let soundIframes = document.getElementsByClassName('sound-iframe')
 for (let sound of soundIframes) {
   sound.innerHTML += sound.getAttribute('data-embed')
   sound.getElementsByTagName('iframe')[0].setAttribute('height', '150px')
+  // HIDE SOUNDCLOUR IFRAME ELEMENTS
+  sound.getElementsByTagName('iframe')[0].classList.add('d-none')
 }
 
 
@@ -89,4 +68,26 @@ for (let sound of soundIframes) {
 /////////// INIT CAROUSEL ///////////
 initCarousel('slide-parent-abs', 'carousel-nav')
 
+
+/////////// INIT IMAGE SLIDE ///////////
+initImgSlider()
+
+
+
+//////////// TOGGLE MOBILE NAVBAR /////////
+let navToggler = document.getElementById('navbar-toggler');
+let mobileDropdown = document.getElementById('navbar-mobile-dropdown')
+navToggler.addEventListener('click', function () {
+  if (mobileDropdown.classList.contains('close-nav')) {
+    //mobileDropdown.classList.add('nav-open')
+    mobileDropdown.classList.add('open-nav')
+    mobileDropdown.classList.remove('close-nav')
+    mobileDropdown.classList.remove('nav-closed')
+  } else {
+    mobileDropdown.classList.add('close-nav')
+    mobileDropdown.classList.remove('open-nav')
+    //mobileDropdown.classList.add('nav-closed')
+    //mobileDropdown.classList.remove('nav-open')
+  }
+})
 

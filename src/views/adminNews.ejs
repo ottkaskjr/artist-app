@@ -4,7 +4,7 @@
   <% const defaultText = (data) => { %>
     <% return data === '' ? 'Info puudub': data %>
   <% } %>
-<div id="main-container" class="container">
+<div id="main-container" class="container-admin">
     <div class="txt-c">
       <h1><h1 id="main-heading"><%= news.heading %></h1></h1>
     </div>
@@ -21,7 +21,7 @@
           >
         </label>
         <div>
-          <button id="hide-section-btn" class="d-none hover-pointer">Salvesta</button>
+          <button id="hide-section-btn" class="d-none-admin hover-pointer">Salvesta</button>
         </div>
         <p class="p-info"><i>*Eemaldab antud sektsiooni koduleheküljelt</i></p>
       </div>
@@ -90,13 +90,13 @@
                   <%# est %>
                   <% if (news.articles[i].subHeadings.length > 0) { %>
                     <% for (let subHeading of news.articles[i].subHeadings) { %>
-                      <p class="<%= news.articles[i].id %>-subHeading d-none"><%= subHeading %></p>
+                      <p class="<%= news.articles[i].id %>-subHeading d-none-admin"><%= subHeading %></p>
                     <% } %>
                   <% } %>
                   <%# eng %>
                   <% if (news_eng.articles[i].subHeadings.length > 0) { %>
                     <% for (let subHeadingEng of news_eng.articles[i].subHeadings) { %>
-                      <p class="<%= news_eng.articles[i].id %>-subHeadingEng d-none"><%= subHeadingEng %></p>
+                      <p class="<%= news_eng.articles[i].id %>-subHeadingEng d-none-admin"><%= subHeadingEng %></p>
                     <% } %>
                   <% } %>
 
@@ -104,13 +104,13 @@
                   <%# est %>
                   <% if (news.articles[i].quotes.length > 0) { %>
                     <% for (let quote of news.articles[i].quotes) { %>
-                      <p class="<%= news.articles[i].id %>-quoteObj d-none"><span class="<%= news.articles[i].id %>-quote"><%= quote.quote %></span>&emsp;<span class="<%= news.articles[i].id %>-by" placehoder="nimi"><%= quote.by %></span></p>
+                      <p class="<%= news.articles[i].id %>-quoteObj d-none-admin"><span class="<%= news.articles[i].id %>-quote"><%= quote.quote %></span>&emsp;<span class="<%= news.articles[i].id %>-by" placehoder="nimi"><%= quote.by %></span></p>
                     <% } %>
                   <% } %>
                   <%# eng display:none %>
                   <% if (news_eng.articles[i].quotes.length > 0) { %>
                     <% for (let quote of news_eng.articles[i].quotes) { %>
-                      <p class="<%= news_eng.articles[i].id %>-quoteObjEng d-none"><span class="<%= news_eng.articles[i].id %>-quoteEng"><%= quote.quote %></span>&emsp;<span class="<%= news_eng.articles[i].id %>-byEng" placehoder="by"><%= quote.by %></span></p>
+                      <p class="<%= news_eng.articles[i].id %>-quoteObjEng d-none-admin"><span class="<%= news_eng.articles[i].id %>-quoteEng"><%= quote.quote %></span>&emsp;<span class="<%= news_eng.articles[i].id %>-byEng" placehoder="by"><%= quote.by %></span></p>
                     <% } %>
                   <% } %>
 
@@ -118,13 +118,13 @@
                   <%# est %>
                   <% if (news.articles[i].paragraphs.length > 0) { %>
                     <% for (let paragraph of news.articles[i].paragraphs) { %>
-                      <p class="<%= news.articles[i].id %>-paragraph d-none"><%= paragraph %></p>
+                      <p class="<%= news.articles[i].id %>-paragraph d-none-admin"><%= paragraph %></p>
                     <% } %>
                   <% } %>
                   <%# eng %>
                   <% if (news_eng.articles[i].paragraphs.length > 0) { %>
                     <% for (let paragraphEng of news_eng.articles[i].paragraphs) { %>
-                      <p class="<%= news_eng.articles[i].id %>-paragraphEng d-none"><%= paragraphEng %></p>
+                      <p class="<%= news_eng.articles[i].id %>-paragraphEng d-none-admin"><%= paragraphEng %></p>
                     <% } %>
                   <% } %>
                 </div>
@@ -146,7 +146,7 @@
                   <%# eng display:none %>
                   <% if (news_eng.articles[i].sources.length > 0) { %>
                     <% for (let sourceEng of news_eng.articles[i].sources) { %>
-                      <p class="<%= news_eng.articles[i].id %>-sourceEng d-none"><%= sourceEng %></p>
+                      <p class="<%= news_eng.articles[i].id %>-sourceEng d-none-admin"><%= sourceEng %></p>
                     <% } %>
                   <% } %>
                 </div>
@@ -206,7 +206,7 @@
                   <label class="radio-label mr-2" for="pos-left">Vasakul<input class="radio" id="pos-left" name="img_pos" value="left" type="radio"></label>
                   <label class="radio-label ml-2" for="pos-right">Paremal<input class="radio" id="pos-right" name="img_pos" value="right" type="radio"></label>
               </div>
-              <div id="no-preview-img" class="d-none"><p>Pilt puudub</p></div>
+              <div id="no-preview-img" class="d-none-admin"><p>Pilt puudub</p></div>
             <div>
               <button id="open-img-modal" class="mt-1 hover-pointer">Vali pilt</button>
             </div>

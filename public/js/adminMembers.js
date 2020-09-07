@@ -118,9 +118,9 @@ const updateOpenEditModalBtn = (editBtns) => {
       // img
       document.getElementById('img-input-data').setAttribute('data-name', img)
       if (img != '') {
-        document.getElementById('about-img-preview').classList.remove('d-none')
-        document.getElementById('img-position-div').classList.remove('d-none')
-        document.getElementById('no-preview-img').classList.add('d-none')
+        document.getElementById('about-img-preview').classList.remove('d-none-admin')
+        document.getElementById('img-position-div').classList.remove('d-none-admin')
+        document.getElementById('no-preview-img').classList.add('d-none-admin')
         document.getElementById('about-img-preview').setAttribute('src', '/' + img)
       } 
       document.getElementById('pos-' + img_pos.trim()).checked = true;
@@ -165,11 +165,11 @@ const emptyEditModal = () => {
   document.getElementById('about-img-preview').setAttribute('src', '')
   let imgArr = ['about-img-preview', 'img-position-div']
   for (let i of imgArr) {
-    if (!document.getElementById(i).classList.contains('d-none')) {
-      document.getElementById(i).classList.add('d-none')
+    if (!document.getElementById(i).classList.contains('d-none-admin')) {
+      document.getElementById(i).classList.add('d-none-admin')
     }
   }
-  document.getElementById('no-preview-img').classList.remove('d-none')
+  document.getElementById('no-preview-img').classList.remove('d-none-admin')
 }
 
 ///// UPDATE EDIT MODAL BTN EVENTS //////
@@ -437,7 +437,7 @@ const postData = (Data) => {
         // changing section hidden value
         if (res.status.includes('hidden')) {
           btn.innerHTML = 'Salvesta';
-          btn.classList.add('d-none')
+          btn.classList.add('d-none-admin')
           document.getElementById('hide-section').setAttribute('data-status', res.value)
         }
         // creating a new
@@ -482,26 +482,26 @@ document.getElementById('hide-section').addEventListener('click', function () {
   
   let status = this.getAttribute('data-status') === 'true' ? true : false;
 
-  // switch d-none from save btn
+  // switch d-none-admin from save btn
   if (status === false) {
     if (status != this.checked) {
-      if (saveBtb.classList.contains('d-none')) {
-        saveBtb.classList.remove('d-none')
+      if (saveBtb.classList.contains('d-none-admin')) {
+        saveBtb.classList.remove('d-none-admin')
       }
     } else {
-      if (!saveBtb.classList.contains('d-none')) {
-        saveBtb.classList.add('d-none')
+      if (!saveBtb.classList.contains('d-none-admin')) {
+        saveBtb.classList.add('d-none-admin')
       }
     }
   } else {
     console.log('here')
     if (status === this.checked) {
-      if (!saveBtb.classList.contains('d-none')) {
-        saveBtb.classList.add('d-none')
+      if (!saveBtb.classList.contains('d-none-admin')) {
+        saveBtb.classList.add('d-none-admin')
       }
     } else {
-      if (saveBtb.classList.contains('d-none')) {
-        saveBtb.classList.remove('d-none')
+      if (saveBtb.classList.contains('d-none-admin')) {
+        saveBtb.classList.remove('d-none-admin')
       }
     }
   }

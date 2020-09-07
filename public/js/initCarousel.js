@@ -1,5 +1,8 @@
 let currentIndex = 0;
-let spd = 40
+console.log(window.innerWidth)
+let spd = window.innerWidth/28
+let minSpd = 1
+let interval = 4;
 // Boolean for preventing slide change during animation
 let canChangeSlide = true;
 
@@ -91,7 +94,7 @@ const initBottomControls = (slideArray, Navs) => {
   
   
 //}
-
+// PROOVI IKKAGI TEHA ANIMATSIOONIGA, TEHES SLAIDID TERVE EKRAANI LAIUSEKS JA KASUTADES PUNKTIDEKS -100vw +100vw jne
 const leftToRight = (spd, slide, otherSlide, newSlide, newNav, newIndx) => {
   document.getElementsByClassName('current-nav')[0].classList.remove('current-nav')
   
@@ -110,7 +113,7 @@ const leftToRight = (spd, slide, otherSlide, newSlide, newNav, newIndx) => {
   slide.style.left = pos + 'px';
   //slide.classList.add('slide-left-to-right')
   let speed = spd;
-  let id = setInterval(frame, 10);
+  let id = setInterval(frame, interval);
   function frame() {
     if (pos >= 0) {
       slide.style.left = '0px';
@@ -125,8 +128,8 @@ const leftToRight = (spd, slide, otherSlide, newSlide, newNav, newIndx) => {
       //elem.style.top = pos + 'px';
       slide.style.left = pos + 'px';
       otherSlide.style.left = otherPos + 'px';
-      if (speed > 1) {
-        speed = speed * 0.97
+      if (speed > minSpd) {
+        speed = speed * 0.98
       }
     }
   }
@@ -151,7 +154,7 @@ const RightToLeft = (spd, slide, otherSlide, newSlide, newNav, newIndx) => {
   slide.style.left = pos + 'px';
   //slide.classList.add('slide-left-to-right')
   let speed = spd;
-  let id = setInterval(frame, 10);
+  let id = setInterval(frame, interval);
   function frame() {
     if (pos <= 0) {
       slide.style.left = '0px';
@@ -166,8 +169,9 @@ const RightToLeft = (spd, slide, otherSlide, newSlide, newNav, newIndx) => {
       //elem.style.top = pos + 'px';
       slide.style.left = pos + 'px';
       otherSlide.style.left = otherPos + 'px';
-      if (speed > 1) {
-        speed = speed * 0.97
+
+      if (speed > minSpd) {
+        speed = speed * 0.98
       }
     }
   }
@@ -197,7 +201,6 @@ const initLeftArrow = (className) => {
 // right arrow
 const initRightArrow = (className) => {
   document.getElementsByClassName(className)[0].addEventListener('click', function () {
-    console.log('oehgo')
     if (canChangeSlide === true) {
       //console.log(currentIndex)
       //console.log(slidesLength)

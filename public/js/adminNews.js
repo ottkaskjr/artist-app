@@ -163,9 +163,9 @@ const updateOpenEditModalBtn = (editBtns) => {
       // img
       document.getElementById('img-input-data').setAttribute('data-name', img)
       if (img != '') {
-        document.getElementById('about-img-preview').classList.remove('d-none')
-        document.getElementById('img-position-div').classList.remove('d-none')
-        document.getElementById('no-preview-img').classList.add('d-none')
+        document.getElementById('about-img-preview').classList.remove('d-none-admin')
+        document.getElementById('img-position-div').classList.remove('d-none-admin')
+        document.getElementById('no-preview-img').classList.add('d-none-admin')
         document.getElementById('about-img-preview').setAttribute('src', '/' + img)
       } 
       document.getElementById('pos-' + img_pos.trim()).checked = true;
@@ -221,11 +221,11 @@ const emptyEditModal = () => {
   document.getElementById('about-img-preview').setAttribute('src', '')
   let imgArr = ['about-img-preview', 'img-position-div']
   for (let i of imgArr) {
-    if (!document.getElementById(i).classList.contains('d-none')) {
-      document.getElementById(i).classList.add('d-none')
+    if (!document.getElementById(i).classList.contains('d-none-admin')) {
+      document.getElementById(i).classList.add('d-none-admin')
     }
   }
-  document.getElementById('no-preview-img').classList.remove('d-none')
+  document.getElementById('no-preview-img').classList.remove('d-none-admin')
 }
 
 ///// UPDATE EDIT MODAL BTN EVENTS //////
@@ -497,7 +497,7 @@ const postData = (Data) => {
         // changing section hidden value
         if (res.status.includes('hidden')) {
           btn.innerHTML = 'Salvesta';
-          btn.classList.add('d-none')
+          btn.classList.add('d-none-admin')
           document.getElementById('hide-section').setAttribute('data-status', res.value)
         }
         // creating a new
@@ -542,26 +542,26 @@ document.getElementById('hide-section').addEventListener('click', function () {
   
   let status = this.getAttribute('data-status') === 'true' ? true : false;
 
-  // switch d-none from save btn
+  // switch d-none-admin from save btn
   if (status === false) {
     if (status != this.checked) {
-      if (saveBtb.classList.contains('d-none')) {
-        saveBtb.classList.remove('d-none')
+      if (saveBtb.classList.contains('d-none-admin')) {
+        saveBtb.classList.remove('d-none-admin')
       }
     } else {
-      if (!saveBtb.classList.contains('d-none')) {
-        saveBtb.classList.add('d-none')
+      if (!saveBtb.classList.contains('d-none-admin')) {
+        saveBtb.classList.add('d-none-admin')
       }
     }
   } else {
     console.log('here')
     if (status === this.checked) {
-      if (!saveBtb.classList.contains('d-none')) {
-        saveBtb.classList.add('d-none')
+      if (!saveBtb.classList.contains('d-none-admin')) {
+        saveBtb.classList.add('d-none-admin')
       }
     } else {
-      if (saveBtb.classList.contains('d-none')) {
-        saveBtb.classList.remove('d-none')
+      if (saveBtb.classList.contains('d-none-admin')) {
+        saveBtb.classList.remove('d-none-admin')
       }
     }
   }
@@ -768,30 +768,30 @@ updateSectionPreDiv = (id, articleEst, articleEng) => {
   heading_subHeadings.innerHTML = ''
   heading_subHeadings.innerHTML += "<p>" + defaultText(articleEst.heading) + "</p>"
   for (let subh of articleEst.subHeadings) {
-    heading_subHeadings.innerHTML += "<p class='" + articleEst.id + "-subHeading d-none'>" + subh + "</p>"
+    heading_subHeadings.innerHTML += "<p class='" + articleEst.id + "-subHeading d-none-admin'>" + subh + "</p>"
   }
   for (let subh_eng of articleEng.subHeadings) {
-    heading_subHeadings.innerHTML += "<p class='" + articleEst.id + "-subHeadingEng d-none'>" + subh_eng + "</p>"
+    heading_subHeadings.innerHTML += "<p class='" + articleEst.id + "-subHeadingEng d-none-admin'>" + subh_eng + "</p>"
   }
 
   // QUOTES
   
   if (articleEst.quotes.length > 0) {
     for (let obj of articleEst.quotes) {
-      heading_subHeadings.innerHTML += "<p class='" + articleEst.id + "-quoteObj d-none'><span class='" + articleEst.id + "-quote'>" + obj.quote + "</span>&emsp;<span class='" + articleEst.id + "-by'>" + obj.by + "</span></p>"
+      heading_subHeadings.innerHTML += "<p class='" + articleEst.id + "-quoteObj d-none-admin'><span class='" + articleEst.id + "-quote'>" + obj.quote + "</span>&emsp;<span class='" + articleEst.id + "-by'>" + obj.by + "</span></p>"
     }
     for (let obj_eng of articleEng.quotes) {
-      heading_subHeadings.innerHTML += "<p class='" + articleEst.id + "-quoteObjEng d-none'><span class='" + articleEst.id + "-quoteEng'>" + obj_eng.quote + "</span>&emsp;<span class='" + articleEst.id + "-byEng'>" + obj_eng.by + "</span></p>"
+      heading_subHeadings.innerHTML += "<p class='" + articleEst.id + "-quoteObjEng d-none-admin'><span class='" + articleEst.id + "-quoteEng'>" + obj_eng.quote + "</span>&emsp;<span class='" + articleEst.id + "-byEng'>" + obj_eng.by + "</span></p>"
     }
   }
 
   // PARAGRAPHS
 
   for (let paragraph of articleEst.paragraphs) {
-    heading_subHeadings.innerHTML += "<p class='" + articleEst.id + "-paragraph d-none'>" + paragraph + "</p>"
+    heading_subHeadings.innerHTML += "<p class='" + articleEst.id + "-paragraph d-none-admin'>" + paragraph + "</p>"
   }
   for (let paragraph_eng of articleEng.paragraphs) {
-    heading_subHeadings.innerHTML += "<p class='" + articleEst.id + "-paragraphEng d-none'>" + paragraph_eng + "</p>"
+    heading_subHeadings.innerHTML += "<p class='" + articleEst.id + "-paragraphEng d-none-admin'>" + paragraph_eng + "</p>"
   }
   
   // AUTHOR

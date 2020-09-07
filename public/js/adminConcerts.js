@@ -182,9 +182,9 @@ const updateOpenEditModalBtn = (editBtns) => {
       // img
       document.getElementById('img-input-data').setAttribute('data-name', img)
       if (img != '') {
-        document.getElementById('about-img-preview').classList.remove('d-none')
-        document.getElementById('img-position-div').classList.remove('d-none')
-        document.getElementById('no-preview-img').classList.add('d-none')
+        document.getElementById('about-img-preview').classList.remove('d-none-admin')
+        document.getElementById('img-position-div').classList.remove('d-none-admin')
+        document.getElementById('no-preview-img').classList.add('d-none-admin')
         document.getElementById('about-img-preview').setAttribute('src', '/' + img)
       } 
       document.getElementById('pos-' + img_pos.trim()).checked = true;
@@ -230,11 +230,11 @@ const emptyEditModal = () => {
   document.getElementById('about-img-preview').setAttribute('src', '')
   let imgArr = ['about-img-preview', 'img-position-div']
   for (let i of imgArr) {
-    if (!document.getElementById(i).classList.contains('d-none')) {
-      document.getElementById(i).classList.add('d-none')
+    if (!document.getElementById(i).classList.contains('d-none-admin')) {
+      document.getElementById(i).classList.add('d-none-admin')
     }
   }
-  document.getElementById('no-preview-img').classList.remove('d-none')
+  document.getElementById('no-preview-img').classList.remove('d-none-admin')
 }
 
 ///// UPDATE EDIT MODAL BTN EVENTS //////
@@ -447,7 +447,7 @@ const postData = (Data) => {
         // changing section hidden value
         if (res.status.includes('hidden')) {
           btn.innerHTML = 'Salvesta';
-          btn.classList.add('d-none')
+          btn.classList.add('d-none-admin')
           document.getElementById('hide-section').setAttribute('data-status', res.value)
         }
         // creating a new
@@ -492,26 +492,26 @@ document.getElementById('hide-section').addEventListener('click', function () {
   
   
   let status = this.getAttribute('data-status') === 'true' ? true : false;
-  // switch d-none from save btn
+  // switch d-none-admin from save btn
   if (status === false) {
     if (status != this.checked) {
-      if (saveBtb.classList.contains('d-none')) {
-        saveBtb.classList.remove('d-none')
+      if (saveBtb.classList.contains('d-none-admin')) {
+        saveBtb.classList.remove('d-none-admin')
       }
     } else {
-      if (!saveBtb.classList.contains('d-none')) {
-        saveBtb.classList.add('d-none')
+      if (!saveBtb.classList.contains('d-none-admin')) {
+        saveBtb.classList.add('d-none-admin')
       }
     }
   } else {
     console.log('here')
     if (status === this.checked) {
-      if (!saveBtb.classList.contains('d-none')) {
-        saveBtb.classList.add('d-none')
+      if (!saveBtb.classList.contains('d-none-admin')) {
+        saveBtb.classList.add('d-none-admin')
       }
     } else {
-      if (saveBtb.classList.contains('d-none')) {
-        saveBtb.classList.remove('d-none')
+      if (saveBtb.classList.contains('d-none-admin')) {
+        saveBtb.classList.remove('d-none-admin')
       }
     }
   }
@@ -721,10 +721,10 @@ updateSectionPreDiv = (id, concertEst, concertEng) => {
   heading_subHeadings.innerHTML = ''
   heading_subHeadings.innerHTML += "<p>" + defaultText(concertEst.heading) + "</p>"
   for (let subh of concertEst.subHeadings) {
-    heading_subHeadings.innerHTML += "<p class='" + concertEst.id + "-subHeading d-none'>" + subh + "</p>"
+    heading_subHeadings.innerHTML += "<p class='" + concertEst.id + "-subHeading d-none-admin'>" + subh + "</p>"
   }
   for (let subh_eng of concertEng.subHeadings) {
-    heading_subHeadings.innerHTML += "<p class='" + concertEng.id + "-subHeadingEng d-none'>" + subh_eng + "</p>"
+    heading_subHeadings.innerHTML += "<p class='" + concertEng.id + "-subHeadingEng d-none-admin'>" + subh_eng + "</p>"
   }
   //concertEst.
   // PROGRAM
@@ -734,7 +734,7 @@ updateSectionPreDiv = (id, concertEst, concertEng) => {
       program.innerHTML += "<p class='" + concertEst.id + "-piece'>" + piece + "</p>"
     }
     for (let piece_eng of concertEng.program) {
-      program.innerHTML += "<p class='" + concertEng.id + "-pieceEng d-none'>" + piece_eng + "</p>"
+      program.innerHTML += "<p class='" + concertEng.id + "-pieceEng d-none-admin'>" + piece_eng + "</p>"
     }
   } else {
     program.innerHTML += "<p>Info puudub</p>"
@@ -747,7 +747,7 @@ updateSectionPreDiv = (id, concertEst, concertEng) => {
       artists.innerHTML += "<p class='" + concertEst.id + "-artist'>" + artist + "</p>"
     }
     for (let artist_eng of concertEng.artists) {
-      artists.innerHTML += "<p class='" + concertEng.id + "-artistEng d-none'>" + artist_eng + "</p>"
+      artists.innerHTML += "<p class='" + concertEng.id + "-artistEng d-none-admin'>" + artist_eng + "</p>"
     }
   } else {
     artists.innerHTML += "<p>Info puudub</p>"
@@ -759,7 +759,7 @@ updateSectionPreDiv = (id, concertEst, concertEng) => {
       loc_date.innerHTML += "<p class='" + concertEst.id + "-loc-date'><span class='" + concertEst.id + "-loc'>" + obj.location + "</span>&emsp;<span class='" + concertEst.id + "-date'>" + obj.date + "</span></p>"
     }
     for (let obj_eng of concertEng.loc_date) {
-      loc_date.innerHTML += "<p class='" + concertEst.id + "-loc-date-eng d-none'><span class='" + concertEst.id + "-locEng'>" + obj_eng.location + "</span>&emsp;<span class='" + concertEst.id + "-dateEng'>" + obj_eng.date + "</span></p>"
+      loc_date.innerHTML += "<p class='" + concertEst.id + "-loc-date-eng d-none-admin'><span class='" + concertEst.id + "-locEng'>" + obj_eng.location + "</span>&emsp;<span class='" + concertEst.id + "-dateEng'>" + obj_eng.date + "</span></p>"
     }
   } else {
     loc_date.innerHTML += "<p>Info puudub</p>"

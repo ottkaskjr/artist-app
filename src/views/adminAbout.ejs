@@ -3,7 +3,7 @@
 
 
   
- <div id="main-container" class="container">
+ <div id="main-container" class="container-admin">
     <div class="txt-c">
       <h1 id="main-heading"><%= about.heading %></h1>
       <h1>LISAKS TEE SEKTSIOONIDE PEALKIRJAD MUUDETAVAKS!!!!</h1>
@@ -74,10 +74,10 @@
                 <% } %>
                 ></label>
           </div>
-          <div id="no-preview-img" class="d-none"><p>Pilt puudub</p></div>
+          <div id="no-preview-img" class="d-none-admin"><p>Pilt puudub</p></div>
         <% } else { %>
-          <img class="mb-1 d-none" id="about-img-preview" src="" alt="">
-          <div id="img-position-div" class="d-none">
+          <img class="mb-1 d-none-admin" id="about-img-preview" src="" alt="">
+          <div id="img-position-div" class="d-none-admin">
             <p>Pildi asetus teksti suhtes:</p>
               <label class="radio-label mr-2" for="pos-left">Vasakul<input class="radio" id="pos-left" name="img_pos" value="left" type="radio" checked></label>
               <label class="radio-label ml-2" for="pos-right">Paremal<input class="radio" id="pos-right" name="img_pos" value="right" type="radio"></label>

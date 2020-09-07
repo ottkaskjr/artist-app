@@ -2,7 +2,7 @@
 <%- include('../partials/adminNav') %>
   
 
-  <div id="main-container" class="container">
+  <div id="main-container" class="container-admin">
     <div class="txt-c">
       <h1>Lehekülje päis</h1>
     </div>
@@ -39,7 +39,7 @@
               <img style="border: 3px solid #fff;" id="about-img-preview" src="/<%= header.bg.img %>" alt="">
               
             <% } else { %>
-              <img class="mb-1 d-none" id="about-img-preview" src="" alt="">
+              <img class="mb-1 d-none-admin" id="about-img-preview" src="" alt="">
             <% } %>
           </div>
           
@@ -182,7 +182,7 @@
     <% } %>
     <% const checkModule = (moduleName, Module) => { %>
       <% if (moduleName != Module) { %>
-        <% return 'd-none' %>
+        <% return 'd-none-admin' %>
       <% } %>
     <% } %>
     <div class="txt-c">

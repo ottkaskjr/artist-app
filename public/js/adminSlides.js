@@ -59,8 +59,8 @@ for (let select of moduleSelects) {
   select.addEventListener('change', function () {
     this.setAttribute('data-module', this.value)
     let otherVal = this.value === 'concerts' ? 'news' : 'concerts'
-    document.getElementById(this.value + '-items-' + slide_id).classList.remove('d-none')
-    document.getElementById(otherVal + '-items-' + slide_id).classList.add('d-none')
+    document.getElementById(this.value + '-items-' + slide_id).classList.remove('d-none-admin')
+    document.getElementById(otherVal + '-items-' + slide_id).classList.add('d-none-admin')
   
     changeItem(moduleItemDivs, moduleItemSelects);
   })
@@ -90,7 +90,7 @@ const changeItem = (itemDivs, itemSelects) => {
       // only check for the showing item select
     //let div = document.getElementById(moduleItemDivs[i])
     let slide_id = item.getAttribute('data-id')
-    if (!item.classList.contains('d-none')) {
+    if (!item.classList.contains('d-none-admin')) {
       let idQuery = itemSelects[i];
       if (idQuery.includes('-new')) {
         //idQuery = idQuery.replace('-new', '')
@@ -588,11 +588,11 @@ const createSlide = (slide_id, modules) => {
   // create module_item_span & append to edit_module_div
   for (let i = 0; i < modules.length; i++) {
     
-    //let d_none = i === 0 ? '' : 'd-none';
+    //let d_none = i === 0 ? '' : 'd-none-admin';
     let module_item_span = document.createElement('SPAN');
     module_item_span.setAttribute('id', modules[i].name +'-items-' + slide_id)
     module_item_span.setAttribute('data-id', slide_id)
-    module_item_span.classList.add(modules[i].name +'-items', modules[i].name +'-items-new'  + slideNum , 'd-none')
+    module_item_span.classList.add(modules[i].name +'-items', modules[i].name +'-items-new'  + slideNum , 'd-none-admin')
     /*
     if (d_none === '') {
       module_item_span.classList.add(modules[i].name +'-items')

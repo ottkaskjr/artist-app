@@ -18,17 +18,72 @@
   <% } %>
 <% } %>
 
+<% const getConcertTextPos = (img) => { %>
+  <% return img != '' ? 'text-left' : 'text-center' %>
+<% } %>
+<% const getBorder = (img, img_pos) => { %>
+  <% if (img != '') { %>
+    <% if (img_pos === 'left') { %>
+      <%  return 'border-r' %>
+    <% } else return 'border-l' %>
+  <% } else return 'border-l border-r'%>
+<% } %>
+<%# DOCUMENT READY FADE IN WRAPPER %>
 <div id="document-wrapper"></div>
 
+<%# OVERFLOW:HIDDEN DOCUMENT WRAPPER %>
 <div class="overflow-wrapper">
 
-<div id="scroll-to-top" class="txt-c op-0"><div><a href="#navbar-div">&#10514;</a></div></div>
+<%# SCROLL TO TOP BTN ELEMENT %>
+<div id="scroll-to-top" class="txt-c op-0"><div><a href="#bg-div"><%#&#10514;%>&#10148;</a></div></div>
+
+<%# IMG SLIDE CAROUSEL ELEMENT %>
+<% if (media.hidden_img === false) { %>
+  <div id="img-slider-bg" class="d-none"></div>
+  <div id="img-slider-fixed" class="d-none">
+    <%# close img slider %>
+    <div id="img-slider-controls-top">
+      <a id="close-img-slider" class="m-2">&#10005;</a>
+    </div>
+    <%# img slider arrows %>
+    <div id="img-arrow-left" data-index="">&#10094;</div>
+    <div id="img-arrow-right" data-index="">&#10095;</div>
+    <%# img container %>
+    <div id="img-slider-content-div">
+      <%# img %>
+      
+        <div class="img-slider-img-div">
+          <% let imgSlideNum = 0 %>
+          <%#<img class="" src="/< media.images[0].id + media.images[0].format >" alt="">%>
+          <% for (let img of media.images) { %>
+            <% if (img.onMedia === true) { %>
+              <img id="img-slider-img-<%= img.id %>" data-index="<%= imgSlideNum %>" class="d-none img-slider-img" data-loc="<%= img.location %>" data-date="<%= img.date %>" data-author="<%= img.author %>" data-desc="<%= img.description %>" src="/<%= img.id + img.format %>" alt="">
+              <% imgSlideNum++ %>
+            <% } %>
+          <% } %>
+        </div>
+      
+      
+      <%# desc %>
+      <div id="img-slider-info" class="px-1">
+        <span><span id="img-slider-loc" class="mr-2"><%# media.images[0].location %></span><span id="img-slider-date"><%# media.images[0].date %></span><span id="img-slider-author"><%# media.images[0].author %></span></span>
+        <div id="img-slider-desc" class="mt-1">
+          <%# media.images[0].description %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+<% } %>
+
+
 <%# //////////// NAVBAR //////////// %>
-<div id="navbar-div" class="txt-c">
+<div id="navbar-div" class="text-center">
+  <% let menuItems = [about, saale, concerts, news, members, media, contacts] %>
   <%# NAVBAR L+ %>
-  <div id="navbar-desk">
-    <div class="navbar-brand"><a>Floridante</a></div>
-    <% let menuItems = [about, saale, concerts, news, members, media, contacts] %>
+  <div id="navbar-desk" class="shadow-default d-none d-lg-flex">
+    <%# <div class="navbar-brand"><a>Floridante</a></div> %>
+    
     <% for (let menuItem of menuItems) { %>
       <%# all sections except media %>
       <% if (menuItem.hidden != undefined) { %>
@@ -43,7 +98,7 @@
       <% } %>
     <% } %>
     <%# LANGUAGE %>
-    <div class="navbar-lang">
+    <div class="navbar-lang navbar-menu-item">
       <% if (language === 'eng') { %>
         <a href="/">EST</a>
       <% } else { %>
@@ -52,8 +107,36 @@
     </div>
   </div>
   <%# NAVBAR L- %>
-  <div id="navbar-mobile">
-
+  <div id="navbar-mobile" class="d-lg-none shadow-default">
+    <div id="navbar-toggler" class="text-center pt-2">
+      <div class="nav-hamb-line"></div>
+      <div class="nav-hamb-line"></div>
+      <div class="nav-hamb-line"></div>
+    </div>
+    <div id="navbar-mobile-dropdown" class="nav-closed close-nav">
+      <%# LANGUAGE %>
+      <div class="navbar-menu-item my-0 pb-2">
+        <% if (language === 'eng') { %>
+          <a href="/">EST</a>
+        <% } else { %>
+          <a href="/?lang=eng">ENG</a>
+        <% } %>
+      </div>
+      <% for (let menuItem of menuItems) { %>
+        <%# all sections except media %>
+        <% if (menuItem.hidden != undefined) { %>
+          <% if (!menuItem.hidden) { %>
+            <div class="navbar-menu-item pt-0 pb-2"><a href="#<%= menuItem.heading %>-href"><%= menuItem.heading %></a></div>
+          <% } %>
+        <% } else { %> 
+          <%# media %>
+          <% if (checkMedia(menuItem.hidden_img, menuItem.hidden_vid, menuItem.hidden_snd) === false) { %>
+            <div class="navbar-menu-item pt-0 pb-2"><a href="#<%= menuItem.heading %>-href"><%= menuItem.heading %></a></div>
+          <% } %>
+        <% } %>
+      <% } %>
+      
+    </div>
   </div>
 </div>
 
@@ -62,34 +145,34 @@
 <%# //////////// HEADER //////////// %>
 <%# //////////// INTRODUCTION //////////// %>
 <% if (header.hidden_bg === false) { %>
-  <div id="bg-div" class="py-3">
+  <div id="bg-div" class="p-3 mt-5">
     <% if (header.bg.img != '') { %>
       <div id="bg-div-overlay"></div>
     <% } %>
     <%# TITLE %>
     <% if (header.bg.heading.length > 0) { %>
-      <div class="<%= getTextPos(header.bg.heading_pos) %> mx-5">
+      <div class="<%= getTextPos(header.bg.heading_pos) %> mx-1 mx-sm-2 mx-md-3 mx-lg-5">
         <h1 id="master-heading"><%= header.bg.heading %></h1>
       </div>
     <% } %>
     
     <%# INTRODUCTION %>
     <% if (header.bg.introduction.length > 0) { %>
-      <div class="<%= getTextPos(header.bg.introduction_pos) %> mx-5">
+      <div class="<%= getTextPos(header.bg.introduction_pos) %> mx-1 mx-s-2 mx-m-3 mx-l-5">
         <p id="master-introduction"><%= header.bg.introduction %></p>
       </div>
     <% } %>
   </div>
 <% } %>
-<div id="main-container" class="container">
-  <div id="main-showcase" class="txt-c">
+<div id="main-container" class="">
+  <div id="main-showcase" class="txt-c container">
     <%# //////////// CAROUSEL //////////// %>
     <% if(header.hidden_car === false) { %>
       <% if (header.slides.length > 0) { %>
         <%# CAROUSEL %>
       <div class="carousel-div">
-          <div class="arrow-left">&#10094;</div>
-          <div class="arrow-right">&#10095;</div>
+          <div class="arrow-left"><%#&#10094;%></div>
+          <div class="arrow-right"><%#&#10095;%></div>
         <% for (let slide of header.slides) { %>
           <%# SLIDE %>
           <div class="slide-parent-abs d-none">
@@ -111,7 +194,7 @@
                   </div>
                   <%# button %>
                   <div>
-                    <button data-color="<%= slide.button_color %>" data-bg="<%= slide.button_bg %>" class="slide-button slide-button-<%= slide.slide_id %> hover-pointer"><a href="#href-<%= slide.module_id %>"><%= slide.button %></a></button>
+                    <button data-color="<%= slide.button_color %>" data-bg="<%= slide.button_bg %>" class="btn slide-button slide-button-<%= slide.slide_id %> hover-pointer"><a href="#href-<%= slide.module_id %>"><%= slide.button %></a></button>
                   </div>
                 </div>
                 
@@ -119,38 +202,10 @@
             </div>
           </div>
 
-
-
-
-
-
-
-
-
-            <!--
-            <%# OLD %>
-            <div class="carousel-body">
-              <%# C-HEADING %>
-              <%# if (slide.heading != '') { %>
-              <div class="carousel-heading"><%# slide.heading %></div>
-              <%# } %>
-              <%# C-SUBHEADINGS %>
-              <%# if (slide.subHeadings.length > 0) { %>
-                <%# for (let subHeading of slide.subHeadings) { %>
-                  <div class="carousel-subheading"><%# subHeading %></div>
-                <%# } %>
-              <%# } %>
-              <%# C-BUTTON %>
-              <div class="carousel-btn"><a type="button"></a></div>
-              -->
-            <%#</div>%>
-          
         <% } %>
-        <%# CAROUSEL CONTROL %>
-        <%# <div class="carousel-control-abs"> %>
           
         </div>
-        <div class="carousel-control mb-3">
+        <div class="carousel-control mt-4 mb-3">
           <% for (let i = 0; i < header.slides.length; i++) { %>
             <div data-slide="<%= i %>" class="carousel-nav"></div>
           <% } %>
@@ -162,181 +217,276 @@
 
   <%# //////////////////////// ABOUT //////////////////////// %>
   <% if (about.hidden === false) { %>
-    <div id="about-container" class="parent-container">
-      <div id="<%= about.heading %>-href" class="section-heading <%= getTextPos(about.heading_pos) %>"><h3><%= about.heading %></h3></div>
-      <%# IMG/BG %>
-      <% if (about.img != '') { %>
-        <div id="about-img" class="section-img <%= getImgPosition(about.img_pos) %>">
-          <img class="shadow-default mx-1" src="/<%= about.img %>" alt="">
-        </div>
-      <% } %>
-      <%# BODY %>
-      <div id="about-body">
-        <% for (let paragraph of about.paragraphs) { %>
-          <div class="paragraph">
-            <p class="mx-1">&emsp;&emsp;&emsp;<%= paragraph.body %></p>
-          </div>
-        <% } %>
-      </div>
-    </div>
-    <% } %>
-      <%# SAALE %>
-      <% if (saale.hidden === false) { %>
-      <div id="saale-container" class="saale-fischer-div parent-container">
-        <div id="<%= saale.heading %>-href" class="section-heading <%= getTextPos(saale.heading_pos) %>"><h3><%= saale.heading %></h3></div>
-        <%# IMG/BG %>
-        <% if (saale.img != '') { %>
-          <div id="about-img" class="section-img <%= getImgPosition(saale.img_pos) %>">
-            <img class="shadow-default mx-1" src="/<%= saale.img %>" alt="">
-          </div>
-        <% } %>
-        <%# SAALE-BODY %>
-        <div id="saale-body">
-          <% for (let paragraph of saale.paragraphs) { %>
+    <div id="about-container" class="parent-container container">
+      <div id="<%= about.heading %>-href" class="section-heading <%= getTextPos(about.heading_pos) %>"><h1><%= about.heading %></h1></div>
+      <div class="row">
+        <% if (about.img_pos === 'left') { %>
+          <%# IMG/BG %>
+          <% if (about.img != '') { %>
+            <div id="about-img" class="col-12 col-md-4 text-center <%# getImgPosition(about.img_pos) %> mb-3">
+              <img class="shadow-default img-fluid" src="/<%= about.img %>" alt="">
+            </div>
+          <% } %>
+        <% }  %>
+        
+        <%# BODY %>
+        <div id="about-body" class="col">
+          <% for (let paragraph of about.paragraphs) { %>
             <div class="paragraph">
               <p class="mx-1">&emsp;&emsp;&emsp;<%= paragraph.body %></p>
             </div>
           <% } %>
         </div>
+
+        <% if (about.img_pos === 'right') { %>
+          <%# IMG/BG %>
+          <% if (about.img != '') { %>
+            <div id="about-img" class="col-12 col-md-4 text-center <%# getImgPosition(about.img_pos) %> mb-3">
+              <img class="shadow-default img-fluid" src="/<%= about.img %>" alt="">
+            </div>
+          <% } %>
+        <% } %>
+
       </div>
+      
+      
+    </div>
+    <div class="section-divider my-3"></div>
+    <% } %>
+      <%# SAALE %>
+      <% if (saale.hidden === false) { %>
+      <div id="saale-container" class="saale-fischer-div parent-container container">
+        <div id="<%= saale.heading %>-href" class="section-heading <%= getTextPos(saale.heading_pos) %>"><h1><%= saale.heading %></h1></div>
+        <div class="row">
+          <% if (saale.img_pos === 'left') { %>
+            <%# IMG/BG %>
+            <% if (saale.img != '') { %>
+              <div id="about-img" class="col-12 col-md-4 text-center <%# getImgPosition(saale.img_pos) %> mb-3">
+                <img class="shadow-default img-fluid" src="/<%= saale.img %>" alt="">
+              </div>
+            <% } %>
+          <% }  %>
+          
+          <%# SAALE-BODY %>
+          <div id="saale-body" class="col">
+            <% for (let paragraph of saale.paragraphs) { %>
+              <div class="paragraph">
+                <p class="mx-1">&emsp;&emsp;&emsp;<%= paragraph.body %></p>
+              </div>
+            <% } %>
+          </div>
+          <% if (saale.img_pos === 'right') { %>
+            <%# IMG/BG %>
+            <% if (saale.img != '') { %>
+              <div id="about-img" class="col-12 col-md-4 text-center <%# getImgPosition(saale.img_pos) %> mb-3">
+                <img class="shadow-default b-radius-def img-fluid" src="/<%= saale.img %>" alt="">
+              </div>
+            <% } %>
+          <% }  %>
+
+      </div>
+      </div>
+      <div class="section-divider my-3"></div>
       <% } %>
   
 
   <%# //////////////////////// CONCERTS //////////////////////// %>
   <% if (concerts.hidden != true) { %> 
-  <div id="concerts-container">
-    <div id="<%= concerts.heading %>-href" class="<%= getTextPos(concerts.heading_pos) %>"><h3><%= concerts.heading %></h3></div>
+  <div id="concerts-container" class="container">
+    <div id="<%= concerts.heading %>-href" class="<%= getTextPos(concerts.heading_pos) %>"><h1 class="section-heading pb-2"><%= concerts.heading %></h1></div>
     <div id="concerts-div">
       <% for (let concert of concerts.concerts) { %>
-      <div class="concert">
-        <%# CONCERT-HEADING %>
-        <%# IMG (tee ilmselt tavaline kahest osast koosnev flex väiksem tekst ühel pool, suurem tekst teisel pool)%>
-        <h5 id="href-<%= concert.id %>"><%= concert.heading %></h5>
-        <%# CONCERT-SUBHEADINGS %>
-        <% if (concert.subHeadings.length > 0) { %>
-          <% for (let subHeading of concert.subHeadings) { %>
-            <div class="concert-subheading"><%= subHeading %></div>
-          <% } %>
-        <% } %>
-        <%# CONCERT-ARTISTS %>
-        <% if (concert.artists.length > 0) { %>
-          <% for (let artist of concert.artists) { %>
-            <div class="concert-artist"><%= artist %></div>
-          <% } %>
-        <% } %>
-        <%# CONCERT-PROGRAM %>
-        <% if (concert.program.length > 0) { %>
-          <% for (let piece of concert.program) { %>
-            <div class="concert-piece"><%= piece %></div>
-          <% } %>
-        <% } %>
-        <%# CONCERT-DESCRIPTION %>
-        <% if (concert.description != '') { %>
-          <div class="concert-description"><p><%= concert.description %></p></div>
-        <% } %>
-        <%# CONCERT LOCATIONS AND DATES %>
-        <% if (concert.loc_date.length > 0) { %>
-            <% for (let place of concert.loc_date) { %>
-              <div class="concert-place"><p><span><%= place.location %></span>&emsp;<span><%= place.date %></span></p></div>
-            <% } %>
-        <% } %>
         
-        <%# CONCERT-TICKETS %>
-        <% if (concert.tickets != '') { %>
-          <div class="concert-tickets"><p><%= concert.tickets %></p></div>
+        <div class="concert row mb-3 border-l border-r">
+        <%# CONCERT-HEADING %>
+        
+        <%# IMG LEFT %>
+        <% if (concert.img != '') { %>
+          <% if (concert.img_pos === 'left') { %>
+            <div class="col-6 text-center d-none d-md-block"><img class="img-fluid b-radius-def shadow-default" src="/<%= concert.img %>" alt=""></div>
+          <% } %>
         <% } %>
-      </div>
-      <% } %>
-      <a>Lae veel</a>
+        <%# CONCERT-SUBHEADINGS %>
+        <div class="col text-left">
+          <h3 id="href-<%= concert.id %>"><b><%= concert.heading %></b></h3>
+          <% if (concert.subHeadings.length > 0) { %>
+            <% for (let subHeading of concert.subHeadings) { %>
+              <div class="concert-subheading"><%= subHeading %></div>
+            <% } %>
+          <% } %>
+          <%# CONCERT-ARTISTS %>
+          <% if (concert.artists.length > 0) { %>
+            <div class="concert-artist mb-1">
+            <% for (let artist of concert.artists) { %>
+              <p class="my-0"></p><%= artist %>
+            <% } %>
+          </div>
+          <% } %>
+          <%# CONCERT-PROGRAM %>
+          <% if (concert.program.length > 0) { %>
+            <% for (let piece of concert.program) { %>
+              <div class="concert-piece mb-1"><%= piece %></div>
+            <% } %>
+          <% } %>
+          <%# CONCERT-DESCRIPTION %>
+          <% if (concert.description != '') { %>
+            <div class="concert-description mb-1"><p><%= concert.description %></p></div>
+          <% } %>
+          <%# CONCERT LOCATIONS AND DATES %>
+          <% if (concert.loc_date.length > 0) { %>
+            <div class="concert-place mb-1">
+              <% for (let place of concert.loc_date) { %>
+                <p class="my-0"><span><%= place.location %></span>&emsp;<span><b><%= place.date %></b></span></p>
+              <% } %>
+            </div>
+          <% } %>
+          
+          <%# CONCERT-TICKETS %>
+          <% if (concert.tickets != '') { %>
+            <div class="concert-tickets"><p><%= concert.tickets %></p></div>
+          <% } %>
+        </div>
+
+        <%# IMG RIGHT %>
+        <% if (concert.img != '') { %>
+          <% if (concert.img_pos === 'right') { %>
+            <div class="col-6 text-center d-none d-md-block"><img class="img-fluid b-radius-def shadow-default" src="/<%= concert.img %>" alt=""></div>
+          <% } %>
+        <% } %>  
+
+        
     </div>
+    <div class="dot-divider mb-3"></div>
+      <% } %>
+      <div class="text-center mb-3"><a>Lae veel</a></div>
+    </div>
+    <div class="section-divider"></div>
   </div>
 <% } %>
 
   <%# //////////////////////// NEWS //////////////////////// %>
   <% if (news.hidden != true) { %>
-  <div id="<%= news.heading %>-href">
+  <div id="<%= news.heading %>-href" class="container">
     <%# NEWS CONTAINER TITLE %>
-    <h3 class="<%= getTextPos(news.heading_pos) %>"><%= news.heading %></h3>
+    <h1 class="section-heading pb-2 <%= getTextPos(news.heading_pos) %>"><%= news.heading %></h1>
     <% if (news.articles.length > 0) { %>
       <% for (article of news.articles) { %>
         <% if (article.hidden === false) { %>
         <%# ARTICLE %>
-        <div class="article">
-          <%# ARTICLE HEADING %>
-          <div class="article-heading">
-            <h3 id="href-<%= article.id %>"><%= article.heading %></h3>
+        <div class="article row mb-3 border-l border-r">
+          <% if (article.img != '') { %>
+            <% if (article.img_pos === 'left') { %>
+              <div class="col-3 text-center d-none d-md-block"><img class="img-fluid b-radius-def shadow-default" src="/<%= article.img %>" alt=""></div>
+            <% } %>
+          <% } %>
+          <div class="col">
+            <%# ARTICLE HEADING %>
+            <div class="article-heading">
+              <h3 id="href-<%= article.id %>"><b><%= article.heading %></b></h3>
+            </div>
+            <%# ARTICLE QUOTES %>
+            <% if (article.quotes.length > 0) { %>
+              <% for (let quote of article.quotes) { %>
+                <div class="article-quote">
+                  <p><i><b>"<%= quote.quote %>"</b></i><span> - <%= quote.by %></span></p>
+                </div>
+              <% } %>
+            <% } %>
+            <%# ARTICLE SUBHEADINGS %>
+            <% if (article.subHeadings.length > 0) { %>
+              <% for (let subHeading of article.subHeadings) { %>
+                <div class="article-subheading">
+                  <p><b><%= subHeading %></b></p>
+                </div>
+              <% } %>
+            <% } %>
+            <%# ARTICLE AUTHOR %>
+            <% if (article.author != '') { %>
+              <div class="article-author mb-0">
+                <p class="mb-0"><%= article.author %></p>
+              </div>
+            <% } %>
+            <%# ARTICLE DATE %>
+            <% if (article.date != '') { %>
+              <div class="article-date">
+                <p><%= article.date %></p>
+              </div>
+            <% } %>
+            
+            </div>
+
+            <% if (article.img != '') { %>
+              <% if (article.img_pos === 'right') { %>
+                <div class="col-3 text-center d-none d-md-block"><img class="img-fluid b-radius-def shadow-default" src="/<%= article.img %>" alt=""></div>
+              <% } %>
+            <% } %>
+
+            <%# ARTICLE PARAGRAPHS %>
+            <% if (article.paragraphs.length > 0) { %>
+              <div class="text-center">
+                <p><a class="btn btn-default" data-toggle="collapse" href="#article-collapse-<%= article.id %>" role="button" aria-expanded="false" aria-controls="collapseExample">
+                  Loe lähemalt
+                </a></p>
+              </div>
+              <div class="collapse article-paragraph" id="article-collapse-<%= article.id %>">
+                <div class="mb-1">
+              <% for (let paragraph of article.paragraphs) { %>
+                
+                  <p><%= paragraph %></p>
+                
+              <% } %>
+            </div>
+            </div>
+            
+            
+            <% } %>
+            <%# ARTICLE DATE %>
+            <% if (article.source != '') { %>
+              <div class="article-source">
+                <p><%= article.source %></p>
+              </div>
+            <% } %>
+
           </div>
-          <%# ARTICLE QUOTES %>
-          <% if (article.quotes.length > 0) { %>
-            <% for (let quote of article.quotes) { %>
-              <div class="article-quote">
-                <h4><i>"<%= quote.quote %>"</i><span> - <%= quote.by %></span></h4>
-              </div>
-            <% } %>
-          <% } %>
-          <%# ARTICLE SUBHEADINGS %>
-          <% if (article.subHeadings.length > 0) { %>
-            <% for (let subHeading of article.subHeadings) { %>
-              <div class="article-subheading">
-                <h4><%= subHeading %></h4>
-              </div>
-            <% } %>
-          <% } %>
-          <%# ARTICLE AUTHOR %>
-          <% if (article.author != '') { %>
-            <div class="article-author">
-              <p><%= article.author %></p>
-            </div>
-          <% } %>
-          <%# ARTICLE DATE %>
-          <% if (article.date != '') { %>
-            <div class="article-date">
-              <p><%= article.date %></p>
-            </div>
-          <% } %>
-          <%# ARTICLE PARAGRAPHS %>
-          <% if (article.paragraphs.length > 0) { %>
-            <% for (let paragraph of article.paragraphs) { %>
-              <div class="article-paragraph">
-                <p><%= paragraph %></p>
-              </div>
-            <% } %>
-          <% } %>
-          <%# ARTICLE DATE %>
-          <% if (article.source != '') { %>
-            <div class="article-source">
-              <p><%= article.source %></p>
-            </div>
-          <% } %>
-          <a>Loe lähemalt</a>
-        </div>
+        <div class="dot-divider mb-3"></div>
       <% } %>
       <% } %>
     <% } else { %>
       <p>Uudised puuduvad</p>
     <% } %>
+    <div class="text-center my-3">
+      <a>Lae veel</a>
+    </div>
     
-    <a>Lae veel</a>
-  </div>
 
+</div>
+<div class="section-divider"></div>
 <% } %>
     <%# //////////////////////// MEMBERS //////////////////////// %>
   <% if (members.hidden === false) { %>
-    <div id="<%= members.heading %>-href">
+    <div id="<%= members.heading %>-href" class="container">
       <% if (members.members.length > 0) { %>
-        <h3 class="<%= getTextPos(members.heading_pos) %>"><%= members.heading %></h3>
+        <h1 class="section-heading pb-2 <%= getTextPos(members.heading_pos) %>"><%= members.heading %></h1>
         <%# ALL MEMBERS %>
           <% for (let member of members.members) { %>
             <% if (member.hidden === false) { %>
-            <div class="member">
+            <div class="member row mb-3 border-l border-r">
+              <% if (member.img != '') { %>
+                <% if (member.img_pos === 'left') { %>
+                  <div class="col-4 text-center d-none d-md-block"><img class="img-fluid b-radius-def shadow-default member-img" src="/<%= member.img %>" alt=""></div>
+                <% } %>
+              <% } %>
+              <div class="col">
               <%# MEMBER NAME %>
               <% if (member.name != '') { %>
                 <div class="member-name">
-                  <h3><%= member.name %></h3>
+                  <h3><b><%= member.name %></b></h3>
                 </div>
               <% } %>
-              <%# MEMBER IMG %>
-              <div class="member-img"></div>
+              <%# MEMBER IMG SM %>
+              <% if (member.img != '') { %>
+                  <div class="text-center d-sm-none"><img class="img-fluid b-radius-def shadow-default member-img" src="/<%= member.img %>" alt=""></div>
+              <% } %>
               <%# MEMBER INSTRUMENTS %>
               <% if (member.name != '') { %>
                 <div class="member-instruments">
@@ -352,16 +502,26 @@
               <%# MEMBER CONTACTS %>
                 <div class="member-contacts">
                   <% if (member.contacts.phone.public === true) { %>
-                  <p class="member-phone">Tel: <%= member.contacts.phone.number %></p>
+                  <p class="member-phone mb-0">Tel: <%= member.contacts.phone.number %></p>
                   <% } %>
                   <% if (member.contacts.email.public === true) { %>
                     <p class="member-email"><%= member.contacts.email.address %></p>
                     <% } %>
                 </div>
+              </div>
+
+              <% if (member.img != '') { %>
+                <% if (member.img_pos === 'right') { %>
+                  <div class="col-4 text-center d-none d-md-block"><img class="img-fluid b-radius-def shadow-default member-img" src="/<%= member.img %>" alt=""></div>
+                <% } %>
+              <% } %>
+
             </div>
+            <div class="dot-divider mb-3"></div>
           <% } %>
         <% } %>
       <% } %>
+      <div class="section-divider"></div>
     </div>
     <% } %>
 
@@ -375,18 +535,22 @@
       <% } %>
     <% } %>
     <% if (Media === true) { %>
-    <div id="<%= media.heading %>-href">
-      <h3 class="<%= getTextPos(media.heading_pos) %>"><%= media.heading %></h3>
+    <div id="<%= media.heading %>-href" class="container">
+      <h1 class="section-heading pb-2 <%= getTextPos(media.heading_pos) %>"><%= media.heading %></h1>
       <% if (media.hidden_img === false) { %>
       <div id="media-images-div">
+        
         <% if (media.images.length > 0) { %>
+          <% let imgNum = 0 %>
           <% for (let image of media.images) { %>
             <% if (image.onMedia === true) { %>
-            <div class="media-img-div"><a href="/<%= image.id + image.format %>"><img class="shadow-default" src="/<%= image.id + image.format %>" alt=""></a></div>
+            <div class="media-img-div"><a data-id="<%= image.id %>" data-index="<%= imgNum %>" class="img-thumbnail" href="/<%= image.id + image.format %>"><img class="shadow-default" src="/<%= image.id + image.format %>" alt=""></a></div>
+            <% imgNum++ %>
             <% } %>
           <% } %>
         <% } %>
       </div>
+      <div class="dot-divider mb-3"></div>
     <% } %>
       <% if (media.hidden_vid === false) { %>
       <div id="media-videos-div">
@@ -394,7 +558,7 @@
         <% if (media.videos.length > 0) { %>
           <% for (let i = 0; i < media.videos.length; i++) { %>
             <% if (media.videos[i].onMedia === true) { %>
-            <div id="vid-div-<%= media.videos[i].id %>" class="media-vid-div mx-1 my-5">
+            <div id="vid-div-<%= media.videos[i].id %>" style="border-radius: 10px;" class="media-vid-div mx-1 my-5 shadow-default">
               <iframe width="100%" height="100%" style="border-radius: 10px;" src="https://www.youtube.com/embed/<%= media.videos[i].link %>" frameborder="1" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
               
               <!--
@@ -402,7 +566,7 @@
               -->
               <div class="vid-info">
                 <% if (media.videos[i].descriptio != '') { %>
-                  <p><%= media.videos[i].description %></p>
+                  <p class="mb-0"><%= media.videos[i].description %></p>
                 <% } %>
                 <p>
                   <% if (media.videos[i].author != '') { %>
@@ -418,6 +582,7 @@
           <% } %>
         <% } %>
       </div>
+      <div class="dot-divider mb-3"></div>
     <% } %>
     <% if (media.hidden_snd === false) { %>
       <div id="media-sound-div">
@@ -427,21 +592,50 @@
             <% if (media.sound[i].onMedia === true) { %>
             <div id="snd-div-<%= media.sound[i].id %>" class="media-snd-div mx-1 my-2">
 
-              <div class="sound-iframe" data-embed="<%= media.sound[i].link %>">
+              <div class="sound-iframe" data-id="<%= media.sound[i].id %>" data-embed="<%= media.sound[i].link %>">
               </div>
 
             </div>
+            <div id="visible-snd-player-<%= media.sound[i].id %>" class="border-r border-l row">
+              <%# PLAY/PAUSER %>
+              <div class="col-2 col-sm-1 mx-0 px-0">
+                <div id="toggle-sound-<%= media.sound[i].id %>" class="toggle-sound ml-1 ml-sm-2 ml-md-3" data-id="<%= media.sound[i].id %>" data-action="play">
+                  <p id="play-<%= media.sound[i].id %>" class="play-symb">&#10148;</p>
+                  <p id="pause-<%= media.sound[i].id %>" class="pause-symb fadeOut">&#9868;</p>
+                </div>
+              </div>
+              <%# PLAYBAR %>
+              <div id="playbar-parent-<%= media.sound[i].id %>" class="col-8 col-sm-9 col-md-10 mx-0 pr-3 pl-3 row align-items-center playbar-parent" data-id="<%= media.sound[i].id %>">
+                <div id="playbar-<%= media.sound[i].id %>" class="col playbar" data-id="<%= media.sound[i].id %>" data-pos="0" data-dur="" data-vol="100">
+                  <div id="play-pos-<%= media.sound[i].id %>" class="song-position"></div>
+                </div>
+              </div>
+              <%# VOLUME %>
+              <div class="col-2 col-md-1 mx-0 pl-0 pr-1">
+                <div class="sound-volume" id="vol-<%= media.sound[i].id %>" data-id="<%= media.sound[i].id %>">
+                  <input class="vol-range" data-id="<%= media.sound[i].id %>" id="vol-range-<%= media.sound[i].id %>" type="range" value="100" min="0" max="100">
+                 <div class="range-slider-bar" id="vol-bar-<%= media.sound[i].id %>"></div>
+                </input>
+                </div>
+              </div>
+            </div>
+            <div class="dot-divider my-3"></div>
           <% } %>
           <% } %>
         <% } %>
       </div>
+      <div class="dot-divider mb-3"></div>
     <% } %>
+    
     </div>
   <% } %>
     
+
+</div>
+
   <%# CONTACTS %>
     <% if (!contacts.hidden) { %>
-    <div id="<%= contacts.heading %>-href">
+    <div id="<%= contacts.heading %>-href" class="pb-3 pt-1 px-5 footer-div">
       <h3 class="<%= getTextPos(contacts.heading_pos) %>"><%= contacts.heading %></h3>
       <div class="contacts-div">
         <p class="my-0 py-0"><%= contacts.contacts[0].name %></p>
@@ -459,11 +653,13 @@
     </div>
   <% } %>
   
-  </div>
+  
 
 
 <script src="/initCarousel.js"></script>
+<script src="/initImgSlides.js"></script>
 <script src="/home.js"></script>
+<script src="/soundControl.js"></script>
 </div> <%# overflow wrapper %>
 </div><%# document wrapper parent %>
 

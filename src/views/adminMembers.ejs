@@ -4,7 +4,7 @@
 <% const defaultText = (data) => { %>
   <% return data === '' ? 'Info puudub': data %>
 <% } %>
-<div id="main-container" class="container">
+<div id="main-container" class="container-admin">
   <div class="txt-c">
     <h1><h1 id="main-heading"><%= members.heading %></h1></h1>
   </div>
@@ -21,7 +21,7 @@
         >
       </label>
       <div>
-        <button id="hide-section-btn" class="hover-pointer" class="d-none">Salvesta</button>
+        <button id="hide-section-btn" class="hover-pointer" class="d-none-admin">Salvesta</button>
       </div>
       <p class="p-info"><i>*Eemaldab antud sektsiooni koduleheküljelt</i></p>
     </div>
@@ -158,7 +158,7 @@
                 <label class="radio-label mr-2" for="pos-left">Vasakul<input class="radio" id="pos-left" name="img_pos" value="left" type="radio"></label>
                 <label class="radio-label ml-2" for="pos-right">Paremal<input class="radio" id="pos-right" name="img_pos" value="right" type="radio"></label>
             </div>
-            <div id="no-preview-img" class="d-none"><p>Pilt puudub</p></div>
+            <div id="no-preview-img" class="d-none-admin"><p>Pilt puudub</p></div>
           <div>
             <button id="open-img-modal" class="mt-1 hover-pointer">Vali pilt</button>
           </div>

@@ -119,7 +119,7 @@ const postDataVid = (Data) => {
         // changing section hidden value
         if (res.status.includes('hidden')) {
           btn.innerHTML = 'Salvesta';
-          btn.classList.add('d-none')
+          btn.classList.add('d-none-admin')
           document.getElementById('hide-vid-section').setAttribute('data-status', res.value)
         }
         // creating a new
