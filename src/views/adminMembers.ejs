@@ -6,7 +6,7 @@
 <% } %>
 <div id="main-container" class="container-admin">
   <div class="txt-c">
-    <h1><h1 id="main-heading"><%= members.heading %></h1></h1>
+    <h1 class="admin-section-title" id="main-heading"><%= members.heading %></h1>
   </div>
   
   <div class="txt-c">
@@ -21,7 +21,7 @@
         >
       </label>
       <div>
-        <button id="hide-section-btn" class="hover-pointer" class="d-none-admin">Salvesta</button>
+        <button id="hide-section-btn" class="hover-pointer d-none-admin admin-btn-save">Salvesta</button>
       </div>
       <p class="p-info"><i>*Eemaldab antud sektsiooni koduleheküljelt</i></p>
     </div>
@@ -60,13 +60,13 @@
         </label>
       </div>
       <div class="mt-2">
-        <button id="save-main-heading" class="hover-pointer">Salvesta</button>
+        <button id="save-main-heading" class="hover-pointer admin-btn-save">Salvesta</button>
       </div>
     </div>
 
     <%# ADD NEW ARTICLE %>
     <div class="mb-2">
-      <button class="hover-pointer" id="add-new-section-modal-btn">Lisa uus</button>
+      <button class="hover-pointer admin-btn-add" id="add-new-section-modal-btn">Lisa uus</button>
     </div>
 
     <%# MEMBERS PREVIEWS %>
@@ -114,9 +114,9 @@
             </div>
             <div class="section-controls pt-1 mb-1">
               <%# OPEN CONCERT EDIT MODAL SIIN POOLELI %>
-              <button class="edit-section-modal-button mr-1 edit-modal-btn hover-pointer" data-id="<%= members.members[i].id %>" data-name="<%= members.members[i].name %>" data-birthDay="<%= members.members[i].birthDay %>" data-img="<%= members.members[i].img %>" data-img-pos="<%= members.members[i].img_pos %>"   data-instruments="<%= members.members[i].instruments %>" data-instruments-eng="<%= members_eng.members[i].instruments %>" data-bio="<%= members.members[i].bio %>" data-bio-eng="<%= members_eng.members[i].bio %>" data-hidden="<%= members.members[i].hidden %>" data-contacts-phone-public="<%= members.members[i].contacts.phone.public %>" data-contacts-phone-number="<%= members.members[i].contacts.phone.number %>" data-contacts-email-public="<%= members.members[i].contacts.email.public %>" data-contacts-email-address="<%= members.members[i].contacts.email.address %>">Halda</button>
+              <button class="edit-section-modal-button mr-1 edit-modal-btn hover-pointer admin-btn-edit" data-id="<%= members.members[i].id %>" data-name="<%= members.members[i].name %>" data-birthDay="<%= members.members[i].birthDay %>" data-img="<%= members.members[i].img %>" data-img-pos="<%= members.members[i].img_pos %>"   data-instruments="<%= members.members[i].instruments %>" data-instruments-eng="<%= members_eng.members[i].instruments %>" data-bio="<%= members.members[i].bio %>" data-bio-eng="<%= members_eng.members[i].bio %>" data-hidden="<%= members.members[i].hidden %>" data-contacts-phone-public="<%= members.members[i].contacts.phone.public %>" data-contacts-phone-number="<%= members.members[i].contacts.phone.number %>" data-contacts-email-public="<%= members.members[i].contacts.email.public %>" data-contacts-email-address="<%= members.members[i].contacts.email.address %>">Halda</button>
               <%# OPEN CONFIRM REMOVE CONCERT MODAL %>
-              <button class="remove-section-modal-button ml-1 hover-pointer data-id="<%= members.members[i].id %>">Eemalda</button>
+              <button class="remove-section-modal-button ml-1 hover-pointer admin-btn-remove mt-1" data-id="<%= members.members[i].id %>">Eemalda</button>
             </div>
           </div>
         <% } %>
@@ -160,7 +160,7 @@
             </div>
             <div id="no-preview-img" class="d-none-admin"><p>Pilt puudub</p></div>
           <div>
-            <button id="open-img-modal" class="mt-1 hover-pointer">Vali pilt</button>
+            <button id="open-img-modal" class="mt-1 hover-pointer admin-btn-edit">Vali pilt</button>
           </div>
           
         </div>
@@ -233,7 +233,7 @@
 
         <%# SAVE ARTICLE DATA %>
         <div class="my-3">
-          <button id="update-section" class="hover-pointer" data-id="">Salvesta</button>
+          <button id="update-section" class="hover-pointer admin-btn-save" data-id="">Salvesta</button>
         </div>
       
     </div>

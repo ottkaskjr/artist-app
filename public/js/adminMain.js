@@ -2,7 +2,7 @@
 ////// fix broken links (remove whitespaces, ///////
 ///////////// line breaks and tabs) ////////////////
 ////////////////////////////////////////////////////
-let divs = document.querySelectorAll('.navbar-menu-item');
+let divs = document.querySelectorAll('.admin-navbar-menu-item');
 
 for (let div of divs) {
   let a = div.firstChild;
@@ -20,9 +20,9 @@ for (let div of divs) {
 ////////////// TOGGLE NAVBAR PANEL /////////////////
 ////////////////////////////////////////////////////
 
-document.querySelector('.navbar-toggle-icon a').addEventListener('click', function () {
+document.querySelector('.admin-navbar-toggle-icon a').addEventListener('click', function () {
 
-  document.querySelector('.navbar-panel-parent').classList.toggle('navbar-panel-closed')
+  document.querySelector('.admin-navbar-panel-parent').classList.toggle('navbar-panel-closed')
 
 })
 

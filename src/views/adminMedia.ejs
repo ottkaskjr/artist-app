@@ -4,7 +4,7 @@
 
   <div id="main-container" class="container-admin">
     <div class="txt-c">
-      <h1 id="main-heading"><%= media.heading %></h1>
+      <h1 class="admin-section-title" id="main-heading"><%= media.heading %></h1>
       <p>*Terve meedia sekstiooni eemaldamiseks peida kõik meedia alamsektioonid</p>
       <div>
         <% let hideArr = [{name: 'hidden_img', txt: 'Pildid'}, {name: 'hidden_vid', txt: 'Videod'}, {name: 'hidden_snd', txt: 'Heli'}] %>
@@ -22,7 +22,7 @@
         <% } %>
         
         <div>
-          <button id="save-hide-sections" class="hover-pointer" disabled>Salvesta</button>
+          <button id="save-hide-sections" class="hover-pointer admin-btn-save" disabled>Salvesta</button>
         </div>
       </div>
     </div>
@@ -61,19 +61,19 @@
         </label>
       </div>
       <div class="mt-2">
-        <button id="save-main-heading" class="hover-pointer">Salvesta</button>
+        <button id="save-main-heading" class="hover-pointer admin-btn-save">Salvesta</button>
       </div>
     </div>
     
     <%# IMAGES %>
-    <div class="txt-c"><h1>Pildid</h1></div>
+    <div class="txt-c"><h1 class="admin-section-title">Pildid</h1></div>
 
     <%# UPLOAD FORM %>
     <div class="txt-c my-3">
       <p class="mb-1">*Saad ka laadida korraga mitu faili</p>
       <form method="POST" enctype="multipart/form-data">
         <input type="file" name="image" multiple>
-        <button type="submit" role="button" class="hover-pointer">Lae</button>
+        <button type="submit" role="button" class="hover-pointer admin-btn-add">Lae</button>
       </form>
     </div>
 
@@ -83,7 +83,7 @@
           <% for (let i = 0; i < media.images.length; i++) { %>
             <div id="img-div-<%= media.images[i].id %>" class="media-img-div mb-5 mx-1"><a href="/<%=  media.images[i].id +  media.images[i].format %>"><img src="/<%=  media.images[i].id +  media.images[i].format %>" alt=""></a>
               <div class="txt-c">
-                <button data-id="<%=  media.images[i].id %>" data-desc="<%=  media.images[i].description %>" data-desc-eng="<%=  media_eng.images[i].description %>" data-date="<%=  media.images[i].date %>" data-author="<%=  media.images[i].author %>" data-format="<%= media.images[i].format %>" data-toggle="<%=  media.images[i].onMedia %>" class="edit-image-btn hover-pointer">Halda</button>
+                <button data-id="<%=  media.images[i].id %>" data-desc="<%=  media.images[i].description %>" data-desc-eng="<%=  media_eng.images[i].description %>" data-date="<%=  media.images[i].date %>" data-author="<%=  media.images[i].author %>" data-format="<%= media.images[i].format %>" data-toggle="<%=  media.images[i].onMedia %>" class="edit-image-btn hover-pointer admin-btn-edit">Halda</button>
               </div>
             </div>
             
@@ -93,7 +93,7 @@
     </div>
 
     <%# VIDEOS %>
-    <div class="txt-c"><h1>Videod</h1></div>
+    <div class="txt-c"><h1 class="admin-section-title">Videod</h1></div>
 
     <%# ADD VIDEOS INPUT %>
     <div class="txt-c my-3">
@@ -105,7 +105,7 @@
       </form>
       -->
       <input id="add-video-input" type="text" name="videolink">
-      <button id="add-video-btn" class="hover-pointer" disabled>Lisa</button>
+      <button id="add-video-btn" class="hover-pointer admin-btn-add" disabled>Lisa</button>
     </div>
     
     <div id="admin-videos-container">
@@ -120,7 +120,7 @@
               -->
               <div class="txt-c">
                 
-                <button data-id="<%=  media.videos[i].id %>" data-link="<%=  media.videos[i].link %>"  data-desc="<%=  media.videos[i].description %>" data-desc-eng="<%=  media_eng.videos[i].description %>" data-date="<%=  media.videos[i].date %>" data-author="<%=  media.videos[i].author %>" data-on-media="<%=  media.videos[i].onMedia %>" class="edit-video-btn hover-pointer">Halda</button>
+                <button data-id="<%=  media.videos[i].id %>" data-link="<%=  media.videos[i].link %>"  data-desc="<%=  media.videos[i].description %>" data-desc-eng="<%=  media_eng.videos[i].description %>" data-date="<%=  media.videos[i].date %>" data-author="<%=  media.videos[i].author %>" data-on-media="<%=  media.videos[i].onMedia %>" class="edit-video-btn hover-pointer admin-btn-edit">Halda</button>
               </div>
             </div>
             
@@ -132,7 +132,7 @@
     </div>
 
     <%# SOUND %>
-    <div class="txt-c"><h1>Heli</h1></div>
+    <div class="txt-c admin-section-title"><h1>Heli</h1></div>
 
     <%# ADD SOUND INPUT %>
     <div class="txt-c my-3">
@@ -148,7 +148,7 @@
       </form>
       -->
       <input id="add-sound-input" type="text" name="soundlink">
-      <button id="add-sound-btn" class="hover-pointer" disabled>Lisa</button>
+      <button id="add-sound-btn" class="hover-pointer admin-btn-add" disabled>Lisa</button>
     </div>
     
     <div id="admin-sound-container">
@@ -167,7 +167,7 @@
               -->
               <div class="txt-c">
                 
-                <button data-id="<%=  media.sound[i].id %>" data-link="<%=  media.sound[i].link %>"   data-on-media="<%=  media.sound[i].onMedia %>" class="edit-sound-btn hover-pointer">Halda</button>
+                <button data-id="<%=  media.sound[i].id %>" data-link="<%=  media.sound[i].link %>"   data-on-media="<%=  media.sound[i].onMedia %>" class="edit-sound-btn hover-pointer admin-btn-edit">Halda</button>
               </div>
             </div>
             
@@ -230,11 +230,11 @@
             
             <%# SAVE CHANGES %>
             <div class="mt-1">
-              <button class="hover-pointer" id="save-data">Salvesta</button>
+              <button class="hover-pointer admin-btn-save" id="save-data">Salvesta</button>
             </div>
             <%# DELETE IMAGE %>
             <div class="mt-1">
-              <button class="hover-pointer" id="delete-img" data-id="" data-name="">Kustuta</button>
+              <button class="hover-pointer admin-btn-remove" id="delete-img" data-id="" data-name="">Kustuta</button>
             </div>
           </div>
       </div>
@@ -290,11 +290,11 @@
             
             <%# SAVE CHANGES %>
             <div class="mt-1">
-              <button id="save-data-vid" class="hover-pointer">Salvesta</button>
+              <button id="save-data-vid" class="hover-pointer admin-btn-save">Salvesta</button>
             </div>
             <%# DELETE IMAGE %>
             <div class="mt-1">
-              <button id="delete-vid" class="hover-pointer" data-id="" data-name="">Kustuta</button>
+              <button id="delete-vid" class="hover-pointer admin-btn-remove" data-id="" data-name="">Kustuta</button>
             </div>
           </div>
       </div>
@@ -318,11 +318,11 @@
             
             <%# SAVE CHANGES %>
             <div class="mt-1">
-              <button id="save-data-snd" class="hover-pointer">Salvesta</button>
+              <button id="save-data-snd" class="hover-pointer admin-btn-save">Salvesta</button>
             </div>
             <%# DELETE IMAGE %>
             <div class="mt-1">
-              <button id="delete-snd" class="hover-pointer" data-id="" data-name="">Kustuta</button>
+              <button id="delete-snd" class="hover-pointer admin-btn-remove" data-id="" data-name="">Kustuta</button>
             </div>
           </div>
       </div>

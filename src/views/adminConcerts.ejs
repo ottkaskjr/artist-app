@@ -6,7 +6,7 @@
   <% } %>
 <div id="main-container" class="container-admin">
     <div class="txt-c">
-      <h1 id="main-heading"><%= concerts.heading %></h1>
+      <h1 class="admin-section-title" id="main-heading"><%= concerts.heading %></h1>
     </div>
     
     <div class="txt-c">
@@ -20,7 +20,7 @@
           >
         </label>
         <div>
-          <button id="hide-section-btn" class="d-none-admin hover-pointer">Salvesta</button>
+          <button id="hide-section-btn" class="d-none-admin hover-pointer admin-btn-save">Salvesta</button>
         </div>
         <p class="p-info"><i>*Eemaldab antud sektsiooni koduleheküljelt</i></p>
       </div>
@@ -58,13 +58,13 @@
           </label>
         </div>
         <div class="mt-2">
-          <button id="save-main-heading" class="hover-pointer">Salvesta</button>
+          <button id="save-main-heading" class="hover-pointer admin-btn-save">Salvesta</button>
         </div>
       </div>
 
       <%# ADD NEW CONCERT %>
       <div class="mb-2">
-        <button class="hover-pointer" id="add-new-section-modal-btn">Lisa uus</button>
+        <button class="hover-pointer admin-btn-add" id="add-new-section-modal-btn">Lisa uus</button>
       </div>
 
       <%# CONCERT PREVIEWS %>
@@ -81,7 +81,7 @@
             <div class="section-pre-parent mb-2" id="section-pre-<%= concerts.concerts[i].id %>">
               <div class="section-pre-div">
                 <%# heading %>
-                <div class="item1 test-border pre-heading-div">
+                <div class="item1 test-border pre-heading-div txt-c">
                   <p><%= defaultText(concerts.concerts[i].heading) %></p>
 
                   <%# display:none subheadings %>
@@ -100,10 +100,10 @@
                 </div>
                 <%# program %>
                 <%# est %>
-                <div class="item2 test-border pre-program-div">
+                <div class="item2 test-border pre-program-div px-3 txt-c">
                   <% if (concerts.concerts[i].program.length > 0) { %>
                     <% for (let piece of concerts.concerts[i].program) { %>
-                      <p class="<%= concerts.concerts[i].id %>-piece"><%= piece %></p>
+                      <p class="<%= concerts.concerts[i].id %>-piece pr-2"><%= piece %></p>
                     <% } %>
                   <% } else { %>
                     <p>Info puudub</p>
@@ -116,10 +116,10 @@
                   <% } %>
                 </div>
                 <%# artists %>
-                <div class="item3 test-border pre-artists-div">
+                <div class="item3 test-border pre-artists-div px-3 txt-c">
                   <% if (concerts.concerts[i].artists.length > 0) { %>
                     <% for (let artist of concerts.concerts[i].artists) { %>
-                      <p class="<%= concerts.concerts[i].id %>-artist"><%= artist %></p>
+                      <p class="<%= concerts.concerts[i].id %>-artist pr-2"><%= artist %></p>
                     <% } %>
                   <% } else { %>
                     <p>Info puudub</p>
@@ -133,7 +133,7 @@
                   <% } %>
                 </div>
                 <%# location & date %>
-                <div class="item4 test-border pre-loc-date-div">
+                <div class="item4 test-border pre-loc-date-div px-3 txt-c">
                   <% if (concerts.concerts[i].loc_date.length > 0) { %>
                     <% for (let place of concerts.concerts[i].loc_date) { %>
                       <p class="<%= concerts.concerts[i].id %>-loc-date"><span class="<%= concerts.concerts[i].id %>-loc"><%= place.location %></span>&emsp;<span class="<%= concerts.concerts[i].id %>-date" placehoder="mm:hh dd.mm.yy"><%= place.date %></span></p>
@@ -151,9 +151,9 @@
               </div>
               <div class="section-controls pt-1 mb-1">
                 <%# OPEN CONCERT EDIT MODAL %>
-                <button class="edit-section-modal-button mr-1 hover-pointer" data-id="<%= concerts.concerts[i].id %>" data-heading="<%= concerts.concerts[i].heading %>" data-heading-eng="<%= concerts_eng.concerts[i].heading %>" data-img="<%= concerts.concerts[i].img %>" data-img-pos="<%= concerts.concerts[i].img_pos %>" data-tickets="<%= concerts.concerts[i].tickets %>" data-tickets-eng="<%= concerts_eng.concerts[i].tickets %>" data-description="<%= concerts.concerts[i].description %>" data-description-eng="<%= concerts_eng.concerts[i].description %>" data-hidden="<%= concerts.concerts[i].hidden %>">Halda</button>
+                <button class="edit-section-modal-button mr-1 hover-pointer admin-btn-edit" data-id="<%= concerts.concerts[i].id %>" data-heading="<%= concerts.concerts[i].heading %>" data-heading-eng="<%= concerts_eng.concerts[i].heading %>" data-img="<%= concerts.concerts[i].img %>" data-img-pos="<%= concerts.concerts[i].img_pos %>" data-tickets="<%= concerts.concerts[i].tickets %>" data-tickets-eng="<%= concerts_eng.concerts[i].tickets %>" data-description="<%= concerts.concerts[i].description %>" data-description-eng="<%= concerts_eng.concerts[i].description %>" data-hidden="<%= concerts.concerts[i].hidden %>">Halda</button>
                 <%# OPEN CONFIRM REMOVE CONCERT MODAL %>
-                <button class="remove-section-modal-button hover-pointer" data-id="<%= concerts.concerts[i].id %>">Eemalda</button>
+                <button class="remove-section-modal-button hover-pointer admin-btn-remove mt-1" data-id="<%= concerts.concerts[i].id %>">Eemalda</button>
               </div>
             </div>
           <% } %>
@@ -202,7 +202,7 @@
               </div>
               <div id="no-preview-img" class="d-none-admin"><p>Pilt puudub</p></div>
             <div>
-              <button id="open-img-modal" class="mt-1 hover-pointer">Vali pilt</button>
+              <button id="open-img-modal" class="mt-1 hover-pointer admin-btn-edit">Vali pilt</button>
             </div>
             
           </div>
@@ -216,7 +216,7 @@
             <div id="edit-concert-<%= sections[i] %>-section" class="my-3">
               <p><%= titles[i] %></p>
               <div>
-                <button id="add-new-<%= sections[i] %>" class="mb-1 hover-pointer"><%= addDatas[i] %></button>
+                <button id="add-new-<%= sections[i] %>" class="mb-1 hover-pointer admin-btn-add"><%= addDatas[i] %></button>
               </div>
               <div class="est mb-1">
                 <div class="mb-1">
@@ -256,7 +256,7 @@
           <div id="edit-concert-loc-date-section" class="my-3">
             <p>Koht ja aeg</p>
             <div>
-              <button id="add-new-loc-date" class="mb-1 hover-pointer">Lisa koht</button>
+              <button id="add-new-loc-date" class="mb-1 hover-pointer admin-btn-add">Lisa koht</button>
             </div>
             <div class="est mb-1">
               <div class="mb-1">
@@ -291,7 +291,7 @@
 
           <%# SAVE CONCERT DATA %>
           <div class="my-3">
-            <button id="update-section" class="hover-pointer" data-id="">Salvesta</button>
+            <button id="update-section" class="hover-pointer admin-btn-save" data-id="">Salvesta</button>
           </div>
         </div>
       </div>
@@ -323,9 +323,9 @@
           <div class="modal-body txt-c">
             <h3>Eemalda <span id="remove-modal-title">?</span></h3>
             <div class="mb-3">
-              <button id="confirm-remove-btn" class="mr-3 hover-pointer" data-id="">Kinnita</button>
+              <button id="confirm-remove-btn" class="mr-3 hover-pointer admin-btn-remove" data-id="">Kinnita</button>
             
-              <button id="cancel-remove-btn" class="hover-pointer">Tagasi</button>
+              <button id="cancel-remove-btn" class="hover-pointer admin-btn-add">Tagasi</button>
             </div>    
             
           </div>

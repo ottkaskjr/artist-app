@@ -6,7 +6,7 @@
   <% } %>
 <div id="main-container" class="container-admin">
     <div class="txt-c">
-      <h1><h1 id="main-heading"><%= news.heading %></h1></h1>
+      <h1 class="admin-section-title" id="main-heading"><%= news.heading %></h1>
     </div>
     
     <div class="txt-c">
@@ -21,7 +21,7 @@
           >
         </label>
         <div>
-          <button id="hide-section-btn" class="d-none-admin hover-pointer">Salvesta</button>
+          <button id="hide-section-btn" class="d-none-admin hover-pointer admin-btn-save">Salvesta</button>
         </div>
         <p class="p-info"><i>*Eemaldab antud sektsiooni koduleheküljelt</i></p>
       </div>
@@ -60,13 +60,13 @@
           </label>
         </div>
         <div class="mt-2">
-          <button id="save-main-heading" class="hover-pointer">Salvesta</button>
+          <button id="save-main-heading" class="hover-pointer admin-btn-save">Salvesta</button>
         </div>
       </div>
 
       <%# ADD NEW ARTICLE %>
       <div class="mb-2">
-        <button class="hover-pointer" id="add-new-section-modal-btn">Lisa uus</button>
+        <button class="hover-pointer admin-btn-add" id="add-new-section-modal-btn">Lisa uus</button>
       </div>
 
       <%# NEWS PREVIEWS %>
@@ -157,9 +157,9 @@
               </div>
               <div class="section-controls pt-1 mb-1">
                 <%# OPEN CONCERT EDIT MODAL SIIN POOLELI %>
-                <button class="edit-section-modal-button mr-1 edit-modal-btn hover-pointer" data-id="<%= news.articles[i].id %>" data-heading="<%= news.articles[i].heading %>" data-heading-eng="<%= news_eng.articles[i].heading %>" data-img="<%= news.articles[i].img %>" data-img-pos="<%= news.articles[i].img_pos %>"   data-date="<%= news.articles[i].date %>" data-author="<%= news.articles[i].author %>" data-hidden="<%= news.articles[i].hidden %>">Halda</button>
+                <button class="edit-section-modal-button mr-1 edit-modal-btn hover-pointer admin-btn-edit" data-id="<%= news.articles[i].id %>" data-heading="<%= news.articles[i].heading %>" data-heading-eng="<%= news_eng.articles[i].heading %>" data-img="<%= news.articles[i].img %>" data-img-pos="<%= news.articles[i].img_pos %>"   data-date="<%= news.articles[i].date %>" data-author="<%= news.articles[i].author %>" data-hidden="<%= news.articles[i].hidden %>">Halda</button>
                 <%# OPEN CONFIRM REMOVE CONCERT MODAL %>
-                <button class="remove-section-modal-button ml-1 hover-pointer" data-id="<%= news.articles[i].id %>">Eemalda</button>
+                <button class="remove-section-modal-button ml-1 hover-pointer admin-btn-remove mt-1" data-id="<%= news.articles[i].id %>">Eemalda</button>
               </div>
             </div>
           <% } %>
@@ -208,7 +208,7 @@
               </div>
               <div id="no-preview-img" class="d-none-admin"><p>Pilt puudub</p></div>
             <div>
-              <button id="open-img-modal" class="mt-1 hover-pointer">Vali pilt</button>
+              <button id="open-img-modal" class="mt-1 hover-pointer admin-btn-edit">Vali pilt</button>
             </div>
             
           </div>
@@ -222,7 +222,7 @@
             <div id="edit-article-<%= sections[i] %>-section" class="my-3">
               <p><%= titles[i] %></p>
               <div>
-                <button id="add-new-<%= sections[i] %>" class="mb-1 hover-pointer"><%= addDatas[i] %></button>
+                <button id="add-new-<%= sections[i] %>" class="mb-1 hover-pointer admin-btn-add"><%= addDatas[i] %></button>
               </div>
               <div class="est mb-1">
                 <div class="mb-1">
@@ -243,7 +243,7 @@
           <div id="edit-article-source-section" class="my-3">
             <p>Allikad</p>
             <div>
-              <button id="add-new-source" class="mb-1 hover-pointer">Lisa allikas</button>
+              <button id="add-new-source" class="mb-1 hover-pointer admin-btn-add">Lisa allikas</button>
             </div>
             <div class="est mb-1">
               <div class="mb-1">
@@ -258,7 +258,7 @@
             <p>Tsitaat ja autor</p>
             <p>*Autorit ei pea lisama</p>
             <div>
-              <button id="add-new-quote" class="mb-1 hover-pointer">Lisa tsitaat</button>
+              <button id="add-new-quote" class="mb-1 hover-pointer admin-btn-add">Lisa tsitaat</button>
             </div>
             <div class="est mb-1">
               <div class="mb-1">
@@ -288,7 +288,7 @@
 
           <%# SAVE ARTICLE DATA %>
           <div class="my-3">
-            <button class="hover-pointer" id="update-section" data-id="">Salvesta</button>
+            <button class="hover-pointer admin-btn-save" id="update-section" data-id="">Salvesta</button>
           </div>
         </div>
       </div>

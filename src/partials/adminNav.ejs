@@ -14,7 +14,7 @@
   <%# NAVBAR L+ %>
   
   <div id="navbar-toggle" class="txt-c">
-    <div class="navbar-toggle-icon">
+    <div class="admin-navbar-toggle-icon">
       <a>
         <div class="navbar-toggle-line"></div>
         <div class="navbar-toggle-line"></div>
@@ -22,13 +22,12 @@
       </a> 
     </div>
   </div>
-  <div class="navbar-panel-parent navbar-panel-closed">
-    <div id="navbar-panel-left">
-      <div class="navbar-brand-admin"><a>Floridante</a></div>
+  <div class="admin-navbar-panel-parent navbar-panel-closed">
+    <div id="admin-navbar-panel-left">
       <%# console.log(menu) %>
-      <div class="navbar-menu-item"><a href="/admin">Avaleht</a></div>
+      <div class="admin-navbar-menu-item"><a href="/admin">Avaleht</a></div>
       <% for (let menuItem of global.adminMenu) { %>
-        <div class="navbar-menu-item"><a href="/admin/<%= menuItem.href %>"><%= menuItem.title %></a></div>
+        <div class="admin-navbar-menu-item"><a href="/admin/<%= menuItem.href %>"><%= menuItem.title %></a></div>
       <% } %>
     </div>
   </div>
