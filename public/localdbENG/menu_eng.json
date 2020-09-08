@@ -1,0 +1,49 @@
+{
+  "TEE_ERALDI_GLOBAL_JSON": true,
+  "home":"Floridante",
+  "homeHref":"#Floridante",
+  "menu":[
+    {
+      "id": "71ixagbgskd079w76",
+      "title": "About",
+      "href": "about-heading",
+      "hidden": false
+    },
+    {
+      "id": "71ixagbgskd07gf2b",
+      "title": "Saale Fischer",
+      "href": "saale-heading",
+      "hidden": false
+    },
+    {
+      "id": "71ixagbgskd07gf2d",
+      "title": "Concerts",
+      "href": "concerts-heading",
+      "hidden": false
+    },
+    {
+      "id": "71ixagbgskd07gf2n",
+      "title": "News",
+      "href": "news-container",
+      "hidden": false
+    },
+    {
+      "id": "71ixagbgskd07gf2f",
+      "title": "Members",
+      "href": "members-container",
+      "hidden": false
+    },
+    {
+      "id": "71ixagbgskd07gf2h",
+      "title": "Media",
+      "href": "media-container",
+      "hidden": false
+    },
+    {
+      "id": "71ixagbgskd07gf2l",
+      "title": "Contact",
+      "href": "contacts-container",
+      "hidden": false
+    }
+  ]
+}

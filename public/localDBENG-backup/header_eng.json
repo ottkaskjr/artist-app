@@ -1,0 +1,84 @@
+{
+  "bg": {
+    "img": "",
+    "vid": "",
+    "overlay": "", 
+    "heading": "",
+    "heading_pos": "left",
+    "heading_color": "#000",
+    "introduction": "",
+    "introduction_pos": "right",
+    "introduction_color": "",
+    "height": ""
+  },
+  "slides": [
+    {
+      "module_id": "71ixag53kkd077gvy",
+      "module": "",
+      "bg": "71ixagbgskd07gf2y",
+      "img": "71ixagbgskd07gf2y",
+      "img_pos": "left",
+      "content_pos": "center",
+      "heading":"Concert title",
+      "subHeadings": [
+        "Subheading 1",
+        "Subheading 2"
+      ],
+      "paragraphs": [
+        "Lorem ipsum dolor sit amet",
+        "consectetur adipiscing elit"
+      ],
+      "button": "Read more"
+    },
+    {
+      "module_id": "71ixag53kkd077gvz",
+      "module": "",
+      "bg": "",
+      "img": "71ixagbgskd07gf2y",
+      "img_pos": "left",
+      "content_pos": "center",
+      "heading":"Article",
+      "subHeadings": [
+        "Subheading 1"
+      ],
+      "paragraphs": [
+        "Lorem ipsum dolor sit amet consectetur adipiscing elit consectetur adipiscing elit consectetur adipiscing elit consectetur adipiscing elit consectetur adipiscing elit consectetur adipiscing elit consectetur adipiscing elit consectetur adipiscing elit"
+      ],
+      "button": "Read more"
+    },
+    {
+      "module_id": "71ixagbgskd079w6j",
+      "module": "",
+      "bg": "71ixagbgskd079w73",
+      "img": "71ixagbgskd07gf2y",
+      "img_pos": "left",
+      "content_pos": "center",
+      "heading":"Concert title",
+      "subHeadings": [
+        "Subheading 1",
+        "Subheading 2",
+        "Subheading 3"
+      ],
+      "paragraphs": [
+        "Lorem ipsum dolor sit amet"
+      ],
+      "button": "Read more"
+    },
+    {
+      "module_id": "71ixagbgskd079w6l",
+      "module": "",
+      "bg": "",
+      "img": "71ixagbgskd07gf2y",
+      "img_pos": "left",
+      "content_pos": "center",
+      "heading":"Article 2",
+      "subHeadings": [],
+      "paragraphs": [
+        "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet"
+      ],
+      "button": "Read more"
+    }
+  ],
+  "hidden_car": false,
+  "hidden_bg": true
+}

@@ -1,0 +1,54 @@
+{
+  "home":"Floridante",
+  "homeHref":"#Floridante",
+  "adminMenu":[
+    {
+      "id": "71ixagbgskd079w76",
+      "title": "Päis",
+      "href": "header",
+      "hidden": false
+    },
+    {
+      "id": "71ixagbgskd079w76",
+      "title": "Ansamblist",
+      "href": "about",
+      "hidden": false
+    },
+    {
+      "id": "71ixagbgskd07gf2b",
+      "title": "Saale Fischer",
+      "href": "saale",
+      "hidden": false
+    },
+    {
+      "id": "71ixagbgskd07gf2d",
+      "title": "Kontserdid",
+      "href": "concerts",
+      "hidden": false
+    },
+    {
+      "id": "71ixagbgskd07gf2n",
+      "title": "Uudised",
+      "href": "news",
+      "hidden": false
+    },
+    {
+      "id": "71ixagbgskd07gf2f",
+      "title": "Liikmed",
+      "href": "members",
+      "hidden": false
+    },
+    {
+      "id": "71ixagbgskd07gf2h",
+      "title": "Meedia",
+      "href": "media",
+      "hidden": false
+    },
+    {
+      "id": "71ixagbgskd07gf2l",
+      "title": "Kontakt",
+      "href": "contacts",
+      "hidden": false
+    }
+  ]
+}
